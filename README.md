@@ -1,5 +1,8 @@
 # CS-Study
 
+### [스터디 기록](https://jmxx219.notion.site/CS-c23e84f06df542e7a0233192fc517c46)
+
+<br/>
 
 ## 👨‍💻 스터디원
 |이름|깃허브|
