@@ -35,11 +35,6 @@ Class<?> clazz = Class.forName("org.example.person")
 - getMethods() : 상속한 메서드를 포함하여 public인 메서드들을 모두 가져온다
 - getDeclaredMethods() : 상속한 메서드는 제외하고 직접 클래스에 선언한 메서드들을 모두 가져온다
 
-### class 메서드 사용시 주의점
-
-- getMethods() : 상속한 메서드를 포함하여 public인 메서드들을 모두 가져온다
-- getDeclaredMethods() : 상속한 메서드는 제외하고 직접 클래스에 선언한 메서드들을 모두 가져온다
-
 ### 리플렉션을 이용해서 객체 생성해보기
 
 ```java
