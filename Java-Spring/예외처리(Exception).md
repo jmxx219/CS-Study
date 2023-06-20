@@ -6,8 +6,7 @@
 
 <br>
 
-<img src="/Users/baexxbin/workspace/CS-Study/스크린샷 2023-06-18 오후 7.12.07.png" width="600" height="300"/>
-
+<img width="718" alt="스크린샷 2023-06-18 오후 7 12 07" src="https://github.com/jmxx219/CS-Study/assets/50795805/4172fdfc-9d50-4b5d-858a-2ed79c44833a" >
 <br>
 
 - `에러 (Error)`
@@ -28,7 +27,7 @@
 
 <br>
 
-<img src="/Users/baexxbin/workspace/CS-Study/스크린샷 2023-06-18 오후 7.37.23.png" width="600" height="300"/>
+<img width="763" alt="스크린샷 2023-06-18 오후 7 37 23" src="https://github.com/jmxx219/CS-Study/assets/50795805/5c6af5a5-034c-4db7-9668-86d084045517">
 
 <br>
 
