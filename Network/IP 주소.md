@@ -198,7 +198,7 @@
 <br/>
 
 
-➕ **IP(Internet Protocol)
+➕ **IP(Internet Protocol)**
 
 - 개념
     - 네트워크 통신을 할 때 쓰는 프로토콜로, IP 기기의 주소를 나타내는 것이 IP 주소
