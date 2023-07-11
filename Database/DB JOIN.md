@@ -1,20 +1,27 @@
-DB Join이 무엇인지 설명하고, 각각의 종류에 대해 설명해 주세요.          
-사실, JOIN은 상당한 시간이 걸릴 수 있기에 내부적으로 다양한 구현 방식을 사용하고 있습니다. 그 예시에 대해 설명해 주세요.            
-그렇다면 입력한 쿼리에서 어떤 구현 방식을 사용하는지는 어떻게 알 수 있나요?         
-앞 질문들을 통해 인덱스의 중요성을 알 수 있었는데, 그렇다면 JOIN의 성능도 인덱스의 유무의 영향을 받나요?
-
 # DB JOIN
 <img width="1122" alt="스크린샷 2023-07-07 오전 11 12 33" src="https://github.com/jmxx219/CS-Study/assets/50795805/a9dcbb14-94fe-4723-bc90-7e903ac9b31e">
 
 <Br>
 
-#### DB JOIN (SQL JOIN)
-: 데이터베이스에서 테이블들을 결합하는 작업을 일컬음
+### JOIN
+<br>
 
-#### JOIN
-: 데이터베이스 내 여러 테이블에서 가져온 레코드를 조합하여 하나의 테이블이나 결과 집합으로 표현
+**개념**
+- 두 릴레이션으로부터 관련된 튜플들을 결합하여 하나의 튜플로 만드는 가장 대표적인 데이터 연결 방법
 
-- 두 테이블의 조인을 위해서는 기본키와 외래키 관계로 맺어져야 함 → `일대다 관계`
+**목적**
+- 둘 이상의 테이블을 결합해 하나의 테이블처럼 사용
+- 두 개 이상의 릴레이션을 갖는 관계 데이터 베이스에 대해서 릴레이션들 간의 관계를 처리할 수 있음
+
+**특성**
+- 데이터베이스에서 테이블 분리로 **데이터 중복 최소화** 와 **데이터의 일관성 유지**
+
+- 질의 처리에서 가장 시간이 많이 소요되는 연산 중 하나
+
+- 어떤 조인 방향이나 조인 방법을 선택할 지라도 결과 집합은 동일하나, 조인하고자 하는 두 집합의 데이터 상황에 따라 조인방향, 조인 방법에 따른 수행 속도의 영향이 큼
+
+
+
 
 <Br>
 <br>
@@ -23,23 +30,26 @@ DB Join이 무엇인지 설명하고, 각각의 종류에 대해 설명해 주�
 
 ### INNER JOIN과 OUTER JOIN
 - JOIN은 크게 INNER JOIN과 OUTER JOIN으로 구분된다
-    - INNER JOIN : `INNER JOIN`, `CROSS JOIN`, `EQUI JOIN`, `NON-EQUI JOIN`, `NATURAL JOIN`
+    - INNER JOIN : `INNER JOIN`, CROSS JOIN, EQUI JOIN, NON-EQUI JOIN, NATURAL JOIN
     - OUTER JOIN : `LEFT JOIN`, `RIGHT JOIN`, `FULL OUTER JOIN`
 
 - #### OUTER JOIN
     - 두 테이블 간의 교집합이 되는 데이터뿐만 아니라 **해당되지 않는 값**까지 가져옴
     - *드라이빙 테이블이 필요하다
         - `기준 테이블(드라이빙 테이블)`의 모든 정보는 가져옴
-        - `대상 테이블`은 JOIN조건이 일치하지 않아도 가져옴 
+        - `대상 테이블`은 기준 테이블과 연결되는 행을 포함하는 정보 가져옴
     - 데이터의 개수: 기준이 되는 테이블의 데이터 수
-    - 일반적으로 LEFT/RIGHT JOIN, LEFT/RIGHT OUTHER JOIN은 같은 의미로 사용한다
+    - 일반적으로 LEFT(RIGHT) JOIN과 LEFT(RIGHT) OUTHER JOIN은 같은 의미로 사용한다
 
 <br>
 
-`드라이빙 테이블 : 처음으로 가져오는, 기준이 되는 테이블`
+> 드라이빙 테이블 : 처음으로 가져오는, 기준이 되는 테이블
 
 
 <br>
+<br>
+
+### 대표적인 DB JOIN
 <br>
 
 ### INNER JOIN
@@ -78,6 +88,7 @@ ON A.ID = B.ID;
 ```
 
 <br>
+<br>
 
 ### RIGHT (OUTER) JOIN
 - `( (A ∩ B) ∪ (A - B) )`
@@ -92,8 +103,12 @@ ON A.ID = B.ID;
 ```
 
 <br>
+<br>
 
-#### **EXCLUSIVE JOIN**
+#### * **EXCLUSIVE JOIN**
+
+` 위 그림의 LEFT, RIGHT JOIN에서  초승달 모양에 해당하는 JOIN`
+
 - 어느 특정 테이블에 있는 레코드만 가져오는 것
 - 두 테이블 조인시, 둘 중 한가지 테이블에만 있는 데이터를 가져옴 
     - 왼쪽/오른쪽 테이블 - 교집합
@@ -115,6 +130,7 @@ WHERE B.ID IS NULL  // 조인한 B 테이블의 값이 null만 출력 >> 조인�
 
 
 <br>
+<br>
 
 ### FULL OUTER JOIN
 - 두 개의 테이블에서 일치하는 레코드뿐만 아니라 양쪽 테이블에 일치하지 않는 레코드도 모두 포함하는 JOIN 연산
@@ -123,12 +139,16 @@ WHERE B.ID IS NULL  // 조인한 B 테이블의 값이 null만 출력 >> 조인�
     - 하지만 간접적으로 구현하는 방법이 존재한다
     (LEFT 조인한 테이블과 RIGHT조인한 테이블을 UNION 합집합)
 
+`FULL OUTER JOIN`
 ```sql
 SELECT *
 FROM A FULL OUTER JOIN B
 ON A.ID = B.ID;
 ```
 
+<Br>
+
+`LEFT 조인한 테이블과 RIGHT조인한 테이블을 UNION 합집합으로 구현`
 ```sql
 SELECT * from A LEFT JOIN B on A_ID = B.ID
 UNION
@@ -136,7 +156,7 @@ SELECT * from A RIGHT JOIN B on A_ID = B.ID
 ```
 
 
-
+<br>
 <br>
 
 ### UNION JOIN
@@ -157,6 +177,82 @@ SELECT 필드이름 from 테이블B
 >**FULL OUTER JOIN**은 두 개의 테이블을 조인하여 모든 레코드를 포함하는 결과를 생성하는 반면, **UNION JOIN**은 두 개의 SELECT 문의 결과를 합치는 것을 의미
 
 <br>
+<br>
+<br>
 
-## DB에서 JOIN의 필요성
-- 
+## JOIN의 내부적 구현 방식
+
+SQL에서 조인 연산을 수행할 때 내부적으로 선택되는 알고리즘은 대표적으로 **Nested-loop Join**, **Sort Merge Join**, **Hash Join**이 있다.
+
+해당 알고리즘 중 어떤 알고리즘을 선택할지는 데이터의 크기, 결합키(Key), 인덱스(Index)와 같은 요인에 따라 옵티마이저가 결정하게 된다.
+
+> **옵티마이저(Optimizer)**   
+: 여러 결과 도출 방법 중 가장 성능이 좋은 계획을 선택해주는 도구          
+>
+>SQL 쿼리를 작성해서 실행을 시키면 그 쿼리는 옵티마이저(Optimizer)로 전송된다.
+옵티마이저는 "최적화" 라는 의미로, '데이터에 어떻게 접근하여 결과를 도출할지'가 최적화의 대상이 된다. 이때 이때 데이터의 크기, 인덱스 유무 등의 여러 조건을 고려해서 선택 가능한 많은 '실행계획'을 작성하고,각 선택지의 비용을 연산하고, 가장 낮은 비용을 가진 실행계획을 선택한다.
+
+<br>
+
+
+### Nested-loop Join
+- 릴레이션의 모든 튜플에 대해 모든 조합을 검사하는 방식
+- 2개 이상의 테이블에서 하나의 집합을 기준으로 순차적으로 상대방 Row를 결합하여 원하는 결과를 추출
+- 이중반복문을 통해 구현
+
+- 특징
+    - 주로 좁은 범위에 유리
+    - 순차적으로 처리하며, Random Access 위주
+    - 후행(Driven) 테이블에는 조인을 위한 인덱스가 생성되어 있어야 함
+
+- 장점
+    - 모든 레코드 비교로, 어떤 조인 조건이든 사용 가능
+- 단점
+    - 비용이 매우 큼
+    - 데이터를 랜덤으로 액세스하기 때문에 결과 집합이 많으면 수행속도가 저하됨
+
+<br>
+
+### Sort Merge join
+- 두 테이블을 join attribute에 대한 정렬 후, 순차적으로 두 테이블의 레코드 비교
+- 레코드 비교 시 join attribute값이 같은 레코드들을 결과 페이지로 복사하여 join 연산 수행
+
+<Br>
+
+- 특징
+    - One Pass Join
+        - 두 테이블이 같은 컬럼을 기준으로 정렬되어 있어 전체 테이블 한번 스캔으로 연산 가능
+    -  Equi-join만 지원
+        - 대부분은 조인 연산은 equi join에 의해 이뤄져 큰 단점이 되지 않음
+    - 연결을 위해 랜덤 액세스를 하지 않고 스캔을 하면서 이를 수행
+    - 조인 연결고리의 비교 연산자가 범위 연산(‘>’,’< ‘)인 경우 Nested Loop 조인보다 유리
+
+<br>
+
+> **join attribute**            
+데이터베이스나 테이블에서 두 개 이상의 테이블을 연결할 때 사용되는 속성으로, 테이블 간의 관계를 정의하고 데이터를 결합하는 데 사용
+
+> **Equi-join**         
+ 두 테이블 간의 조인 조건으로 등호(=) 연산자를 사용하여 일치하는 값을 기준으로 행을 연결
+
+<br>
+
+### Hash join
+- 해싱 함수(Hashing Function) 기법을 활용하여 조인을 수행하는 방식
+- 해싱 함수는 직접적인 연결을 담당하는 것이 아니라 연결될 대상을 특정 지역(partition)에 모아두는 역할만을 담당
+
+- 특징
+    - Join 입력의 크기가 크고 정렬되지 않았으며 인덱싱되지 않은 입력을 효율적으로 처리
+    - Sort Merge join과 같이 Equi-join에서 사용 가능
+    - 조인 결과가 정렬되지 않으며 해쉬 테이블 랜덤 액세스 방식
+    - 비용이 많이 발생하지만 대량의 데이터를 조인 시 Sort Merge join이나 Nested-loop Join보다 성능이 좋음
+    - 여러 유형의 '집합 일치 연산'(inner/outer/semi join, intersection, union, difference 등), '중복 제거', '그룹핑'에 사용
+
+<Br>
+<br>
+
+---
+### 참고
+[JOIN의 내부적 구현 방식에 대한 세부내용](https://velog.io/@impala/DB-Join-Operation)
+
+[세 가지 JOIN 계획 정리](https://s2choco.tistory.com/32)
