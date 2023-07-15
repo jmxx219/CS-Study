@@ -7,11 +7,13 @@
 ## 👨‍💻 스터디원
 |이름|깃허브|
 |------|---|
-|김민철|[@mincheolkk](https://github.com/mincheolkk)|
+|~~김민철~~|~~[@mincheolkk](https://github.com/mincheolkk)~~|
 |~~김정웅~~|~~[@jw940310](https://github.com/jw940310)~~|
 |배수빈|[@baexxbin](https://github.com/baexxbin)|
 |손지민|[@jmxx219](https://github.com/jmxx219)|
 |최동근|[@reddevilmidzy](https://github.com/reddevilmidzy)|
+|조은지|[@eunjee](https://github.com/eunjee)|
+|서두나|[@ensk26](https://github.com/ensk26)|
 
 <br/>
 
@@ -42,12 +44,12 @@
 ## 💡 Rule
 
 **[ 스터디 진행 ]**
-- 매주 수요일 19시 30분 화상스터디 진행
+- 매주 수요일 20시 00분 화상스터디 진행
     - 저번 주차의 주제들을 바탕으로 면접 준비
 - 화상 스터디 전 날(화요일)까지 맡은 주제를 정리해서 PR 생성
 
 **[ 스터디 방법 ]**
-- 매주 각 분야별로 하나씩 총 4개의 주제 선정
+- 매주 각 분야별로 하나씩 총 5개의 주제 선정
 - 각자 해당 주차의 주제들 중 하나를 맡아 정리
 - 저번 주차의 주제들 모두 학습 및 주제 별 질문리스트 생각해오기
 
