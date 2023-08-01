@@ -39,7 +39,7 @@
 
 ### 📌 자유 주제
 
-- [서버리스](#https://github.com/jmxx219/CS-Study/blob/main/ETC/%EC%84%9C%EB%B2%84%EB%A6%AC%EC%8A%A4.md)
+- [서버리스](https://github.com/jmxx219/CS-Study/blob/main/ETC/%EC%84%9C%EB%B2%84%EB%A6%AC%EC%8A%A4.md)
 
 
 <br/>
