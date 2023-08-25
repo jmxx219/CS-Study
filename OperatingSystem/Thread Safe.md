@@ -44,6 +44,99 @@
 <br>
 <br>
 
+### Thread Safe를 지키기 위한 방법
+
+**1. Re-entrancy (재진입성)**
+- 스레드 호출과 상관없이 프로그램에 문제가 없도록 작성하는 방법
+
+<br>
+
+**2. Thread-local storage (쓰레드 지역 저장소)**
+- 공유 자원의 사용을 최대한 줄이고, 각각의 스레드에서만 접근 가능한 저장소들을 사용함으로써 동시 접근을 막음
+- 일반적으로 공유 상태를 피할 수 없을 경우 사용
+
+<br>
+
+**3. Atomic operation (원자 연산)**
+- 공유자원에 원자적으로 접근하는 방법
+- Atomic
+    - 공유 자원 변경에 필요한 연산을 원자적으로 분리
+    - 실제 데이터 변경이 이뤄지는 시점에 Lock 걸기
+    - 데이터 변경 시간동안 다른 스레드의 접근 막기
+
+<br>
+
+**4. Mutual exclusion (상호 배제)**
+- 공유자원 또는 임계영역에 하나의 스레드만 접근할 수 있도록, 세마포어/뮤텍스로 락을 통제하는 방법
+    - 일반적으로 많이 사용하는 방법
+
+- primitives
+    - Mutual exclusion을 구성하는 기본 연산
+    - enterCS() : 임계영역 집입 전 검사 및 다른 프로세서 존재여부 검사
+    - exitCS() : 임계영역 벗어날 시 후처리 과정 및 임계영역 벗어남을 알림
+
+<br>
+<br>
+
+**Mutual Exclusion Solutions**
+
+- SW solutions 
+    - 대표 알고리즘
+        - `Dekker's Algorithm`                
+            - 프로세스 2개일때 상호배제를 보장하는 최초의 알고리즘
+        - `Peterson's Algorithm`              
+            - Dekker's Algorithm의 업데이트 버전으로 보다 간단하게 구현             
+            - 스레드의 순서를 결정하는 turn 변수를 추가한 알고리즘
+        - `Dijkstra's Algorithm`          
+            - 최초로 프로세스 n개의 상호배제 문제를 소프트웨어적으로 해결
+    - 문제점
+        - 느린 속도와 복잡한 구현
+        - Busy waiting
+
+<br>
+
+- HW solution
+    - `TestAndSet (TAS) instruction`
+        - Test와 Set을 한 번에 수행하는 기계어
+        - 실행 중 인터럽트를 받지 않음 (기계어로 보장)
+        - 구현이 간단하나 여전히 Busy waiting 발생
+
+<br>
+
+- OS supported SW solution
+    - `spinlock`
+        - 락을 획득하려는 스레드가 락을 얻을 때까지 계속해서 반복하는 방식
+        - 정수형 변수이며 OS가 보장
+        - 임계영역의 크기가 작은 경우, 멀티코어 환경, 락의 획득 시간이 짧을 경우 효과적
+        - 여전한 Busy waiting 문제와 기다리는 동안 CPU리소스 낭비
+    - `세마포어`
+        - Busy waiting 문제 해결
+        - 상호배제, 프로세스 동기화등 다양한 동기화 문제 해결 가능
+    - `Eventcount/sequencer`
+        - 스레드나 프로세스 간의 통신과 순서를 관리하기 위해 사용
+        - Event Count (이벤트 카운트)
+            - 어떤 이벤트가 발생했음을 나타내는 카운터로 이벤트 발생시 마다 카운터 증가
+            - 다른 스레드나 프로세스는 이벤트 카운터의 값 체크로 원하는 이벤트 발생 확인 및 대기
+        - Sequencer (시퀀서)
+            - 각 작업에 고유한 번호나 시퀀스를 부여해 작업들이 시퀀스에 따라 순서대로 실행될 수 있도록 보장
+        - Busy waiting 문제 해결
+        - 세마포어보다 더 low-level 컨트롤 가능
+
+- Language-Level solution
+    - `Monitor`
+        - 락과 조건 변수를 사용해 스레드간 상호배제와 협력 간단하게 관리
+        - 모니터 내에는 항상 하나의 프로세스만 진입 가능 (언어 보장)
+        - 공유 데이터는 모니터 내의 프로세스만 접근 가능
+        - 대부분의 프로그래밍 언어와 운영체제에서 모니터 개념 지원
+            - Java : synchronized 키워드, wait()/notify() 메서드
+
+<br>
+
+> 위의 `Mutual Exclusion Solutions` 내용들은 Thread Satety만이 아닌 프로세스의 동기화와 상호배제에 대한 전체적인 내용을 포함한다.
+
+<br>
+<br>
+
 ### 락 (Lock)
 - Lock의 필요성
     - 프로세스는 서로 독립적인 메모리 주소 공간을 부여받음
@@ -62,85 +155,7 @@
 <br>
 <br>
 
-### Thread Safe를 지키기 위한 방법
-
-**1. Mutual exclusion (상호 배제)**
-- 공유자원 또는 임계영역에 하나의 스레드만 접근할 수 있도록, 세마포어/뮤텍스로 락을 통제하는 방법
-    - 일반적으로 많이 사용하는 방법
-
-- primitives
-    - Mutual exclusion을 구성하는 기본 연산
-    - enterCS() : 임계영역 집입 전 검사 및 다른 프로세서 존재여부 검사
-    - exitCS() : 임계영역 벗어날 시 후처리 과정 및 임계영역 벗어남을 알림
-
-<br>
-
-
-**Mutual Exclusion Solutions**
-
-- SW solutions 
-    - 대표 알고리즘
-        - Dekker's Algorithm                
-        : 프로세스 2개일때 상호배제를 보장하는 최초의 알고리즘
-        - Peterson's Algorithm              
-        : Dekker's Algorithm의 업데이트 버전으로 보다 간단하게 구현             
-        스레드의 순서를 결정하는 turn 변수를 추가한 알고리즘
-        - Dijkstra's Algorithm          
-        : 최초로 프로세스 n개의 상호배제 문제를 소프트웨어적으로 해결
-    - 문제점
-        - 느린 속도와 복잡한 구현
-        - Busy waiting
-
-<br>
-
-- HW solution
-    - TestAndSet (TAS) instruction
-        - Test와 Set을 한 번에 수행하는 기계어
-        - 실행 중 인터럽트를 받지 않음 (기계어로 보장)
-        - 구현이 간단하나 여전히 Busy waiting 발생
-
-<br>
-
-- OS supported SW solution
-    - spinlock
-        - 정수형 변수이며 OS가 보장
-        - 멀티 프로세서 시스템에서만 사용 가능
-        - 여전한 Busy waiting 문제
-    - 세마포어
-        - Busy waiting 문제 해결
-        - 상호배제, 프로세스 동기화등 다양한 동기화 문제 해결 가능
-    - Eventcount/sequencer
-        - Busy waiting 문제 해결
-        - 세마포어보다 더 low-level 컨트롤 가능
-
-
-<br>
-
-**2. Atomic operation (원자 연산)**
-- 공유자원에 원자적으로 접근하는 방법
-- Atomic
-    - 공유 자원 변경에 필요한 연산을 원자적으로 분리
-    - 실제 데이터 변경이 이뤄지는 시점에 Lock 걸기
-    - 데이터 변경 시간동안 다른 스레드의 접근 막기
-
-<br>
-
-**3. Thread-local storage (쓰레드 지역 저장소)**
-- 공유 자원의 사용을 최대한 줄이고, 각각의 스레드에서만 접근 가능한 저장소들을 사용함으로써 동시 접근을 막음
-- 일반적으로 공유 상태를 피할 수 없을 경우 사용
-
-<br>
-
-**4. Re-entrancy (재진입성)**
-- 스레드 호출과 상관없이 프로그램에 문제가 없도록 작성하는 방법
-
-<br>
-<br>
-
-### 락 (Lock)
-
-
-### Lock Free 알고리즘
+### Non-Blocking 알고리즘과 Lock Free 알고리즘
 
 **Non-Blocking 알고리즘**             
 - 특정 스레드에서 작업이 실패 또는 대기 상태에 들어가는 경우, 다른 어떤 스레드라도 이로인해 실패하거나 대기 상태에 들어가지 않는 알고리즘
@@ -149,13 +164,13 @@
 
 <br>
 
-**Non-Blocking 알고리즘** 
-- 개념
-    - Non-Blocking 알고리즘에서 각 단계마다 일부 스레드는 항상 작업을 할 수 있는 경우
+**Lock Free 알고리즘** 
+- Non-Blocking 알고리즘에서 각 단계마다 일부 스레드는 항상 작업을 할 수 있는 경우
     
+<br>
 
-- Lock 기반 알고리즘의 단점
-    - Lock에 대한 경쟁이 심해질수록, 실제로 필요한 작업을 처리하는 시간 대비 동기화 작업에 필요한 시간이 길어져 성능이 떨어짐
+Lock 기반 알고리즘의 단점
+- Lock에 대한 경쟁이 심해질수록, 실제로 필요한 작업을 처리하는 시간 대비 동기화 작업에 필요한 시간이 길어져 성능이 떨어짐
 
 <br>
 
