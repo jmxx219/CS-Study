@@ -35,11 +35,13 @@
 |8주차|[뮤텍스와 세마포어](https://github.com/jmxx219/CS-Study/blob/main/OperatingSystem/%EB%AE%A4%ED%85%8D%EC%8A%A4%EC%99%80%20%EC%84%B8%EB%A7%88%ED%8F%AC%EC%96%B4.md)|[DHCP](https://github.com/jmxx219/CS-Study/blob/main/Network/DHCP.md)|[뷰(View)](https://github.com/jmxx219/CS-Study/blob/main/Database/%EB%B7%B0.md)|[스트림](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/stream.md)|
 |9주차|[데드락](https://github.com/jmxx219/CS-Study/blob/main/OperatingSystem/%EB%8D%B0%EB%93%9C%EB%9D%BD.md)|[IP 주소](https://github.com/jmxx219/CS-Study/blob/main/Network/IP%20%EC%A3%BC%EC%86%8C.md)|[DB JOIN](https://github.com/jmxx219/CS-Study/blob/main/Database/DB%20JOIN.md)|[가비지 컬렉션](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/Garbage%20Collection.md)|
 |10주차|[컴파일](https://github.com/jmxx219/CS-Study/blob/main/OperatingSystem/%EC%BB%B4%ED%8C%8C%EC%9D%BC.md)|[OSI 7계층](https://github.com/jmxx219/CS-Study/blob/main/Network/OSI%207계층.md)|[B-Tree와 B+Tree](https://github.com/jmxx219/CS-Study/blob/main/Database/B-Tree%EC%99%80%20B+Tree.md)|[Equals와 HashCode](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/equals와%20hashCode.md)|
+|11주차|[IPC](https://github.com/jmxx219/CS-Study/blob/main/OperatingSystem/IPC.md)|[3-way handshake](https://github.com/jmxx219/CS-Study/blob/main/Network/3-way%20handshake.md)|[DB Locking](https://github.com/jmxx219/CS-Study/blob/main/Database/DB%20Locking)|[Ioc와 DI](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/IoC%EC%99%80%20DI.md)|
 
 
 ### 📌 자유 주제
 
 - [서버리스](https://github.com/jmxx219/CS-Study/blob/main/ETC/%EC%84%9C%EB%B2%84%EB%A6%AC%EC%8A%A4.md)
+- [MSA](https://github.com/jmxx219/CS-Study/blob/main/ETC/MSA.md)
 
 
 <br/>
