@@ -12,8 +12,6 @@
 |배수빈|[@baexxbin](https://github.com/baexxbin)|
 |손지민|[@jmxx219](https://github.com/jmxx219)|
 |최동근|[@reddevilmidzy](https://github.com/reddevilmidzy)|
-|조은지|[@eunjee](https://github.com/eunjee)|
-|서두나|[@ensk26](https://github.com/ensk26)|
 
 <br/>
 
@@ -36,7 +34,7 @@
 |9주차|[데드락](https://github.com/jmxx219/CS-Study/blob/main/OperatingSystem/%EB%8D%B0%EB%93%9C%EB%9D%BD.md)|[IP 주소](https://github.com/jmxx219/CS-Study/blob/main/Network/IP%20%EC%A3%BC%EC%86%8C.md)|[DB JOIN](https://github.com/jmxx219/CS-Study/blob/main/Database/DB%20JOIN.md)|[가비지 컬렉션](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/Garbage%20Collection.md)|
 |10주차|[컴파일](https://github.com/jmxx219/CS-Study/blob/main/OperatingSystem/%EC%BB%B4%ED%8C%8C%EC%9D%BC.md)|[OSI 7계층](https://github.com/jmxx219/CS-Study/blob/main/Network/OSI%207계층.md)|[B-Tree와 B+Tree](https://github.com/jmxx219/CS-Study/blob/main/Database/B-Tree%EC%99%80%20B+Tree.md)|[Equals와 HashCode](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/equals와%20hashCode.md)|
 |11주차|[IPC](https://github.com/jmxx219/CS-Study/blob/main/OperatingSystem/IPC.md)|[3-way handshake](https://github.com/jmxx219/CS-Study/blob/main/Network/3-way%20handshake.md)|[DB Locking](https://github.com/jmxx219/CS-Study/blob/main/Database/DB%20Locking.md)|[Ioc와 DI](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/IoC%EC%99%80%20DI.md)|
-
+|12주차|[Thread Safe](https://github.com/jmxx219/CS-Study/blob/main/OperatingSystem/Thread%20Safe.md)|[4-way Handshake](https://github.com/jmxx219/CS-Study/blob/main/Network/4-way%20handshake.md)|[DB 트래픽](https://github.com/jmxx219/CS-Study/blob/main/Database/DB_%ED%8A%B8%EB%9E%98%ED%94%BD.md)|[AOP](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/AOP.md)|
 
 ### 📌 자유 주제
 
