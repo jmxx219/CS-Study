@@ -2,14 +2,14 @@
 
 <br>
 
-### == 연산자
+## == 연산자
 
 - 객체의 주소 값을 비교
-- `prinitive type`에 대해선 값 비교를, `reference Type`에 대해서는 주소 비교를 수행
+- `primitive type`에 대해선 값 비교를, `reference Type`에 대해서는 주소 비교를 수행
 
 <br>
 
-> **원시 타입(Prinitive type)**          
+> **원시 타입(Primitive type)**          
 > - 기본적인 데이터 타입으로, 자바에서 미리 정의되어 있는 데이터 타입
 > - 빈 객체 타입으로 NULL값을 가질 수 없으며 Stack메모리 저장
 

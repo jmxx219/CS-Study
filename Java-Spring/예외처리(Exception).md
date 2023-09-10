@@ -60,17 +60,17 @@
 **try-catch 블록**       
 ```java
 try{
-	//예외가 발생될만한 코드
-}catch(FileNotFoundException e){	//FileNotFoundException이 발생했다면
+        //예외가 발생될만한 코드
+    } catch (FileNotFoundException e){  //FileNotFoundException이 발생했다면
 
-}catch(IOException e){ //IOException이 발생했다면
+    } catch(IOException e) {            //IOException이 발생했다면
 
-}catch(Exception e){	//Exception이 발생했다면
+    } catch(Exception e){               //Exception이 발생했다면
 
-}finally{	
-	///어떤 예외가 발생하던 말던 무조건 실행
+    } finally {                         ///어떤 예외가 발생하던 말던 무조건 실행
 }
 ```
+
 <br>
 
 * try 블록          
@@ -104,6 +104,7 @@ try{
     }
 }
 ```
+
 <br>
 
 **throws**          
