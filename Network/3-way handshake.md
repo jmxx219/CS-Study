@@ -1,6 +1,10 @@
+# 3-way handshake
+
+
 TCP는 애플리케이션 프로세스가 데이터를 다른 프로세스에게 보내기 전에, 두 프로세스가 서로 핸드세이크를 먼저 한다. (연결 지향성)
 
-## 3-way handshake
+<br>
+
 
 - TCP/IP 프로토콜을 이용해서 통신하는 응용프로그램이 데이터를 전송하기 전에 정확한 전송을 보장하기 위해 상대방 컴퓨터와 사전에 세션을 수립하는 과정
 - 신뢰성을 위해 3번의 핸드쉐이킹을 거쳐 연결을 맺는 것
@@ -9,7 +13,7 @@ TCP는 애플리케이션 프로세스가 데이터를 다른 프로세스에게
 
 <br>
 
-### State
+## State
 
 - CLOSED: 포트가 닫힌 상태
 - LISTEN: 포트가 열린 상태로 연결 요청 대기 중
@@ -18,7 +22,7 @@ TCP는 애플리케이션 프로세스가 데이터를 다른 프로세스에게
 
 <br>
 
-### Flag
+## Flag
 
 - SYN:
     - 연결 설정, Sequence Number를 랜덤으로 설정하여 세션을 연결하는 데 사용하며, 초기에 Sequence Number를 전송한다.
@@ -30,7 +34,7 @@ TCP는 애플리케이션 프로세스가 데이터를 다른 프로세스에게
 
 <br>
 
-### Sequence Number:
+## Sequence Number:
 
 - Squence Number는 TCP 세그먼트의 연속된 데이터 번호
 
@@ -45,13 +49,13 @@ TCP는 애플리케이션 프로세스가 데이터를 다른 프로세스에게
 
 <br>
 
-### Acknowledgement Number:
+## Acknowledgement Number:
 
 - 상대방으로부터 받아야 하는 다음 TCP 세그먼트 데이터 번호
 
 <br>
 
-### 동작방식
+## 동작방식
 
 1. Client → SYN → Server
     1. Client가 Server에게 접속을 요청하는 SYN 플래그를 보낸다.
@@ -66,7 +70,7 @@ TCP는 애플리케이션 프로세스가 데이터를 다른 프로세스에게
 
 <br>
 
-### 문제점
+## 문제점
 
 1. ISN 동기화가 이루어지지 않는다 (Client가 Server의 ISN을 알 수 없다).
     - Server가 전송한 Segment의 순서를 구분할 수 없다.
@@ -80,7 +84,7 @@ TCP는 애플리케이션 프로세스가 데이터를 다른 프로세스에게
 
 <br>
 
-### 2-Way Handshaking 안되는 이유
+## 2-Way Handshaking 안되는 이유
 
 마지막 3번째 동작 (Client → ACK → Server)이 필요한 이유
 
@@ -93,7 +97,7 @@ TCP는 애플리케이션 프로세스가 데이터를 다른 프로세스에게
 
 <br>
 
-### SYN Flooding
+## SYN Flooding
 
 - SYN Flood, 또는 TCP SYN Flood는 DoS (Denial-of-Service) 또는 DDoS(Distributed Denial-of-Service) 공격의 일종으로, 대량의 SYN request를 보내 열린 Connection으로 서버를 과부한다.
 - Server의 SYN-ACK에 응답하지 않고, Flood Attack에서 SYN 요청만 마구잡이로 보내는 네트워크 계층 공격
@@ -102,7 +106,7 @@ TCP는 애플리케이션 프로세스가 데이터를 다른 프로세스에게
 
 <br>
 
-### **Simultaneous Open (동시 개방)**
+## **Simultaneous Open (동시 개방)**
 
 - 양쪽 프로세스 모두가 능동적 개방을 요구할 때 발생
 - 서로의 지역 포트를 알고 있는 두 피어 사이에 일어난다.

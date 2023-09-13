@@ -1,10 +1,12 @@
-## 스트림
+# 스트림
 
 스트림은 자바 8 API에 새로 추가된 기능이다. 
 
 <자바의 정석> 에서는 스트림은 ‘데이터의 흐름’ 이라고 정의해 놨다. <자바 인 액션>에서는 스트림이란 ‘데이터 처리 연산을 지원하도록 소스에서 추출된 연속된 요소’ 라고 설명해놨다.  자바의 정석 설명은 스트림 자체에 대한 설명에 가깝고 자바 인 액션 설명은 스트림 인터페이스에 대한 설명이라고 느꼈다. 
 
-스트림 API 특징들
+<br>
+
+## 스트림 API 특징들
 
 - 선언형 : 더 간결하고 가독성이 좋아진다.
 - 조립할 수 있음 : 유연성이 좋아진다.
@@ -12,13 +14,17 @@
 
 스트림은 데이터 소스를 추상화하고 자주 사용하는 메서드들을 정의해 놓았다. 추상화 시켰다는 것은 데이터 소스가 리스트이건 배열이건 간에 같은 방식으로 다룰 수 있게 되었다는 것과 코드의 재사용성이 높아진다는 것을 의미한다.
 
-스트림의 특징들
+<br>
+
+### 스트림의 특징들
 
 - 스트림은 데이터소스를 읽기만 할뿐 변경하지 않는다.
 - 스트림은 일회용이다. 스트림을 한번 사용하면 닫혀서 다시 사용할 수 없다. 필요하다면 다시 스트림을 생성해야 한다.
 - 스트림은 작업을 내부 반복으로 처리한다.
 
-스트림 연산
+<br>
+
+### 스트림 연산
 
 - 중간 연산 : 연산 결과가 스트림. 스트림에 연속해서 중간 연산을 할 수 있음
 - 최종 연산 : 연산 결과가 연산. 스트림의 요소를 소모하므로 단 한 번만 가능
@@ -62,6 +68,8 @@ ex) stream.distinct().limit(5).sorted().forEach(System.out::println)
 
 스트림은 반복을 알아서 처리해주고 결과 스트림 값을 어딘가에 저장해주는 방식을 사용한다. 이를 내부 반복이라고 한다. 
 
+<br>
+
 <외부반복 - 반복자 있음>
 
 ```java
@@ -70,6 +78,8 @@ for(Dish dish: menu) {
     names.add(dish.getName());
 }
 ```
+
+<br>
 
 <내부반복 - 반복자 없음>
 
@@ -95,7 +105,7 @@ List<String> names = menu.stream().map(Dish::getName).collect(toList());
     - parallel() : 순차 처리 스트림을 병렬처리로 변경
     - sequential() : 병렬처리 스트림을 순차 처리로 변경
     
-    ex) `list.stream().limit(100).parallel().reduce(Integer::sum);`
+    ex) `list.stream().limit(100).parallel().reduce(Integer::sum);`  
     위 코드는 limit() 까지는 순차 처리로 진행하고 이후엔 병렬처리로 진행한다.
 
 <br/>    
@@ -125,7 +135,7 @@ List<String> names = menu.stream().map(Dish::getName).collect(toList());
     ```
     
 
-1. Function<T,R> 
+2. Function<T,R> 
     
     일반적인 함수. 매개변수를 받아서 결과를 반환
     
@@ -138,7 +148,7 @@ List<String> names = menu.stream().map(Dish::getName).collect(toList());
     ```
     
 
-1. Cunsumer<T> 
+3. Cunsumer<T> 
     
     매개변수만 있고 반환값은 없는 상태
     
@@ -149,7 +159,7 @@ List<String> names = menu.stream().map(Dish::getName).collect(toList());
     ```
     
 
-1. Supplier<T>
+4. Supplier<T>
     
     매개변수는 없고 반환값만 있는 상태
     
@@ -160,5 +170,7 @@ List<String> names = menu.stream().map(Dish::getName).collect(toList());
                     .limit(5);
     ```
     
+
+<br>
 
 반환값의 유뮤에 따라 분류할 수 있는 4개의 함수형 인터페이스 모두 다양한 형태로 스트림에서 활용되고 있다.
