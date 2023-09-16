@@ -7,8 +7,6 @@
 ## 👨‍💻 스터디원
 |이름|깃허브|
 |------|---|
-|~~김민철~~|~~[@mincheolkk](https://github.com/mincheolkk)~~|
-|~~김정웅~~|~~[@jw940310](https://github.com/jw940310)~~|
 |배수빈|[@baexxbin](https://github.com/baexxbin)|
 |손지민|[@jmxx219](https://github.com/jmxx219)|
 |최동근|[@reddevilmidzy](https://github.com/reddevilmidzy)|
