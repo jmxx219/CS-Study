@@ -140,7 +140,7 @@
 
 <br/>
 
-### ThreadPool vs ForkJoinPool
+#### ThreadPool vs ForkJoinPool
 - ThreadPool은 Thread의 생성 비용을 줄이기 위해, Thread를 갖고 있는 역할
 - ForkJoinPool은 ThreadPool처럼 ForkJoinTask를 갖고 있는 역할을 하면서도, 각 스레드에 분담한 업무(task)를 다른 스레드에 훔쳐오는(work stealing) 역할을 함
     - 놀고있는 쓰레드를 방지함
@@ -151,7 +151,7 @@
 
 ## Monitor
 
-### [뮤텍스와 세마포어](https://github.com/jmxx219/CS-Study/blob/main/OperatingSystem/%EB%AE%A4%ED%85%8D%EC%8A%A4%EC%99%80%20%EC%84%B8%EB%A7%88%ED%8F%AC%EC%96%B4.md)의 문제점
+#### [뮤텍스와 세마포어](https://github.com/jmxx219/CS-Study/blob/main/OperatingSystem/%EB%AE%A4%ED%85%8D%EC%8A%A4%EC%99%80%20%EC%84%B8%EB%A7%88%ED%8F%AC%EC%96%B4.md)의 문제점
 
 - 뮤텍스의 락 혹은 세마포어를 사용할 때 타이밍 오류가 발생할 수 있음
     - wait()과 signal() 연산의 순서가 뒤바뀌는 경우
@@ -169,8 +169,11 @@
     - 운영체제가 처리하는 것이 아닌 프로그래밍 언어에서 지원함
 - 특징
     - 타이밍 문제 해결
-    - 프로그래밍 언어 레벨에서 제공되는 추상 데이터 타입으로, 상호배제 구현
-        - 객체 지향 프로그래밍에서 사용되는 동기화 도구
+    - 프로그래밍 언어 레벨에서 제공되는 추상 데이터 타입(ADT)
+        - `추상화된 데이터 형(Abstract Data Type, ADT)`
+            - 모니터 타입은 상호배제를 제공해주는 ADT로, 추상 자료형임
+            - 객체지향의 클래스와 같이 기능의 구현 부분을 나타내지 않고,데이터의 형태와 그 데이터의 연산들을 정의해놓은 자료형
+    - 객체 지향 프로그래밍에서 사용되는 동기화 도구
     - 상호 배제와 조건 변수를 사용해 동기화를 자동 처리하기 때문에 프로그래머의 실수를 줄임
 - 구성 요소
     - monitor lock
@@ -191,9 +194,5 @@
         - 이 경우, 프로세스는 조건 대기 큐(condition wait queue)에서 대기함
     6. 스레드가 일시 중지된 상태에서 해당 조건이 충족되면, 모니터는 대기 중인 스레드를 깨우고 다시 실행될 수 있도록 함
     7. 스레드가 모니터를 빠져나갈 때, 락을 반납함. 이때 다른 스레드들이 모니터에 진입할 수 있음
-- `추상화된 데이터 형(Abstract Data Type, ADT)`
-    - 모니터 타입은 상호배제를 제공해주는 ADT로, 추상 자료형임
-    - 객체지향의 클래스와 같이 기능의 구현 부분을 나타내지 않고,데이터의 형태와 그 데이터의 연산들을 정의해놓은 자료형
-
 
 <br/>
