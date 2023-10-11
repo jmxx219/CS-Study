@@ -10,6 +10,8 @@
 |배수빈|[@baexxbin](https://github.com/baexxbin)|
 |손지민|[@jmxx219](https://github.com/jmxx219)|
 |최동근|[@reddevilmidzy](https://github.com/reddevilmidzy)|
+|이미정|[@leemimi](https://github.com/leemimi)|
+|윤용현|[@dragonappear](https://github.com/dragonappear)|
 
 <br/>
 
@@ -33,7 +35,7 @@
 |10주차|[컴파일](https://github.com/jmxx219/CS-Study/blob/main/OperatingSystem/%EC%BB%B4%ED%8C%8C%EC%9D%BC.md)|[OSI 7계층](https://github.com/jmxx219/CS-Study/blob/main/Network/OSI%207계층.md)|[B-Tree와 B+Tree](https://github.com/jmxx219/CS-Study/blob/main/Database/B-Tree%EC%99%80%20B+Tree.md)|[Equals와 HashCode](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/equals와%20hashCode.md)|
 |11주차|[IPC](https://github.com/jmxx219/CS-Study/blob/main/OperatingSystem/IPC.md)|[3-way handshake](https://github.com/jmxx219/CS-Study/blob/main/Network/3-way%20handshake.md)|[DB Locking](https://github.com/jmxx219/CS-Study/blob/main/Database/DB%20Locking.md)|[Ioc와 DI](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/IoC%EC%99%80%20DI.md)|
 |12주차|[Thread Safe](https://github.com/jmxx219/CS-Study/blob/main/OperatingSystem/Thread%20Safe.md)|[4-way Handshake](https://github.com/jmxx219/CS-Study/blob/main/Network/4-way%20handshake.md)|[DB 트래픽](https://github.com/jmxx219/CS-Study/blob/main/Database/DB_%ED%8A%B8%EB%9E%98%ED%94%BD.md)|[AOP](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/AOP.md)|
-
+|13주차|[Thread Pool, Monitor, Fork-Join](https://github.com/jmxx219/CS-Study/blob/main/OperatingSystem/Thread%20Pool%2C%20Monitor%2C%20Fork-Join.md)|[브라우저에 URL입력 시 일어나는 일](https://github.com/jmxx219/CS-Study/blob/main/Network/%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%EC%97%90%20URL%EC%9E%85%EB%A0%A5%EC%8B%9C%20%EC%9D%BC%EC%96%B4%EB%82%98%EB%8A%94%EC%9D%BC.md)|[스키마](https://github.com/jmxx219/CS-Study/blob/main/Database/Schema.md)|[자바의 Thread](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/%EC%9E%90%EB%B0%94%EC%97%90%EC%84%9C%20Thread)|
 <br/>
 
 ### 📌 자유 주제
@@ -41,6 +43,7 @@
 - [서버리스](https://github.com/jmxx219/CS-Study/blob/main/ETC/%EC%84%9C%EB%B2%84%EB%A6%AC%EC%8A%A4.md)
 - [MSA](https://github.com/jmxx219/CS-Study/blob/main/ETC/MSA.md)
 - [TDD](https://github.com/jmxx219/CS-Study/blob/main/ETC/TDD.md)
+- [컨테이너](https://github.com/jmxx219/CS-Study/blob/main/ETC/%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88.md)
 
 
 <br/>
