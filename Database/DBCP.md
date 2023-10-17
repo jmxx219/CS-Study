@@ -1,25 +1,24 @@
 ## DBCP (DB Connection Pool)
 
-DB와 Client가 Connection을 어떻게 구성하는지 설명해 주세요.
 
 ### 사용 배경
 
 **데이터베이스 커넥션**
-- 웹 애플리케이션과 데이터베이스는 서로 다른 시스템
-- 이를 연결하기 위해 `데이터베이스 드라이버` 사용
+- 커넥션이란 어플리케이션과 데이터베이스의 연결을 뜻하며, 어플리케이션에서 데이터베이스에 접속하고 종료하는 일련의 과정을 의미
+- 웹 애플리케이션과 데이터베이스는 서로 다른 시스템으로, 이를 연결하기 위해 `데이터베이스 드라이버` 사용
 
 - 데이버베이스 연결의 생애주기              
-    - 1. 데이터베이스 드라이버를 사용하여 데이터베이스 연결 열기
-    - 2. 데이터를 읽고 쓰기 위한 TCP 소켓 열기
-    - 3. TCP 소켓을 사용해 데이터 통신
-    - 4. 데이터베이스 연결 닫기
-    - 5. TCP 소켓 닫기
+    1. 데이터베이스 드라이버를 사용하여 데이터베이스 연결 열기
+    2. 데이터를 읽고 쓰기 위한 TCP 소켓 열기
+    3. TCP 소켓을 사용해 데이터 통신
+    4. 데이터베이스 연결 닫기
+    5. TCP 소켓 닫기
 
-- TCP기반 통신 시 매번 connection을 열고닫는(3-way-handshake, 4-way-handshake) 시간적인 비용 발생으로 서비스 성능저하
+- TCP기반 통신 시, 매번 connection을 열고닫는(3-way-handshake, 4-way-handshake) 시간적인 비용 발생으로 서비스 성능저하
 
 <br>
 
-> 위의 문제를 해결하기 위해 DBCP 등장
+> 효율적인 커넥션 관리는 성능과 안정성 측면에서 중요한 요인으로, 시스템의 많은 부하를 주는 커넥션을 여닫는 비용을 해결하기 위해 DBCP 등장
 
 <br>
 <br>
@@ -32,6 +31,8 @@ DB와 Client가 Connection을 어떻게 구성하는지 설명해 주세요.
 - 클라이언트 요청 시 connection을 빌려주고, 처리가 끝나면 해당 connection을 반납받아 pool에 저장
 
 <br>
+<br>
+
 
 **특징**
 - HTTP 요청에 따라 pool에서 connection 객체를 사용하고 반납
@@ -41,6 +42,8 @@ DB와 Client가 Connection을 어떻게 구성하는지 설명해 주세요.
 - DBCP 사용 시에도 교착상태(deadlock)에 주의해야 함
     - 스레드가 서로의 DB Connection이 반납되기만을 무한정 대기하게되며 발생
 
+<br>
+<br>
 
 **DBCP의 동작**
 1. 백엔드 서버는 API요청을 받기 전, 미리 DB connection을 진행
@@ -65,13 +68,14 @@ DB와 Client가 Connection을 어떻게 구성하는지 설명해 주세요.
 
 
 <br>
+<br>
 
 **Connection Pool의 크기**
 - WAS에서 Connection을 사용하는 주체는 `스레드`
 - 데이터베이스에서 connection의 수는 스레드의 수와 어느정도 일치
     - Connection이 많다는 것은 데이터베이스 서버가 스레드를 많이 사용함을 의미
     - 이에 Context Switching으로 인한 오버헤드가 더 많이 발생하기에 Connection Pool을 많이 늘려도 성능적인 한계 존재
-    
+
 - Connection Pool의 크기 설정
     - 크게 설정
         - 메모리 소모: 큼
@@ -83,12 +87,15 @@ DB와 Client가 Connection을 어떻게 구성하는지 설명해 주세요.
 
 <br>
 <br>
+<br>
 
 ### DBCP 프레임워크
 
 **종류**
 - Apache Commons DBCP
 - Tomcat DBCP
+    - Tomcat에서 내장되어 사용 됨
+    - Apache Commons DBCP 라이브러리를 바탕으로 만들어짐
 - Oracle UCP
 - HikariCP
 
@@ -101,6 +108,7 @@ DB와 Client가 Connection을 어떻게 구성하는지 설명해 주세요.
     - HikariCP를 사용할 수 없는 경우, Tomcat DBCP → Apachde Commons DBCP → Oracle UCP 순으로 선택
 - HikariCP는 바이트코드 수준까지 극단적으로 최적화되어있기에 가장 많이 사용 됨
 
+<br>
 <br>
 
 
@@ -115,3 +123,54 @@ DB와 Client가 Connection을 어떻게 구성하는지 설명해 주세요.
     - 일정시간을 기다린 후에도 요청이 오지않을 경우 연결해제
         - DBCP의 어떤 connection이 비정상적인 상태일때, DB서버는 이를 모르기때문에 계속 대기하는 것을 방지하기 위함
 
+<br>
+<br>
+
+### 관련 개념
+
+**Data Source**
+- `javax.sql.DataSource 인터페이스`
+- Connection Pool을 관리하는 목적으로 사용되는 객체
+- Connection Pool을 어플리케이션 단에서 어떻게 관리할지 구현하는 인터페이스
+    - 어플리케이션에서는 해당 Data source 인터페이스를 통해 Connection을 얻어오고 반납하는 등의 작업 구현
+
+<br>
+
+**JDBC**
+- 개념
+    - `Java DataBase Connectivity`, 자바에서 데이터베이스를 조작하는 표준 SQL 인터페이스 API
+- 특징
+    - 데이터베이스들은 JDBC를 사용하기 위한 각각의 Driver 제공
+    - DBMS 독립성으로, 애플리케이션은 특정 DBMS에 종속되지 않고 JDBC API를 통해 다양한 DBMS와 통신 가능
+    - 인터페이스 기반 구축(데이터베이스 커넥션 인터페이스)
+    - 일반적인 JDBC는 Database Pool방식을 사용하지 않고 DB에서 정보를 가져올때마다 **Driver를 로드**하고 **커넥션을 열고닫음**
+        - 해당 비효율적인 부분을 DBCP를 통해 효율적으로 처리
+        - 이런 비효율성으로 상용 어플에서 JDBC방식 거의 사용하지 않음
+
+<br>
+
+**JNDI**
+- 개념
+    - `Java Naming and Directory Interface`
+    - Java 애플리케이션에서 리소스, 객체 및 서비스에 대한 표준 네이밍 및 디렉터리 서비스에 접근할 수 있게 해주는 API 및 스펙
+
+- 기능
+    - 객체검색
+    - 이름과 객체 연결
+    - 분산환경 지원 
+
+- 특징
+    - 데이터베이스의 DB Pool을 미리 Naming 시켜주는 방법 중 하나
+        - WAS에서 JNDI를 활용하여 DBCP를 관리해 데이터베이스 연결관리의 효율성을 높일 수 있음
+    - Static 객체 사용
+        - JNDI로 설정된 데이터베이스 연결 풀은 WAS 내에서 관리되며, 이는 static 객체로 설정될 수 있음
+        - 이러한 정적객체를 사용하여 데이터베이스 연결을 쉽게 가져다 사용 가능
+        - 애플리케이션 전체에서 공유되므로 연결을 여러 번 생성할 필요가 없어 효율성 향상
+    - 어플리케이션 확장성
+        - JNDI를 사용하여 DB 연결을 관리하면 애플리케이션의 확장성이 향상
+        -  새로운 애플리케이션 서버 노드 추가 및 새로운 인스턴스 배포 시, JNDI를 통해 설정된 연결 풀을 공유하고 확장
+        
+<br>
+
+> JNDI를 활용하여 WAS에서 DB Connection Pool을 관리하고, 정적 객체로 연결을 쉽게 사용함으로써 데이터베이스 연결 관리의 효율성을 높일 수 있음.           
+> 더불어 애플리케이션의 성능과 확장성을 개선할 수 있음
