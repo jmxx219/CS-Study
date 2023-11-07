@@ -62,7 +62,7 @@ CPU 이용률이 낮으면 MPD를 높인다. 하지만 과도하게 MPD가 높�
 
 <br>
 
-<img alt="PFF" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/92c5b6c5-7619-4f00-abf5-86d2d56e8b23" height="400"/>
+<img alt="PFF" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/92c5b6c5-7619-4f00-abf5-86d2d56e8b23" height="350"/>
 
 
 <br>
