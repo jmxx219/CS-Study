@@ -4,7 +4,8 @@
 
 동일 출처 정책
 
-![](https://mblogthumb-phinf.pstatic.net/MjAyMTA1MTBfMTM0/MDAxNjIwNjI0OTU1MDYx.dn22YB4KfrBFaOaASr4mmZth5BSVSPVbuv7X96BIHbkg.-oLdtPRsttEFkHB7uhdzb5BqT_XOhS-CoI17XO7f6g4g.PNG.funraon/9.png?type=w800)
+<img src="https://mblogthumb-phinf.pstatic.net/MjAyMTA1MTBfMTM0/MDAxNjIwNjI0OTU1MDYx.dn22YB4KfrBFaOaASr4mmZth5BSVSPVbuv7X96BIHbkg.-oLdtPRsttEFkHB7uhdzb5BqT_XOhS-CoI17XO7f6g4g.PNG.funraon/9.png?type=w800" width="450" height="250"/>
+
 
 - 동일한 출처의 리소스만 상호작용하는 정책이다. 
 - 웹 페이지에서 실행되는 스크립트가 다른 도메인의 웹 페이지에 있는 리소스에 접근할 수 없도록 제한하는 정책이다.
@@ -52,7 +53,7 @@ SOP 정책이 없는 상황이라고 가정해보자.
 
 ### Simple Request
 
-![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fm4pHR%2FbtrtXqvZ1t4%2FMqeEIVar2kcyEidQtIy2i1%2Fimg.png)
+<img src="https://blog.kakaocdn.net/dn/m4pHR/btrtXqvZ1t4/MqeEIVar2kcyEidQtIy2i1/img.png" width="500" height="300"/>
 
 #### Simple Request 조건
 
@@ -135,7 +136,7 @@ Content-Type: application/xml
 - `Simple Request`와 달리 `OPTIONS` 메서드를 통해 다른 `Origin`의 리소스로 HTTP 요청을 미리 보내(`preflight`) 실제 요청이 전송하기에 안전하지 확인한다
 - 브라우저는 안전하다고 판단되면 이를 통해 실제 요청을 보낸다. CORS 요청의 경우, 유저 데이터에 영향을 줄 수 있기 때문에 이와 같이 미리 전송한다
 
-![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbiXNij%2FbtrtRDvYlf5%2FXDMOtjWgj3cKEUsF1G0lck%2Fimg.png)
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbiXNij%2FbtrtRDvYlf5%2FXDMOtjWgj3cKEUsF1G0lck%2Fimg.png" width="500" height="500"/>
 
 #### 요청 헤더
 - `Origin`
