@@ -12,6 +12,7 @@
   - 출처 A(ex: `service.example.com`)에서 온 문서가 출처 B(ex: `api.example.com`)에서 가져온 리소스에 접근할 하는 것을 차단
 - SOP 정책은 웹 브라우저에서 기본적으로 제공되며, 웹 개발자가 명시적으로 설정할 필요는 없다.
 
+<br/>
 
 | Origin(`https://www.example.com`)    | 비교    |
 |--------------------------------------|-------|
@@ -24,6 +25,8 @@
 - 동일 출처와 교차 출처의 기준은 프로토콜, Host(도메인), Port 동일 여부이다. 이중 하나라도 Origin과 다르면 그 URL은 교차출처로 인식된다.
 - **두 URL의 프로토콜, 호스트, 포트가 모두 같아야 동일한 출처로 인정되며 웹 사이트를 샌드박스화 하여 잠재적인 보안 위협으로부터 보호해주는 정책이다.**
 
+<br/>
+
 ### Q. 왜 다른 출처 간의 상호 작용을 차단할까?
 
 SOP 정책이 없는 상황이라고 가정해보자.
@@ -32,15 +35,14 @@ SOP 정책이 없는 상황이라고 가정해보자.
 - 사용자가 악성 페이지에 (ex:`service.example.com`) 접속하여 악의적인 `JavaScript`가 실행된다.
 - 악성 페이지 (ex:`service.example.com`)는 사용자가 모르는 사이에 다른 사이트 (ex: `portal.example.com`)에 임의의 요청을 보내어, 사용자의 개인 정보(사용자 IP 등)를 탈취할 수 있다.
 
-### SOP 장점
+<br/>
 
-- CSRF, XSS 같은 보안 취약점 공격으로 부터 안전하다.
+- SOP 장점: CSRF, XSS 같은 보안 취약점 공격으로 부터 안전하다.
+- SOP 단점: 제한된 정책 때문에 외부에서 데이터를 불러오지 못한다.
 
-### SOP 단점
+<br/>
+<br/>
 
-- 제한된 정책 때문에 외부에서 데이터를 불러오지 못한다.
-
----
 ## CORS(Cross Origin Resource Sharing)
 
 교차 출처 리소스 공유
@@ -50,6 +52,8 @@ SOP 정책이 없는 상황이라고 가정해보자.
 - CORS의 요청 방식에는 크게 2가지 방식이 있다.
   - `Simple Request`
   - `Preflight Request`
+
+<br/>
 
 ### Simple Request
 
@@ -63,12 +67,15 @@ SOP 정책이 없는 상황이라고 가정해보자.
 - `XMLHttpRequest.upload`에 이벤트 핸들러, 리스너가 등록되지 않은 경우
 - `ReadableStream` 객체가 포함되지 않은 경우
 
+<br/>
+
 #### Simple Request 동작 방식
 
 - 클라이언트가 요청 헤더에 자신의 `Origin`을 실어서 서버로 요청
 - 서버는 요청 메시지 헤더의 `Origin`을 확인한다
 - CORS 요청이 유효하다면 서버는 응답 헤더에 `Access-Control-Allow-Origin` 헤더를 추가해 사용자에게 응답한다.
 
+<br/>
 
 1. `service.example.com` -> `api.example.com` 사이트의 리소스를 가져오기 위해 JavaScript에서 HTTP 요청 메시지를 전송한다.
 
@@ -94,6 +101,8 @@ SOP 정책이 없는 상황이라고 가정해보자.
 〈/html〉
 ```
 
+<br/>
+
 2. HTTP 요청 메시지는 아래와 같이 전송된다.
 
 ```HTTP
@@ -109,6 +118,8 @@ Origin: https://service.example.com
 ```
 
 `service.example.com` 사이트의 프로토콜, 호스트, 포트 정보가 Origin 헤더를 통해 전송된다.
+
+<br/>
 
 3. 서버는 HTTP 요청  메시지의 Origin 헤더를 보고 어느 사이트를 통해 요청 메시지가 전송되었는지 확인할 수 있다. 해당 요청에 대한 HTTP 응답 메시지는 아래와 같다.
 
@@ -130,11 +141,15 @@ Content-Type: application/xml
 
 **만약 `Access-Control-Allow-Origin` 헤더가 없거나, 해당 헤더에 명시된 출처가 요청을 보낸 페이지의 출처와 일치하지 않는 경우, 브라우저는 SOP 정책에 따라 응답을 차단한다.**
 
+<br/>
+
 ### Preflight Request
 
 - `Simple Request`의 조건을 만족하지 못할시 브라우저가 자동으로 생성한다
 - `Simple Request`와 달리 `OPTIONS` 메서드를 통해 다른 `Origin`의 리소스로 HTTP 요청을 미리 보내(`preflight`) 실제 요청이 전송하기에 안전하지 확인한다
 - 브라우저는 안전하다고 판단되면 이를 통해 실제 요청을 보낸다. CORS 요청의 경우, 유저 데이터에 영향을 줄 수 있기 때문에 이와 같이 미리 전송한다
+
+<br/>
 
 <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbiXNij%2FbtrtRDvYlf5%2FXDMOtjWgj3cKEUsF1G0lck%2Fimg.png" width="500" height="500"/>
 
@@ -148,6 +163,8 @@ Content-Type: application/xml
 
 `Access-Control-Request-*` 헤더의 경우 실제 POST 요청시에는 포함되지 않고 **OPTIONS 요청시에만 사용된다.**
 
+<br/>
+
 #### 응답 헤더
 - `Access-Control-Allow-Origin`
   - 브라우저가 해당 `Origin`이 리소스에 접근 가능하도록 허용할 때 사용되는 헤더
@@ -156,6 +173,8 @@ Content-Type: application/xml
   - `Preflight Request`에 대해 리소스에 접근할 때 허용되는 `Method`를 지정하기 위해 사용되는 헤더 (POST, GET, OPTIONS, *)
 - `Access-Control-Allow-Headers`
   - Preflight Request에 대해 해당 요청에서 사용할 수 있는 Header를 지정하기 위해 사용되는 헤더 (X-PINGOTHER, Content-Type 등)
+
+<br/>
 
 ### Ref
 
