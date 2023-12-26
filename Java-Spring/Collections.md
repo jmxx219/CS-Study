@@ -12,7 +12,7 @@ JDK 1.2 전에는 다수의 데이터를 저장할 수 있는 클래스들을 �
 
 ## [List](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html)
 
-<img src="https://github.com/dragonappear/java-101/assets/89398909/ed56b928-6727-4d34-b513-e87709f52635">
+<img src="https://github.com/dragonappear/java-101/assets/89398909/ed56b928-6727-4d34-b513-e87709f52635" height="400">
 
 - 데이터의 저장 **순서**가 유지되고, **중복**을 허용함
 - 구현 클래스: `AraryList`, `LinkedList`
@@ -32,7 +32,7 @@ JDK 1.2 전에는 다수의 데이터를 저장할 수 있는 클래스들을 �
 - 비순차적인 데이터의 추가, 삭제에 시간이 많이 걸림
 - 배열의 크기를 늘릴 때, 현재 배열의 크기의 1.5배 크기(`oldCapacity >> 1`)로 늘림
 
-<img src="https://github.com/dragonappear/java-101/assets/89398909/a0076234-9f30-4f90-803e-f2a43e9d8a54">
+<img src="https://github.com/dragonappear/java-101/assets/89398909/a0076234-9f30-4f90-803e-f2a43e9d8a54" height="400">
 
 <br>
 
@@ -59,7 +59,7 @@ JDK 1.2 전에는 다수의 데이터를 저장할 수 있는 클래스들을 �
 
 ## [Set](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Set.html)
 
-<img src="https://github.com/dragonappear/java-101/assets/89398909/5f65a0d1-b034-4502-8bd4-c3b5535604e6">
+<img src="https://github.com/dragonappear/java-101/assets/89398909/5f65a0d1-b034-4502-8bd4-c3b5535604e6" height="400">
 
 - 순서를 유지하지 않는 데이터의 집합, 데이터의 중복을 허용하지 않음
 - 구현 클래스: `HashSet`, `TreeSet`
@@ -118,7 +118,7 @@ JDK 1.2 전에는 다수의 데이터를 저장할 수 있는 클래스들을 �
 
 ## [Map](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Map.html)
 
-<img src="https://github.com/dragonappear/java-101/assets/89398909/a57b2b2f-008f-42b6-946d-d2efadba3851">
+<img src="https://github.com/dragonappear/java-101/assets/89398909/a57b2b2f-008f-42b6-946d-d2efadba3851" height="400">
 
 - key-value 형식으로 데이터를 저장하는 자료구조
 - `key` 는 유니크 해야함. `value`는 중복 가능
