@@ -61,7 +61,7 @@
 
 <br>
 
-![DOM-based XSS](https://github.com/reddevilmidzy/CS-Study/assets/78539407/34e29f43-4caa-40d3-b27b-ca8ee7e2e275)
+<img alt="DOM-based XSS" height="300" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/34e29f43-4caa-40d3-b27b-ca8ee7e2e275"/>
 
 <br>
 
