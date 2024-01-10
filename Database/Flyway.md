@@ -33,9 +33,11 @@
 
 ## flyway 동작 방식
 
+<br>
 
 <br>
 <img alt="image" height="230" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/06b7a0ea-4e28-40aa-8232-c22ff3eef587"/>
+<br>
 <br>
 
 * 두 개의 마이그레이션(데이터베이스 스키마 변경 sql이 기록된)을 가지고 있고, 데이터베이스는 비어있다.
@@ -51,14 +53,16 @@
 * flyway는 마이그레이션을 위해 지정된 파일(sql or java)을 지정된 classpath에서 탐색하여 버전 순서대로 실행한다.
 
 <br>
-<img alt="image" height="250" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/0477cd0d-fcc9-4535-9e41-2edb37581233"/>
+<img alt="image" height="250" width="900" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/0477cd0d-fcc9-4535-9e41-2edb37581233"/>
+<br>
+
 <br>
 
 * 마이그레이션이 실행되고 나면 `SCHEMA_VERSION` table에 실행 이력을 저장하게 된다.
 * 테이블에서 버전정보, 체크섬, 성공여부등을 확인할 수 있다.
 
 <br>
-<img alt="image" height="150" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/71ca41d5-25aa-4678-addd-8c5ad9e53180"/>
+<img alt="image" height="110" width="800" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/71ca41d5-25aa-4678-addd-8c5ad9e53180"/>
 <br>
 
 
@@ -137,6 +141,8 @@
 * **Migrate**
   * 데이터베이스 마이그레이션
 
+<br>
+
 <img alt="migrate" height="180" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/6de5db3b-06a7-437b-8988-ddb6e803a396"/>
 
 <br>
@@ -145,6 +151,8 @@
 * **Info**
   * 모든 마이그레이션 상세정보 출력
   * 마이그레이션의 성공여부와 실행 시간 확인 가능
+
+<br>
 
 <img alt="info" height="180" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/77c1c04b-e31e-4eb9-87d0-f3cd49f6b0ad"/>
 
@@ -155,6 +163,7 @@
   * 데이터베이스의 schema_version 테이블을 포함한 모든 테이블, 뷰, 프로시저등을 drop
   * 운영환경에서 실행주의
 
+<br>
 
 <img alt="clean" height="180" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/efbe9f07-0066-4ea0-a172-fab113a8efae"/>
 
@@ -162,6 +171,8 @@
 
 * **Validate**
   * 데이터베이스에 적용된 마이그레이션 정보의 유효성 검증
+
+<br>
 
 <img alt="validate" height="180" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/a2e88806-e5a1-4ac2-9ff5-dacaf3c90044"/>
 
@@ -172,8 +183,9 @@
   * 특정 버전에서 기존 데이터베이스에 flyway를 도입하기 위해 사용
   * 베이스라인 버전까지의 모든 마이그레이션은 무시
 
-<img alt="baseline" height="180" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/b2798bd7-7c12-4aae-8713-0127bfc4445f"/>
+<br>
 
+<img alt="baseline" height="180" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/b2798bd7-7c12-4aae-8713-0127bfc4445f"/>
 
 <br>
 
@@ -183,8 +195,11 @@
     * 실패한 마이그레이션 항목 제거 (DDL 트랜잭션을 지원하지 않은 데이터베이스만 해당 ex) SQLite, MySQL, Oracle)
     * 적용된 마이그레이션의 체크섬, 설명, 타입들을 사용 가능한 마이그레이션의 체크섬으로 재정렬
 
+<br>
 
 <img alt="repair" height="180" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/d429f048-7dcd-449c-a0a8-3ba9972df5f4"/>
+
+<br>
 
 <br>
 
