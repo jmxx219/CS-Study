@@ -130,6 +130,9 @@ public class Human extends Animal {
 
 <img alt="image" height="200" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/2356f3db-4b8b-4d1b-bdf6-9b360de0ddf6"/>
 
+<br>
+
+<br>
 
 <br>
 
