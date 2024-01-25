@@ -10,7 +10,8 @@
 |배수빈|[@baexxbin](https://github.com/baexxbin)|
 |손지민|[@jmxx219](https://github.com/jmxx219)|
 |최동근|[@reddevilmidzy](https://github.com/reddevilmidzy)|
-|윤용현|[@dragonappear](https://github.com/dragonappear)|
+|곽민성|[@kawkmin](https://github.com/kawkmin)|
+|이재표|[@jaepyo-Lee](https://github.com/jaepyo-Lee)|
 
 <br/>
 
