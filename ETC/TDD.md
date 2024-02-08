@@ -1,4 +1,4 @@
-# TDD (test-driven development)
+# TDD (Test-Driven Development)
 
 <br/>
 
@@ -8,12 +8,6 @@
 - `테스트가 개발을 이끌어 나간다`
 - 반복 테스트를 이용한 소프트웨어 방법론
 - 짧은 개발 사이클의 반복에 의존
-    - 애자일 방법론 중 하나인 eXtream Programming(XP)의 `Test-First` 개념에 기반을 둔 단순한 설계를 중요시함
-    - `TDD = TFD(Test-First Development) + Refactoring`
-
-> **eXtream Programming(XP)**
->  - 미래에 대한 예측을 최대한 하지 않고 지속적으로 프로토타입을 완성하는 애자일 방법론 중 하나
->  - 추가 요구 사항이 생겨도 실시간으로 반영 가능
 
 ### 테스트 코드를 먼저 작성해야 하는 이유
 
@@ -108,7 +102,7 @@
 
 <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcXoUol%2FbtqBWrI2z2l%2FezsoBHstfTXgZfzGKQzOwK%2Fimg.png" width="440" height="100"/>
 
-`요구사항 분석 ➡ 설계 ➡ 개발 ➡ 테스트 ➡ 배포` 형태의 개발 주기를 가짐
+`요구사항 분석 ➡ 설계 ➡ 개발 ➡ 테스트 ➡ 배포`
 - **이러한 방식은 소트프웨어 개발을 느리게 하는 잠재적 위험이 존재**
     - 소비자의 요구사항의 불명확성
     - 따라서 처음부터 완벽한 설계가 불가능
