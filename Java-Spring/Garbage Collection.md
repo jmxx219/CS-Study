@@ -33,7 +33,7 @@
 - 대부분의 객체는 금방 접근 불가능 상태(unreachable)가 된다.
 - 오래된 객체에서 젊은 객체로의 참조는 아주 적게 존재한다.
 
-
+<br>
 
 ## Heap 영역의 구성
 
@@ -71,6 +71,8 @@
 
 <img alt="img1 daumcdn" height="230" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/63e087b4-86b2-4542-a69c-a35ab4012584" width="700"/>
 
+<br>
+
 # Garbage Collection의 종류
 
 ### **Serial GC**
@@ -91,7 +93,7 @@
 java -XX:+UseSerialGC -jar Application.java
 ```
 
-
+<br>
 
 ### **Parallel GC**
 
@@ -115,7 +117,7 @@ java -XX:+UseParallelGC -jar Application.java
 # -XX:ParallelGCThreads=N : 사용할 스레드의 갯수
 ```
 
-
+<br>
 
 ### **Parallel Old GC**
 
@@ -132,7 +134,7 @@ java -XX:+UseParallelOldGC -jar Application.java
 # -XX:ParallelGCThreads=N : 사용할 스레드의 갯수
 ```
 
-
+<br>
 
 ### **CMS GC**
 
@@ -173,7 +175,7 @@ java -XX:+UseParallelOldGC -jar Application.java
 java -XX:+UseConcMarkSweepGC -jar Application.java
 ```
 
-
+<br>
 
 ### **G1 GC**
 
@@ -192,6 +194,7 @@ java -XX:+UseConcMarkSweepGC -jar Application.java
 java -XX:+UseG1GC -jar Application.java
 ```
 ---
+
 
 #### ref
 
