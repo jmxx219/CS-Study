@@ -1,12 +1,6 @@
 # Stateless와 Connectionless
 
 
-#### HTTP의 특징
-- 클라이언트 - 서버 구조
-- 무상태와 비연결성
-- HTTP 메시지
-- 단순하며 확장 가능
-
 <br>
 
 > 무상태(Stateless)와 비연결성(Connectionless)은 HTTP의 특징 중 하나이다. 
@@ -28,6 +22,7 @@
 - 해당 서버가 멈추거나 사용이 불가시, 다른 서버 사용이 어려움
     - 새로운 서버에는 이전 서버의 데이터가 존재하지 않음
 - 한 서버가 처리할 수 있는 능력보다 많은 요청 발생 시 처리 한계
+- Scale-in을 하는 경우 하나의 서버에 트래픽이 몰리거나 기존의 트래픽의 데이터가 유실 될 수 있다. 
 
 <br>
 
@@ -49,14 +44,15 @@
 **장점**
 - 높은 서버 확장성(Scale Out)
     - 어떤 서버가 클라이언트 요청에 응답해도 상관 없음
-    - 서버 무한대 증설하여 문제가 생길 경우 다른 서버로 확장 가능
+    - 서버 증설하여 문제가 생길 경우 다른 서버로 확장 가능
     - 대용량 트래픽 발생 시 서버 확장을 통한 대처 수월함
 
 <br>
 
 **단점**
 - 클라이언트가 추가 데이터를 매번 전송해야함
-    - ex) 로그인 상태를 유지해야하는 서비스
+    - ex) 로그인 상태를 유지해야하는 서비스의 경우 Token을 항상 Header에 유지해줘야 함.
+- 빈번한 커넥션으로 인한 리소스 비용 발생
 
 <br>
 
@@ -150,14 +146,14 @@
 
 <br>
 
-**HTTP keep alive**
+**HTTP keep-alive 옵션**
 - 사용
     - HTTP/1.0+
         - HTTP/1.0+ 부터 keep alive 옵션 추가
-        - HTTP 요청 헤더에 `Connection: Keep-Alive` 포함
+        - HTTP 요청 헤더에 `Connection: keep-alive` 포함
     - HTTP/1.1
         - 기본적으로 모든 connection이 keep-alive 상태로, 하나의 TCP연결 위에서 이뤄짐
-        - HTTP/1.0과의 호환성을 위해 `Connection: Keep-Alive` request를 받으면 `Keep-Alive`를 사용해 response 보냄
+        - HTTP/1.0과의 호환성을 위해 `Connection: keep-alive` request를 받으면 `keep-alive`를 사용해 response 보냄
 
 
 <br>
@@ -177,6 +173,3 @@
 
 
 <br>
-
-### [쿠키와 세션](https://github.com/jmxx219/CS-Study/blob/main/Network/쿠키와%20세션.md)의 등장
-- HTTP 프로토콜의 Connectionless, Stateless 특징으로 서버가 클라이언트를 식별하기 위해 등장
