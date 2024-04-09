@@ -219,6 +219,13 @@ public static void main() {}
 - SERIALIZABLE (level 3)
   - 트랜잭션이 완료될 때까지 삽입, 수정, 삭제가 모두 불가능하다.
 
+#### 각 벤더별 Default 격리 수준
+
+- ORACLE : READ COMMITED
+- MySQL : REPEATABLE READ
+- SQL Server : READ COMMITED
+- PostgreSQL : READ COMMITED
+
 
 <br/>
 
