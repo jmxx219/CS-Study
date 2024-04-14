@@ -1,134 +1,220 @@
 # 3-way handshake
 
+> [TCP](https://github.com/jmxx219/CS-Study/blob/main/Network/TCP%EC%99%80%20UDP.md#tcptransmission-control-protocol)는 애플리케이션 프로세스간의 데이터 전송 전에 논리적인 접속을 성립(establish)하기 위해서 3-way handshake 과정을 거친다.
 
-TCP는 애플리케이션 프로세스가 데이터를 다른 프로세스에게 보내기 전에, 두 프로세스가 서로 핸드세이크를 먼저 한다. (연결 지향성)
-
-<br>
-
-
-- TCP/IP 프로토콜을 이용해서 통신하는 응용프로그램이 데이터를 전송하기 전에 정확한 전송을 보장하기 위해 상대방 컴퓨터와 사전에 세션을 수립하는 과정
+- TCP/IP 프로토콜을 이용해서 통신하는 응용 프로그램이 데이터를 전송하기 전에 정확한 전송을 보장하기 위해 상대방 컴퓨터와 사전에 세션을 수립하는 과정
 - 신뢰성을 위해 3번의 핸드쉐이킹을 거쳐 연결을 맺는 것
+  - Client > Server : TCP SYN
+  - Server > Client : TCP SYN ACK
+  - Client > Server : TCP ACK
 
-![1](https://github.com/ensk26/CS-Study/assets/70767115/eb216165-4d1e-4e36-8366-47df1a270209)
-
-<br>
-
-## State
-
-- CLOSED: 포트가 닫힌 상태
-- LISTEN: 포트가 열린 상태로 연결 요청 대기 중
-- SYN_RECV: SYNC 요청을 받고 상대방의 응답을 기다리는 중
-- ESTABLISHED: 포트 연결 상태
 
 <br>
 
-## Flag
+## 3-Way-Handshake에서 사용되는 TCP 헤더 필드
 
-- SYN:
-    - 연결 설정, Sequence Number를 랜덤으로 설정하여 세션을 연결하는 데 사용하며, 초기에 Sequence Number를 전송한다.
-    - Connection을 생성할때 사용
-- ACK:
-    - 응답 확인, 패킷을 받았다는 것을 의미하는 flag
-    - Acknowledgement Number 필드가 유효한지를 나타낸다.
-    - 양단 프로세스가 쉬지 않고 데이터를 전송한다고 가정하면 최초 연결 설정 과정에서 전송되는 첫 번째 세그먼트를 제외한 모든 세그먼트의 ACK 비트는 1로 지정된다고 생각할 수 있다.
+> [TCP의 헤더 참고](https://github.com/jmxx219/CS-Study/blob/main/Network/TCP%EC%99%80%20UDP.md#tcp%EC%9D%98-%ED%97%A4%EB%8D%94)
 
-<br>
 
-## Sequence Number:
+### ◽️ Sequence Number
 
-- Squence Number는 TCP 세그먼트의 연속된 데이터 번호
+- TCP 세그먼트의 연속된 데이터 번호로, 첫 번째 바이트의 바이트 스트림 번호
+  - TCP는 데이터를 단지 순서대로 정렬되어 있는 바이트 스트림으로 봄
+  - ex) 0~999, 1000~1999의 Segment를 보낼 때 seq# = 각각 0, 1000
+- `ISN(Initial Sequence Number)`
+  - 처음에 클라이언트가 서버로 보내는 SYN(Sequence Number)로, 랜덤한 난수로 지정된 시퀀스 번호
 
-<br>
+<br/>
 
-**ISN(Initial Sequence Number)이 0부터 시작하지 않고 난수부터 시작하는지?**
+**ISN을 0부터 시작하지 않고 난수부터 시작하는 이유**
+- connection을 맺을 때 사용하는 포트는 유한 범위 내에서 사용하고, 시간이 지남에 따라 재사용됨
+  - 이 때문에 두 통신 호스트가 과거에 사용된 포트 번호 쌍을 사용하는 가능성이 존재함
+- Server 측에서는 패킷의 SYN을 보고 패킷을 구분하게 되는데, 난수가 아닌 순차적 number가 전송되면 이전의 connection으로 오는 패킷으로 인식할 수 있음(문제 발생)
+- 또한, 순차적으로 사용하여 Sequence Number가 노출되면 공격자가 위조 패킷을 보낼 수 있음(보안 문제)
+- 이러한 문제들이 발생할 가능성을 줄이기 위해 랜덤 값으로 설정함
 
-- connect를 맺을 때 사용하는 포트는 유한 범위 내에서 사용하고 시간이 지남에 따라 재사용된다.
-- 그래서 두 통신 호스트가 과거에 사용된 포트 번호 쌍을 사용하는 가능성이 존재한다.
-- Server 측에서 패킷의 SYN을 보고 패킷을 구분하게 되므 난수로 설정한다.
-- Sequence Number가 노출되면 공격자가 위조 패킷을 보낼 수 있어 보안을 위해 랜덤 값으로 설정한다.
 
 <br>
 
-## Acknowledgement Number:
+### ◽️ Acknowledgement Number
 
 - 상대방으로부터 받아야 하는 다음 TCP 세그먼트 데이터 번호
+- ex) 0~999, 1000~1999의 Segment를 받았을 때 ack# = 각각 1000, 2000
 
-<br>
+<br/>
 
-## 동작방식
+### ◽️ Control bits(Flag)
 
-1. Client → SYN → Server
-    1. Client가 Server에게 접속을 요청하는 SYN 플래그를 보낸다.
+- SYN(Synchronize Sequence Number)
+  - 연결을 요청할 때 SYN bit를 사용
+    - 연결을 요청하는 경우에는 SYN bit를 1로 설정하고, 다른 모든 경우에는 SYN bit를 0으로 설정함
+- ACK(Acknowledgement)
+  -  패킷을 받았다는 것을 의미하는 flag
+  - Acknowledgement Number 필드가 유효한지를 나타냄
+  - 최초 연결 과정에서 전송되는 첫 번째 세그먼트를 제외한 모든 세그먼트의 ACK 비트는 1로 설정함
+    - 최초 연결의 첫 번째 Handshake 과정에서는 응답할 요청이 없기 때문
+
     
-2. Server → SYN+ACK → Client
-    1. Server는 Listen상태에서 SYN이 들어온 것을 확인한다.
-    2.  SYN_RECV 상태로 바뀌어 SYN + ACK 플래그를 Client에게 전송한다. 
-    3. Server는 다시 ACK 플래그를 받기 위해 대기 상태로 변경된다.
-    
-3. Client → ACK → Server
-    1. SYN + ACK 상태를 확인한 Client는 서버에서 ACK를 보내고 연결 성립이 된다.
+<br/>
+<br/>
+
+## 3-Way-Handshake 과정
+
+
+<img width="500px" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F225A964D52F1BB6917"/>
+<br>
+<br>
+
+
+### State(Port 상태 정보)
+
+- `CLOSED`: 포트가 닫힌 상태
+- `LISTEN`: 포트가 열린 상태로 연결 요청을 대기하는 상태
+- `SYN-SENT`: 연결 요청을 하고 Server의 ACK를 기다리는 상태
+- `SYN-RECV`: 연결 요청에 대한 응답/연결을 요청하고 Client의 응답을 기다리는 상태
+- `ESTABLISHED`: 포트가 연결된 상태
 
 <br>
 
-## 문제점
+### 동작방식
 
-1. ISN 동기화가 이루어지지 않는다 (Client가 Server의 ISN을 알 수 없다).
-    - Server가 전송한 Segment의 순서를 구분할 수 없다.
-        - Pkt Loss나 Delay를 탐지할 수 없다.
-        - 작업 순서가 달라져 오류가 발생한다.
-        - 작업의 중복 수행이 발생할 수 있다.
-2. half open connection 상황이 발생할 수 있다.
-    - 한 쪽 Host만 연결된 상태를 의미한다.
-    - 연결된 Host는 계속 자원을 낭비하게 된다.
-    - SYN Flooding(DoS의 일부)에 취약하다.
+#### [Step 1]: `Client` → `SYN` → `Server`
+1. 클라이언트가 서버에게 접속을 요청하는 SYN Segment를 전송함
+   - Segment Header의 SYN bit를 1로 설정함
+   - Sequence Number는 클라이언트의 최초 순서 번호(`client_isn`)로 설정함
+   - SYN Segment를 전송한 후 SYN-SENT 상태로 바뀌고, 서버의 ACK Segment를 기다림
+2. 서버는 클라이언트로부터 SYN Segment를 수신함
+
+<br/>
+
+#### [Step 2]: `Server` → `SYN + ACK` → `Client`
+1. 서버는 Listen 상태에서 클라이언트의 SYN Segment에 대한 ACK Segment를 전송함
+   - Acknowledge Number는 `client_isn + 1`로 설정함
+   - Sequence Number는 서버의 최초 순서 번호(`server_isn`)로 설정함
+2. 동시에 서버가 클라이언트에게 연결을 요청하는 SYN Segment를 전송함
+   - SYN bit를 1로 설정함
+   - SYN + ACK Segment를 클라이언트에게 전송한 후, SYN-RECV 상태로 바뀌고 클라이언트의 ACK를 기다림
+3. 클라이언트는 ACK Segment을 받고 연결이 완료된 ESTABLISHED 상태가 됨  
+  
+  
+> [Step 2]의 경우 엄밀히 말하면 2개의 Handshake에 해당함  
+> 1. 응답하는 ACK Segment 전송  
+> 2. 연결을 요청하는 SYN Segment 전송  
+> 두 과정은 서로에게 영향을 미치지 않고 독립적임. 따라서 1번과 2번의 Segment 정보를 동시에 전송함으로써 1개의 Handshake로 처리할 수 있고, 네트워크 트래픽을 절약할 수 있음 
+
+<br/>
+
+#### [Step 3]: `Client` → `ACK` → `Server`
+1. 클라이언트는 서버의 SYN + ACK Segment에 대한 ACK Segment를 전송함
+   2. 연결 요청이 아니기 때문에 SYN bit를 0으로 설정함
+2. 서버는 ACK Segment를 받고 연결이 완료된 ESTABLISHED 상태가 됨
+
+<br/>
+
+#### [Step 4]: `Client` → `Data` → `Server`
+1. 클라이언트와 서버가 데이터를 주고 받음
+
 
 <br>
+<br>
 
-## 2-Way Handshaking 안되는 이유
+## 2-way Handshake
 
-마지막 3번째 동작 (Client → ACK → Server)이 필요한 이유
+> 하나의 SYN 요청, 하나의 ACK 응답만 존재함  
+> 서버와 클라이언트가 서로의 상황을 모르기 때문에 문제가 발생함(2-way Handshake를 사용하지 않는 이유)
 
-- Client가 Server에게 연결 요청이 딜레이가 많이 되어 다시 연결 요청을 하는 상황이면, Server는 과거의 연결 요청에 대한 Sequence Number로 응답한다.
-- Client는 잘못된 Sequence Number의 패킷이 왔기 때문에 해당 패킷은 버린다.
-- 두 방향 핸드쉐이크만 있다면, Server는 Client가 응답을 제대로 받았는지 확인할 수 없으므로 마지막 3번째 동작이 필요하다.
+### 동작 과정
 
-→ TCP의 connection은 양방향성 connection이다. 양쪽에서 연결이 제대로 되었는지 알 수 없으므로, 신뢰성을 보장할 수 없다. 그래서 3-Way Handshake로 서로 연결을 보장해 줘야 한다.
+#### [Step 1]: `Client` → `SYN` → `Server`
+1. 클라이언트가 서버에게 연결을 요청함
+   - SYN 패킷을 전송함
+2. 서버는 SYN 패킷을 받고 ESTABLISHED 상태가 됨
+
+<br/>
+
+#### [Step 2]: `Server` → `ACK` → `Client`
+1. 서버는 연결 수락 및 응답 패킷을 전송함
+   - ACK 패킷을 전송함
+2. 클라이언트는 ACK 패킷을 받고 ESTABLISHED 상태가 됨
+
+
+<br/>
+
+### 2-way Handshake 문제점
+
+1. ISN 동기화가 이루어지지 않음(Client가 Server의 ISN을 알 수 없음)
+   - Server가 전송한 Segment의 순서를 구분할 수 없음
+     - 패킷 손실이나 지연을 탐지할 수 없음
+     - 작업 순서가 달라져 오류가 발생할 수 있고, 작업의 중복 수행이 발생할 수 있음
+2. `half open connection` 상황이 발생할 수 있음
+    - 한 쪽 Host만 연결된 상태를 의미하며, 연결된 Host는 계속 자원을 낭비하게 됨
+    - SYN Flooding(DoS의 일부)에 취약함
+
+
+<br/>
+
+#### 해결책(3-Way Handshake)
+
+- Client가 Server에게 연결 요청을 한 것이 딜레이가 많이 되어 다시 연결 요청을 하는 상황을 예시로 들어보자.
+    - [Step 2]에서 ACK 응답이 지연되고 클라이언트는 Timeout으로 패킷 손실이 발생했다고 판단하여 요청을 재전송하게 됨
+    - 하지만 서버의 경우 재전송 요청이 아닌 과거 연결 요청에 대한 패킷이 도착했다고 착각을 하게 되고, 과거 연결 요청에 대한 Sequence Number로 응답함
+  - 이후 Client는 잘못된 Sequence Number의 패킷이 왔기 때문에 해당 패킷을 버리게 됨
+- 이처럼 2-way Handshake만 존재하게 되면 Server는 Client가 응답을 제대로 받았는지 확인할 수 없게 되고 연결이 되었다고 착각할 수 있음
+- 결국 TCP는 양방향 연결인데 양쪽에서 연결이 제대로 되었는지 알 수 없으므로, 신뢰성을 보장할 수 없게 됨
+  - 따라서 3-Way Handshake로 서로 연결을 보장해주어야 함
+  - [Step 3] `Client → ACK → Server`이 필요
 
 
 <br>
+<br>
 
-## SYN Flooding
+## SYN Flooding(TCP SYN Flood)
 
-- SYN Flood, 또는 TCP SYN Flood는 DoS (Denial-of-Service) 또는 DDoS(Distributed Denial-of-Service) 공격의 일종으로, 대량의 SYN request를 보내 열린 Connection으로 서버를 과부한다.
+- 네트워크 보안 공격 중 하나로, 공격자가 대상 서버에 대량의 TCP SYN 요청 패킷을 보내서 서비의 리소스를 고갈시키는 공격
+  - DoS(Denial-of-Service) 또는 DDoS(Distributed Denial-of-Service) 공격의 일종
 - Server의 SYN-ACK에 응답하지 않고, Flood Attack에서 SYN 요청만 마구잡이로 보내는 네트워크 계층 공격
-- 많은 수의 열린 TCP Connection으로 인해 서버의 리소스가 과도하게 소모되어 정상 트래픽의 처리를 어렵게 하면서 (열린 Connection은 서버의 TCP Connection Table에서 관리되고 서버의 Connection Table을 모두 채우게 되면서), 새로운 Connection을 생성할 수 없다.
-- 그리고 이미 연결된 사용자의 Connection의 경우에도 서버가 올바르게 작동하기 어렵게 된다.
+
+
+<br/>
+
+### 공격 과정
+
+<img width="350px" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F9933693359901D660A">
+
+#### [Step 1]: `공격자` → `SYN` → `Server`
+- 해당 과정을 반복해서 대량의 SYN 패킷을 전송함
+- 대량 연결 요청 자체에서 서버에세 부담을 줌
+  - 서버의 리소스가 모두 소진된다면 응답하지 못하는 상태가 됨(`서비스 거부(Denial Of Service,DoS)` 상태)
+- 서버는 SYN 패킷을 받으면 SYN 패킷 관련 정보를 백 로그 큐에 저장해 관리함
+
+<br/>
+
+#### [Step 2]: `Server` → `SYN + ACK` → `공격자`
+
+- SYN + ACK 패킷을 전송하고 ACK를 받을 때까지 대기함
+  - 서버는 half-open 상태가 됨
+- 하지만, 공격자는 ACK를 전송하지 않고 서버를 계속 기다리게 함
+  - half-open 연결이 계속 쌓이고, 서버의 연결 테이블이 고갈되어 서비스 거부 상태가 됨
+
+
+<br/>
+
+### 방어 방법
+
+1. 대기 큐(백로그 큐) 크기 늘리기
+   - 저장공간을 늘려 수용할 수 있는 양을 늘리는 방법
+   - 시간을 잠깐 늦추는 것 뿐으로 결국 가득차게 되어 근본적인 해결방법이 될 수 없음
+2. SYN Cookie
+   - 3-Way Handshake와 유사하며, SYN Cookie를 사용한다는 점에서 다름
+     - SYN Cookie: 두 호스트간의 연결에 대한 정보를 암호화 한 것
+   1. 클라이언트가 서버에세 연결을 요청하면 서버는 클라이언트의 IP 주소나 포트 번호 등으로 쿠키를 생성함
+   2. 서버가 클라이언트에게 SYN-ACK 패킷을 보낼 때, 패킷에 SYN Cookie 값을 넣어 전송함
+   3. 클라이언트는 서버에게 ACK 응답 패킷을 보내고, 서버는 Cookie 값과 함께 SYN 패킷이 올바른지 확인함
 
 <br>
-
-## **Simultaneous Open (동시 개방)**
-
-- 양쪽 프로세스 모두가 능동적 개방을 요구할 때 발생
-- 서로의 지역 포트를 알고 있는 두 피어 사이에 일어난다.
-- 이 경우 양쪽은 상대방에게 SYN+ACK 세그먼트를 전달해 하나의 단일 연결을 상호 간에 설정한다.
-
-![2](https://github.com/ensk26/CS-Study/assets/70767115/31830cc9-f33e-4f7b-a825-4e24658505da)
-
-
-1. 각자 서로 SYN Segment를 보낸다. - SYN-SENT
-2. SYN Segment를 받으면 ACK Segment를 보낸다. - SYN-RCVD
-3. ACK Segment가 도착하면 각자 Established 된다.
-
 <br>
 
-https://jeongkyun-it.tistory.com/180
 
-https://studyandwrite.tistory.com/404
-
-[https://velog.io/@averycode/네트워크-TCPUDP와-3-Way-Handshake4-Way-Handshake](https://velog.io/@averycode/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-TCPUDP%EC%99%80-3-Way-Handshake4-Way-Handshake)
-
-https://www.f5.com/ko_kr/glossary/syn-flood-attack
-
-https://hojunking.tistory.com/106
-
-https://sostarzia.tistory.com/133
+### Ref
+- [3-Way Handshake](https://hojunking.tistory.com/106)
+- [[DOS/DDOS] SYN Flooding 공격에 대해서 알아보자.](https://sata.kr/entry/DOSDDOS-SYN-Flooding-공격에-대해서-알아보자)
