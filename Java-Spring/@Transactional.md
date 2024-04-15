@@ -193,31 +193,16 @@ public class MemberService {
     - `timeout` : 지정한 시간 내에 메소드 수행이 완료되지 않으면 rollback을 하는 옵션
     - `readOnly`: 트랜잭션을 읽기 전용으로 설정
 
+<br/>
+
 ### isolation
+
+> [트랜잭션 격리수준 참고](https://github.com/jmxx219/CS-Study/blob/main/Database/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98%EC%9D%98%20%EA%B2%A9%EB%A6%AC%EC%84%B1.md)
 
 ```java
 @Trasanctional(isolation = Isolation.READ_UNCOMMITTED)
 public static void main() {}
 ```
-
-- READ_UNCOMMITTED (level 0) 
-  - 트랙잭션에 처리중인 혹은 아직 커밋되지 않은 데이터를 다른 트랜잭션이 읽는 것을 허용한다. 
-  - 어떤 사용자가 A라는 데이터를 B라는 데이터로 변경하는 동안 다른 사용자는 B라는 아직 완료되지 않은 Dirty 데이터를 읽을 수 있다.
-  - Dirty Read : 다른 트랜잭션에서 처리 작업이 끝나지 않았는데 읽을 수 있는 것 (READ_UNCMMITED에서만 발생하는 현상)
-    - 예를 들어, 트랜잭션 A가 데이터를 수정하고 있지만 아직 커밋하지 않았는데, 트랜잭션 B가 그 수정 중인 데이터를 읽으면, 트랜잭션 A가 롤백되어 수정이 취소된 경우 B는 잘못된(더 이상 존재하지 않는) 데이터를 읽게 됩니다.
-- READ_COMMITTED (level 1)
-  - 트랜잭션이 커밋되어 확정된 데이터만 읽는 것을 허용한다. 
-  - Dirty Read 현상은 방지할 수 있지만 Non-Repeatable Read를 현상이 발생할 수 있다.
-    - Non-Repeatable Read : 한 트랜잭션 내에서 같은 데이터를 두 번 조회했을 때 두 조회 결과가 다른 경우 발생하는 현상이다. 
-    - 트랜잭션에서 2번 SELECT를 하고 첫 번째 SELECT와 두 번째 SELECT 사이에 B 트랜잭션에서 수정을 한다면 A 트랜잭션의 두 SELECT 쿼리는 서로 다른 결과를 가지고 있게 된다.
-- REPEATABLE_READ (level 2)
-  - 트랜잭션이 완료될 때 까지 SELECT 문장이 사용하는 모든 데이터에 shared lock이 걸리므로 다른 사용자는 그 영역에 해당되는 데이터에 대한 `수정이 불가능`하다. (읽기는 가능)
-    - 한 트랜잭션 동안 두 번의 SELECT 쿼리가 일어난다면 이 격리 level에서는 그 트랜잭션 동안 데이터 수정이 불가능해서 두 쿼리의 값이 동일하게 되는 것이다.
-  - Non-Repeatable을 방지할 수 있지만 여전히 Phantom Read 문제는 발생한다. 
-    - Phantom Read : 한 트랜잭션 내에서 같은 쿼리를 두 번 실행했을 때 결과 집합의 행이 다른 경우 발생합니다. 
-    - 즉, `Phantom Read`는 `삽입, 삭제`에 관한것이고 `Non-Repeatable Read`는 `수정`에 관한 것이다.
-- SERIALIZABLE (level 3)
-  - 트랜잭션이 완료될 때까지 삽입, 수정, 삭제가 모두 불가능하다.
 
 #### 각 벤더별 Default 격리 수준
 
