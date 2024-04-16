@@ -90,11 +90,11 @@
 #### [Step 2]: `Server` → `SYN + ACK` → `Client`
 1. 서버는 Listen 상태에서 클라이언트의 SYN Segment에 대한 ACK Segment를 전송함
    - Acknowledge Number는 `client_isn + 1`로 설정함
-   - Sequence Number는 서버의 최초 순서 번호(`server_isn`)로 설정함
 2. 동시에 서버가 클라이언트에게 연결을 요청하는 SYN Segment를 전송함
+   - Sequence Number는 서버의 최초 순서 번호(`server_isn`)로 설정함
    - SYN bit를 1로 설정함
-   - SYN + ACK Segment를 클라이언트에게 전송한 후, SYN-RECV 상태로 바뀌고 클라이언트의 ACK를 기다림
-3. 클라이언트는 ACK Segment을 받고 연결이 완료된 ESTABLISHED 상태가 됨  
+3. SYN + ACK Segment를 클라이언트에게 전송한 후, SYN-RECV 상태로 바뀌고 클라이언트의 ACK를 기다림
+4. 클라이언트는 ACK Segment을 받고 연결이 완료된 ESTABLISHED 상태가 됨  
   
   
 > [Step 2]의 경우 엄밀히 말하면 2개의 Handshake에 해당함  
