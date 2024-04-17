@@ -1,4 +1,4 @@
-# Thread Pool, Monitor, Fork-Join
+# Thread Pool, Fork-Join
 
 
 > 대부분의 현대 운영체제는 한 프로세스가 다중 스레드를 포함하는 특성을 제공함
