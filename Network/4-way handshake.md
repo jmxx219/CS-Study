@@ -40,58 +40,67 @@ TCP 프로토콜이 3 way handshake를 통해 연결을 수립하였다면 연�
 
 <br>
 
-### TIME-WAIT
-
-TIME-WAIT 상태가 필요한 이유를 살펴보자.  
-
-만약 TIME-WAIT 가 짧다면 아래의 문제점들이 발생한다.  
-
-* 지연패킷 발생
-   * 세션이 종료된 후에도 도착하지 못한 잔여 패킷이 있는 경우
-   * 만약 이미 다른 연결로 진행되었다면 해당 패킷이 문제를 일으킬 수도 있다.
+### 연결을 종료할때 4-way-handshake를 해야하는 이유
+클라이언트의 데이터 전송이 끝났더라도, 서버에서는 데이터를 전송하고 있을수 있기 때문이다.
+클라이언트의 데이터 전송 종료(Step1)에 해당하는 FIN의 응답으로 서버에서 ACK를 보내지만, 서버에서 클라이언트로 보내는 데이터 전송이 끝나면 전송의 종료에 대한 FIN을 보내게된다.
 
 <br>
+<br>
+
+### TIME-WAIT
+[Step4]에서 서버로부터 ACK를 받은후 바로 Closed가 아닌 Time-Wait하는 이유가 무엇일까?
+
+<br>
+
+**1. 지연패킷 발생**
 
 <img alt="image" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/d12f7ae9-4a90-458c-9569-88d164cd1819" width="404"/>
 
-<br>
-
-* 원격 종단의 연결 확인 불가
-   * 만약 마지막 **ACK** 유실시 상대방은 **LAST_ACK** 상태에 빠지게 된다. 
-   * 새로운 **SYN** 패킷 전달시 **LAST_ACK** 상태의 Passive Close는 **RST** 를 리턴한다. (RST는 아래 참조)
-   * 새로운 연결은 오류를 내며 실패한다.  
+* 지연으로 인해 FIN보다 늦게 도착하는 데이터가 있을수 있기 때문에 유실을 방지하고자 TIME-WAIT를 둔다.
+- 지연패킷을 예상못하고 또 다른 연결을 진행했다면 해당 패킷(정말 우연으로 SEQ가 맞다면)으로 에러가 생길수 있다.
 
 <br>
+<br>
+
+**2. 원격 종단의 연결 확인 불가**
 
 <img alt="image" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/06f1e932-d178-46df-a4f8-e26ce22136dd" width="404"/>
 
+   * 만약 마지막 **ACK** 유실시(지연 등) 상대방은 **LAST_ACK** 상태로 연결이 지속되게 된다.
+   * 짧은 Time Out으로 새로운 연결을 위해  **SYN** 패킷 전달시 **LAST_ACK** 상태의 Passive Close는 **RST** 를 리턴한다. (RST는 아래 참조)
+   * 새로운 연결은 오류를 내며 실패한다.  
+
+<br>
 <br>
 
 
-따라서 반드시 `TIME_WAIT`이 일정 시간 남아 패킷의 오작동을 막아야 한다.  
+>따라서 반드시 `TIME_WAIT`이 일정 시간 남아 패킷의 오작동을 막아야 한다.  
 RFC 793 에는 `TIME_WAIT`을 2 MSL로 규정했다. 여기서 MSL은 *maximum segment lifetime*의 약자로 IP datagram이 네트워크에 존재할 수 있는
 시간이다.  
 TCP를 구현할 때 반드시 MSL값을 정해줘야하는데 RFC1122에 나온 추천은 2분이다. 그렇지만 Berkeley-derived implementation에서는 30초라서 보통 이 2MSL은 1분에서 4분정도 된다.
 
 <br>
 
-### 컨트롤 비트
+### Flag
+
+<img alt="TCP 헤더" height="200px" src="https://github.com/jaepyo-Lee/lockmanager/assets/74135929/8025be56-14e1-4080-8b29-561d74e086c7"/>
 
 TCP 헤더에는 커넥션의 상태를 나타내는 필드가 있다.
-8비트로 구성되어 있고 각각의 비트는 의미하는 바가 다르다.  
+9비트로 구성되어 있고 각각의 비트는 의미하는 바가 다르다.(ㅜㄴ)  
 
 <br>
 
 | 비트     | 플래그 이름 | 설명                               | 개요                                   |
 |--------|--------|----------------------------------|--------------------------------------|
-| 1번째 비트 | CWR    | Congestion Window Reduced        | ECN-Echo에 따라, 혼잡 윈도우가 줄어든 것을 알리는 플래그 |
-| 2번째 비트 | ECE    | ECN-Echo                         | 혼잡이 발생한 것을 통신 상대에게 알리는 플래그           |
-| 3번째 비트 | URG    | Urgent Pointer field significant | 긴급을 나타내는 플래그                         |
-| 4번째 비트 | ACK    | Acknowledgment field significant | 확인 응답을 나타내는 플래그                      |
-| 5번째 비트 | PSH    | Push Function                    | 빠르게 애플리케이션에 데이터를 전달하는 플래그            |
-| 6번째 비트 | RST    | Reset the connection             | 커넥션을 강제로 끊는 플래그                      |
-| 7번째 비트 | SYN    | Synchronize sequence numbers     | 커넥션을 여는 플래그                          |
-| 8번째 비트 | FIN    | No more data from sender         | 커넥션을 닫는 플래그                          |
+| 1번째 비트 | NS    |     | CWR, ECE 필드가 실수나 악의적으로 은폐되는 경우를 막기위한 플래그 |
+| 2번째 비트 | CWR    | Congestion Window Reduced        | ECN-Echo에 따라, 혼잡 윈도우가 줄어든 것을 알리는 플래그 |
+| 3번째 비트 | ECE    | ECN-Echo                         | 혼잡이 발생한 것을 통신 상대에게 알리는 플래그           |
+| 4번째 비트 | URG    | Urgent Pointer field significant | 긴급을 나타내는 플래그                         |
+| 5번째 비트 | ACK    | Acknowledgment field significant | 확인 응답을 나타내는 플래그                      |
+| 6번째 비트 | PSH    | Push Function                    | 빠르게 애플리케이션에 데이터를 전달하는 플래그            |
+| 7번째 비트 | RST    | Reset the connection             | 커넥션을 강제로 끊는 플래그                      |
+| 8번째 비트 | SYN    | Synchronize sequence numbers     | 커넥션을 여는 플래그                          |
+| 9번째 비트 | FIN    | No more data from sender         | 커넥션을 닫는 플래그                          |
 
 
 이 컨트롤 비트를 사용해 해당 패킷이 ACK, SYN, FIN 인지 확인 할 수 있다.
@@ -112,6 +121,29 @@ RST 플래그가 사용되는 경우는 아래와 같다.
 종료를 **Graceful connection release**이라고 부른다.   
 
 <br>
+<br>
+
+### Half-Close
+
+클라이언트-서버가 연결이 되었고, 데이터를 주고받는 상황에서 클라이언트는 언제까지 데이터를 수신해야할까요?
+1. 계속 소켓(TCP연결)을 열어놓는다면? -> 블로킹상태로 에러가 나게될것입니다.
+2. 임의의 시점에 소켓을 닫아버린다면? -> 유실된 데이터로 에러가 발생할것입니다.
+   
+이러한 상황을 방지하기 위한 과정인 Half-Close 입니다.
+
+<img alt="TCP 헤더" height="200px" src="https://github.com/jaepyo-Lee/lockmanager/assets/74135929/2f2fd85a-b777-4ced-95ad-b39e1010349d"/>
+
+그림과 같이 두 호스트가 연결되고, 데이터의 교환이 가능한 상태를 **스트림이 형성된 상태**라고 합니다. 
+
+스트림은 단방향으로만 형성되기에 데이터를 주고받기 위해서는 두개의 스트림이 필요합니다. 따라서, 두개의 호스트가 연결되면 두개의 스트림이 형성됩니다.
+
+즉, Half-Close는 데이터의 마지막 송신시점에 출력 스트림을 끊어 데이터의 송신이 끝남을 알리는 방법을 의미합니다.
+
+> 굳이Half-Close를 써야하나요? 
+> 
+> 무조건적인 방법은 아니지만, 안전한 종료를 위해 필요하다
+> 
+> 마지막 송신에 마지막을 의미하는 특정 데이터를 보낼수도 있지만, 스트림을 통해 데이터를 주고받는 과정에서에 바이너리 데이터에 시그널 데이터가 포함되어 문제가 발생할수 있기때문에 Half-Close가 권장된다.
 
 
 ---
