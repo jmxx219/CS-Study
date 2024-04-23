@@ -186,7 +186,7 @@ public class MemberService {
     - 서비스 클래스 혹은 메서드 단위에 어노테이션을 추가하여 사용함
     - `@Transactional` 어노테이션을 사용하라면 설정에 `@EnableTransactionManagement`를 추가해야 하는데, 스프링 부트에서는 자동으로 설정되어 있음
 - 옵션
-    - `isolation` : 트랜잭션에서 일관성 없는 데이터 허용 수준을 설정
+    - `isolation` : 트랜잭션에서 일관성 없는 데이터 허용 수준을 설정(격리수준)
     - `propagation` : 트랜잭션 동작 도중 다른 트랜잭션을 호출할 때, 어떻게 할 것인지 설정하는 옵션
     - `noRollbackFor` : 특정 예외 발생 시 rollback을 수행하지 않는 옵션
     - `rollbackFor` : 특정 예외 발생 시 rollback을 수행하는 옵션
@@ -195,7 +195,26 @@ public class MemberService {
 
 <br/>
 
-#### ➕ 읽기에 `@Transactional(readonly=true)`를 붙이는 이유
+### isolation
+
+> [트랜잭션 격리수준 참고](https://github.com/jmxx219/CS-Study/blob/main/Database/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98%EC%9D%98%20%EA%B2%A9%EB%A6%AC%EC%84%B1.md)
+
+```java
+@Trasanctional(isolation = Isolation.READ_UNCOMMITTED)
+public static void main() {}
+```
+
+#### 각 벤더별 Default 격리 수준
+
+- ORACLE : READ COMMITED
+- MySQL : REPEATABLE READ
+- SQL Server : READ COMMITED
+- PostgreSQL : READ COMMITED
+
+
+<br/>
+
+### ➕ 읽기에 `@Transactional(readonly=true)`를 붙이는 이유
 
 - JPA의 경우, 해당 옵션을 `true`로 설정하면 트랜잭션이 커밋되어도 [영속성 컨텍스트](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/ORM.md#%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8persistence-context)를 플러시 하지 않음. 
 - 플러시할 때 수행되는 엔티티는 변경 감지를 위한 스냅샵 비교 로직이 수행되지 않으므로 성능을 약간 향상 시킬 수 있음

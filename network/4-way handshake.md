@@ -1,34 +1,8 @@
 # 4-way Handshake
 
-TCP 프로토콜이 3 way handshake를 통해 연결을 수립하였다면 
-연결 해제는 4 way handshake를 사용한다.  
+TCP 프로토콜이 3 way handshake를 통해 연결을 수립하였다면 연결 해제는 4 way handshake를 사용한다.  
 
----
-
-## 4-way Handshake 동작 과정
-
-종료를 위한 총 4번의 통신과정이 이루어진다.  
-
-<br>
-
-1. Client -> `FIN` -> Server
-2. Client <- `ACK` <- Server
-3. Client <- `FIN + ACK` <- Server
-4. Client -> `ACK` -> Server
-
-<br>
-
-### Half-Close
-
-종료 신호를 보낼때 FIN과 ACK 을 같이 보내는데 이는 **Half-Close** 기법이다.  
-종료 요청자가 바로 완전히 종료하는 것이 아니라 처음 보내는 FIN 패킷에 현재까지 처리된 승인 번호를 담고, 
-이 승인 번호 이후에도 데이터가 있다면 더 받는다는 것이다.  수신자가 남은 데이터를 다 보내고 FIN 까지 보내고나면
-종료 요청자는 완전히 종료함으로써 조금 더 안전한 연결 종료를 할 수 있다.  
-
-
-## 4-way Handshake 상태
-
-각각의 과정을 조금 더 자세하게 확인해보자.  
+### 4-way Handshake 과정
 
 <br>
 
@@ -36,19 +10,33 @@ TCP 프로토콜이 3 way handshake를 통해 연결을 수립하였다면
 
 <br>
 
-1. 클라이언트는 서버와 통신을 종료하기 위해 FIN 플래그를 1로 설정하고 서버로 전송한다. `FIN-WAIT1`
-2. FIN 패킷을 받은 서버는 ACK 패킷을 전송하고 애플리케이션의 클로즈 요청을 기다린다. `CLOSE-WAIT`
-3. ACK 패킷을 받은 클라이언트는 서버의 FIN 패킷을 기다린다. `FIN-WAIT2`
-4. 애플리케이션의 클로즈 요청이 왔다면 클라이언트한테 FIN 패킷을 전송한다. `LAST-ACK`
-5. 서버한테 FIN 패킷을 받으면 그에 대한 ACK 패킷을 전송하고 **TIME_WAIT** 상태가 된다. `TIME-WAIT`
-6. ACK 패킷을 받은 서버는 **CLOSED** 상태로 이동하고, 커넥션을 삭제한다. `CLOSED`
+**[Step1]**
 
-<br>
+- 클라이언트가 연결 해제 요청 FIN을 서버로 전송한다.
+- 클라이언트 상태: ESTABLISHED -> FIN_WAIT_1
 
-한 가지 주의할 점은 클라이언트와 서버의 지칭이다. 반드시 서버만 `CLOSE_WAIT` 상태를 갖는 것이 아니다.  
-만약 서버가 먼저 종류하겠다고 클라이언트에게 **FIN**을 보내게 된다면 서버측이 `FIN_WAIT1`를 갖게 된다.  
-때문에 명칭을 클라이언트와 서버가 아닌 **Active Close**(또는 Initiator, 기존 클라이언트)와 **Passive Close**(또는 Receiver, 기존 서버)로 
-구분하는게 올바르다.  
+**[Step2]**
+
+- 서버는 연결 해제 요청을 승인한다는 의미로 클라이언트에 ACK을 전송한다.
+- 연결 해제 요청에 대한 승인으로, 바로 해제 되는 것이 아닌, `CLOSE_WAIT` 상태로 진입한 후 연결 해제 준비를 한다.
+- 서버 상태: ESTABLISHED -> CLOSE_WAIT
+- 클라이언트 상태: FIN_WAIT_1 -> FIN_WAIT_2
+
+> `Close-Wait`상태 후 애플리케이션이 종료됬다면 다음 단계로 넘어간다.
+
+  
+**[Step3]**
+
+- 서버는 연결 해제 준비가 완료되었다는 FIN을 클라이언트로 전송한다.
+- 서버 상태: CLOSE_WAIT -> LAST_ACK
+- 클라이언트 상태: FIN_WAIT_2 -> TIME_WAIT
+
+**[Step4]**
+
+- 클라이언트는 TIME_WAIT 시간 만큼 대기 후 서버로 ACK을 전송함으로써 마침내 연결이 해제된다.대개의 경우 2MSL(maximum segment lifetime - 1분~4분) 동안 TIME_WAIT 상태로 대기한다.
+- 클라이언트는 연결을 해제하겠다는 ACK을 바로 서버로 보내는 대신 2MSL 동안 TIMW_WAIT 상태로 대기함으로써 서버는 아직 도착하지 못한 패킷들을 받을 수 있는 여유 시간이 생긴다.
+- 클라이언트 상태: TIME_WAIT -> CLOSED
+- 서버 상태: LAST_ACK -> CLOSED
 
 <br>
 
