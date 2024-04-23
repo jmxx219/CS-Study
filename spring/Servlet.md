@@ -8,24 +8,21 @@
 
 - 동적 웹페이지를 만들때 사용되는 자바 기반의 웹 애플리케이션 프로그래밍 기술
 - 서블릿은 서버에서 실행되다 웹 클라이언트가 요청을 하면, 해당기능을 수행 후 웹 클라이언트에 결과를 전송해준다
-    - 예시 : 클라이언트가 로그인을 할때, 서버가 클라이언트의 아이디,비밀번호를 확인하고 결과를 응답하는 역할을 수행하는 것이 '서블릿'
-
 - 서블릿의 생성은 Java Servlet API를 통해 구현이 된다.
 
 
 ## Servlet(서블릿)의 특징
 - 클라이언트의 Request에 대해 동적으로 작동하는 웹 애플리케이션 컴포넌트이다
-- HTML을 사용하여 Response 한다
+- 주로 HTML을 사용하여 Response 한다 (XML, JSON, 일반 텍스트 모두 가능)
 - HTML 변경 시 Servlet을 재 컴파일해야 하는 단점이 있다
-- JAVA의 스레드를 이용하여 동작한다
+- JAVA의 스레드를 활용하여 동작한다
 - HTTP 프로토콜 서비스를 지원하는 javax.servlet.http.HttpServlet 클래스를 상속받는다
-- MVC 패턴에서 컨트롤러로 사용한다
-- UDP보다 속도가 느리다
+- Spring MVC에서 컨트롤러로 사용될 수 있다(DispatcherServlet)
 - 보안기능을 적용하기 쉽다
 
 ## Servlet의 동작과정
 
-![images_falling_star3_post_4fabf50a-d3d7-4391-8eb5-0cb436379d71_image](https://github.com/jmxx219/CS-Study/assets/64017307/60a686cb-a46d-4c4d-9ba4-315ba9bfd110)
+![images](https://github.com/jmxx219/CS-Study/assets/64017307/60a686cb-a46d-4c4d-9ba4-315ba9bfd110)
 
 
 클라이언트가 웹서버에 요청하면 웹 서버는 JAR or WAS에 위임한다. WAS는 요청에 해당하는 서블릿을 실행하고 그 서블릿은 요청에 대한 기능을 수행 후 결과를 반환하고 클라이언트에 전송한다.
@@ -41,9 +38,8 @@
 6. 동적 페이지 생성 후 ServletResponse 객체에 응답 전송
 7. HttpServletRequest, HttpServletResponse 객체 소멸
 ```
-### 서블릿은 이 과정에서 리소스, HTML 페이지, 이미지, 데이터 등을 처리한다
 
->  정적 웹 페이지와 서블릿 요청의 비교
+## 정적 웹 페이지와 서블릿 요청의 비교
 - 정적 웹 페이지 :
     - 브라우저가 요청하면 WEB에서는 저장된 페이지를 제공함
 - 동적 웹 페이지 :
@@ -56,9 +52,7 @@
     `서블릿은 WAS안에 있는 서블릿 컨테이너 or 웹 컨테이너 공간에서 활동함.`
 
 ## 서블릿의 생명주기
-
-![Uploading images_corone_hi_post_d118c7e4-af36-444d-ad13-f60cc7d20814_image.png…]()
-
+![images](https://velog.velcdn.com/images%2Fcorone_hi%2Fpost%2Fd118c7e4-af36-444d-ad13-f60cc7d20814%2Fimage.png)
 
 서블릿의 생명주기는 서블릿 로딩 ~ 소멸될때까지의 수명을 말한다.
 
