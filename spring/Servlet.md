@@ -1,15 +1,17 @@
 # Servlet
+
 ## Servlet(서블릿)이란?
 
-![다운로드 (2)](https://github.com/jmxx219/CS-Study/assets/64017307/28863883-c348-4ee1-b05c-8b78363d59e7)
+<img width="500px" src="https://github.com/jmxx219/CS-Study/assets/64017307/28863883-c348-4ee1-b05c-8b78363d59e7"/>
 
+    
+- 클라이언트의 요청을 처리하고 그 결과를 반환하는 Servlet클래스의 구현 구칙을 지킨 자바 웹 프로그래밍 기술
+ - 동적 웹페이지를 만들 때 사용되는 자바 기반의 웹 애플리케이션 프로그래밍 기술
+ - 서블릿은 서버에서 실행되다 웹 클라이언트가 요청을 하면, 해당기능을 수행 후 웹 클라이언트에 결과를 전송해준다.
+ - 서블릿의 생성은 Java Servlet API를 통해 구현이 된다.
 
-### 클라이언트의 요청을 처리하고 그 결과를 반환하는 Servlet클래스의 구현 구칙을 지킨 자바 웹 프로그래밍 기술
-
-- 동적 웹페이지를 만들때 사용되는 자바 기반의 웹 애플리케이션 프로그래밍 기술
-- 서블릿은 서버에서 실행되다 웹 클라이언트가 요청을 하면, 해당기능을 수행 후 웹 클라이언트에 결과를 전송해준다
-- 서블릿의 생성은 Java Servlet API를 통해 구현이 된다.
-
+<br>
+<br>
 
 ## Servlet(서블릿)의 특징
 - 클라이언트의 Request에 대해 동적으로 작동하는 웹 애플리케이션 컴포넌트이다
@@ -20,14 +22,16 @@
 - Spring MVC에서 컨트롤러로 사용될 수 있다(DispatcherServlet)
 - 보안기능을 적용하기 쉽다
 
+<br>
+<br>
+
 ## Servlet의 동작과정
 
-![images](https://github.com/jmxx219/CS-Study/assets/64017307/60a686cb-a46d-4c4d-9ba4-315ba9bfd110)
+<img width="500px" src="https://github.com/jmxx219/CS-Study/assets/64017307/60a686cb-a46d-4c4d-9ba4-315ba9bfd110"/>
 
-
-클라이언트가 웹서버에 요청하면 웹 서버는 JAR or WAS에 위임한다. WAS는 요청에 해당하는 서블릿을 실행하고 그 서블릿은 요청에 대한 기능을 수행 후 결과를 반환하고 클라이언트에 전송한다.
-
- - Tomcat, Jetty같은 웹 애플리케이션은 컨테이너는 서블릿의 라이프사이클을 담당함
+- 클라이언트가 웹서버에 요청하면 웹 서버는 JAR or WAS에 위임한다.
+- WAS는 요청에 해당하는 서블릿을 실행하고 그 서블릿은 요청에 대한 기능을 수행 후 결과를 반환하고 클라이언트에 전송한다.
+- Tomcat, Jetty같은 웹 애플리케이션은 컨테이너는 서블릿의 라이프사이클을 담당함
 
 ```
 1. 클라이언트 요청
@@ -39,7 +43,9 @@
 7. HttpServletRequest, HttpServletResponse 객체 소멸
 ```
 
-## 정적 웹 페이지와 서블릿 요청의 비교
+<br>
+
+### 정적 웹 페이지와 서블릿 요청의 비교
 - 정적 웹 페이지 :
     - 브라우저가 요청하면 WEB에서는 저장된 페이지를 제공함
 - 동적 웹 페이지 :
@@ -51,8 +57,12 @@
 
     `서블릿은 WAS안에 있는 서블릿 컨테이너 or 웹 컨테이너 공간에서 활동함.`
 
+<br>
+<br>
+
 ## 서블릿의 생명주기
-![images](https://velog.velcdn.com/images%2Fcorone_hi%2Fpost%2Fd118c7e4-af36-444d-ad13-f60cc7d20814%2Fimage.png)
+
+<img width="500px" src="https://velog.velcdn.com/images%2Fcorone_hi%2Fpost%2Fd118c7e4-af36-444d-ad13-f60cc7d20814%2Fimage.png"/>
 
 서블릿의 생명주기는 서블릿 로딩 ~ 소멸될때까지의 수명을 말한다.
 
@@ -62,6 +72,7 @@
 4. 각 클라이언트 요청에 대해 반복적으로 service() 메소드를 호출
 5. 소멸하기 위해 destroy() 메소드 호출
 
+<br>
 
 ### 주요 메소드
 
@@ -83,7 +94,8 @@
         ```java
         public void destroy()
         ```
-
+<br>
+<br>
 
 ## 서블릿 컨테이너
 
@@ -93,6 +105,8 @@
 - 클라이언트의 요청(Request)을 받고 응답(Response)할 수 있게, 웹 서버와 소켓으로 통신하며 대표적으로 톰캣(Tomcat)이 있다. 
     - 클라이언트에서 요청을 하면 컨테이너는 HttpServletRequest, HttpServletResponse 두 객체를 생성하여 post, get여부에 따라 동적인 페이지를 생성하여 응답을 보낸다.
 - 톰캣은 웹 서버와 통신하여 JSP(Java Server Page)와 Servlet이 작동하는 환경을 제공해준다.
+
+<br>
 
 ### 역할
 - 웹 서버와 통신지원
