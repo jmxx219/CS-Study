@@ -52,51 +52,40 @@
 * 다형성은 하나의 변수명, 함수명 등이 상황에 따라 다른 의미로 해석될 수 있는 것을 의미한다.
 * 일반적으로 오버라이딩과 오버로딩을 말한다.
 * **오버로딩**(Overloading)은 같은 이름의 메서드가 매개변수의 타입과 개수를 다르게 하여 정의하는 것을 의미한다.
+  ```java
+  public class Calculator {
+      public int sum(int a, int b) {
+          return a + b;
+      }
+      
+      public int sum(int a, int b, int c) {
+          return a + b + c;
+      }
+      
+      public double sum(double a, double b) {
+          return a + b;
+      }
+      
+      public int sum(int x, int y) { // 이 메서드는 컴파일 에러가 발생한다.
+          return x + y;              // 첫번째 메서드와 메서드의 시그니처가 같기 때문이다.
+      }
+  }
+  ```
 * **오버라이딩**(Overriding)은 상위 클래스가 가지고 있는 메서드를 하위 클래스가 재정의하여 사용하는 것을 의미한다.
-
-<br>
-
-**오버로딩 예시**
-
-```java
-public class Calculator {
-    public int sum(int a, int b) {
-        return a + b;
-    }
-    
-    public int sum(int a, int b, int c) {
-        return a + b + c;
-    }
-    
-    public double sum(double a, double b) {
-        return a + b;
-    }
-    
-    public int sum(int x, int y) { // 이 메서드는 컴파일 에러가 발생한다.
-        return x + y;              // 첫번째 메서드와 메서드의 시그니처가 같기 때문이다.
-    }
-}
-```
-
-
-<br>
-
-**오버라이딩 예시**
-
-```java
-public class Animal {
-    public void move() {
-        System.out.println("동물이 움직입니다.");
-    }
-}
-
-public class Human extends Animal {
-    @Override
-    public void move() {
-        System.out.println("사람이 두 발로 걷습니다.");
-    }
-}
-```
+  ```java
+  public class Animal {
+      public void move() {
+          System.out.println("동물이 움직입니다.");
+      }
+  }
+  
+  public class Human extends Animal {
+      @Override
+      public void move() {
+          System.out.println("사람이 두 발로 걷습니다.");
+      }
+  }
+  ```
 
 <br>
 
