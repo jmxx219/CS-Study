@@ -1,9 +1,7 @@
 # 객체지향 프로그래밍 OOP (Object Oriented Programing)
 
-## 객체지향이란
-
-* 객체지향 프로그래밍은 컴퓨터 프로그램을 명령어의 목록으로 보는 시각에서 벗어나 여러 개의 객체들이 서로 협력하는 형태의 구조를 지향한다
-* 객체는 각자 맡은 책임이 있고, 서로 메시지를 주고받으면서 협력한다.
+- 객체지향 프로그래밍은 컴퓨터 프로그램을 명령어의 목록으로 보는 시각에서 벗어나 여러 개의 객체들이 서로 협력하는 형태의 구조를 지향한다
+- 객체는 각자 맡은 책임이 있고, 서로 메시지를 주고받으면서 협력한다.
 
 <br>
 
@@ -31,7 +29,7 @@
 
 <br>
 
-## 특징
+## 객체지향 특징
 
 ### 추상화
 
@@ -54,51 +52,40 @@
 * 다형성은 하나의 변수명, 함수명 등이 상황에 따라 다른 의미로 해석될 수 있는 것을 의미한다.
 * 일반적으로 오버라이딩과 오버로딩을 말한다.
 * **오버로딩**(Overloading)은 같은 이름의 메서드가 매개변수의 타입과 개수를 다르게 하여 정의하는 것을 의미한다.
+  ```java
+  public class Calculator {
+      public int sum(int a, int b) {
+          return a + b;
+      }
+      
+      public int sum(int a, int b, int c) {
+          return a + b + c;
+      }
+      
+      public double sum(double a, double b) {
+          return a + b;
+      }
+      
+      public int sum(int x, int y) { // 이 메서드는 컴파일 에러가 발생한다.
+          return x + y;              // 첫번째 메서드와 메서드의 시그니처가 같기 때문이다.
+      }
+  }
+  ```
 * **오버라이딩**(Overriding)은 상위 클래스가 가지고 있는 메서드를 하위 클래스가 재정의하여 사용하는 것을 의미한다.
-
-<br>
-
-**오버로딩 예시**
-
-```java
-public class Calculator {
-    public int sum(int a, int b) {
-        return a + b;
-    }
-    
-    public int sum(int a, int b, int c) {
-        return a + b + c;
-    }
-    
-    public double sum(double a, double b) {
-        return a + b;
-    }
-    
-    public int sum(int x, int y) { // 이 메서드는 컴파일 에러가 발생한다.
-        return x + y;              // 첫번째 메서드와 메서드의 시그니처가 같기 때문이다.
-    }
-}
-```
-
-
-<br>
-
-**오버라이딩 예시**
-
-```java
-public class Animal {
-    public void move() {
-        System.out.println("동물이 움직입니다.");
-    }
-}
-
-public class Human extends Animal {
-    @Override
-    public void move() {
-        System.out.println("사람이 두 발로 걷습니다.");
-    }
-}
-```
+  ```java
+  public class Animal {
+      public void move() {
+          System.out.println("동물이 움직입니다.");
+      }
+  }
+  
+  public class Human extends Animal {
+      @Override
+      public void move() {
+          System.out.println("사람이 두 발로 걷습니다.");
+      }
+  }
+  ```
 
 <br>
 
@@ -119,7 +106,9 @@ public class Human extends Animal {
 
 <br>
 
-#### 응집도와 결합도
+#### 응집도
+
+<img alt="image" height="200" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/2356f3db-4b8b-4d1b-bdf6-9b360de0ddf6"/>
 
 * 응집도는 모듈에 포함된 내부 요소들이 연관돼 있는 정도를 나타낸다.
 * 모듈 내의 요소들이 하나의 목적을 위해 긴밀하게 협력한다면 그 모듈은 높은 응집도를 가진다.
@@ -128,58 +117,51 @@ public class Human extends Animal {
 
 <br>
 
-<img alt="image" height="200" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/2356f3db-4b8b-4d1b-bdf6-9b360de0ddf6"/>
+#### 결합도
 
-<br>
-
-<br>
-
-<br>
+<img alt="image" height="200" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/ef96aeb5-2688-4896-93aa-c595b6ec15ea"/>
 
 * 결합도는 의존성의 정도를 나타내며 다른 모듈에 대해 얼마나 많은 지식을 갖고 있는지를 나타내는 척도이다.
 * 어떤 모듈이 다른 모듈에 대해 너무 자세한 부분까지 알고 있다면 두 모듈은 높은 결합도를 가진다.
 * 어떤 모듈이 다른 모듈에 대해 꼭 필요한 지식만 알고 있다면 두 모듈은 낮은 결합도를 가진다.
 * 결합도가 높으면 함께 변경해야 하는 모듈의 수가 늘어나기에 변경이 어려워진다.
 
-
+<br>
 <br>
 
-<img alt="image" height="200" src="https://github.com/reddevilmidzy/CS-Study/assets/78539407/ef96aeb5-2688-4896-93aa-c595b6ec15ea"/>
+## [SOLID 원칙](https://github.com/jmxx219/CS-Study/blob/main/etc/SOLID.md)
 
+> OOP에서 코드의 설계, 유지보수성, 확장성, 이해 용이성을 높이기 위한 5가지 설계 원칙
+
+- (S) 단일 책임 원칙 - Single Responsibility Principal
+    - 하나의 클래스는 하나의 책임(핵심기능)만을 가져야 한다.
+    - SRP을 준수할 경우 영향 범위가 축소 되고 변경으로 인한 오류 가능성이 감소한다.
+- (O) 개방 폐쇄 원칙 - Open-Closed Principal
+    - 새로운 기능에는 열려 있어야 하지만, 기존 기능의 변경에는 닫혀 있어야 한다.
+    - 기존 코드를 변경하여 새로운 기능을 추가할 경우 코드의 안정성이 떨어지므로 기존 코드를 변경하지 않고 새로운 코드를 작성해야 한다.
+- (L) 리스코프 치환 원칙 - Liskov Substitution Principal
+    - 부모 클래스의 인스턴스가 자식 클래스의 인스턴스로 대체될 수 있어야 한다.
+    - 상속 관계에서 부모 클래스와 자식 클래스의 기능 호환성을 의미한다.
+- (I) 인터페이스 분리 원칙 - Interface Segregation Principal ###
+    - 클라이언트는 자신이 필요한 최소한의 인터페이스만 사용해야 한다.
+    - 하나에 인터페이스에 많은 기능을 포함할 경우 코드의 결합도가 높아지므로 기능 별로 인터페이스를 정의하고, 필요한 기능만 인터페이스로 제공한다.
+- (D) 의존 역전 원칙 - Dependency Inversion Principal
+    - 객체는 구체적인 객체가 아닌 추상화에 의존해야 한다.
+    - 예시 - Dependency Injection - Constructor에 Interface를 Parameter로 받는 경우
+
+<br>
 <br>
 
 ## 객체지향의 장단점
 
-### 장점
-
-* 변경에 유연하게 대응할 수 있는 구조를 갖게 되어 유지보수하기 쉬워진다
-* 코드의 재사용성을 높일 수 있다.
-* 객체 단위로 코드를 작성하기 때문에 디버깅이 쉽다.
- 
-
-### 단점
-
-* 프로그램이 커질 경우 객체간의 관계를 파악하기 어렵다.
-* 규모가 작은 프로젝트에서 객체지향을 적용한다면 오히려 가독성을 저하시킬 수 있다.
-* 추상화와 다형성 등의 기능을 제공하기 위해 런타임에서 추가적인 작업을 수행해야 하기에 일부 경우에는 성능 오버헤드가 발생할 수 있다.
-
-<br>
-
-## 객체지향 언어
-
-대표적인 객체지향 프로그래밍 언어는 아래와 같다.
-
-* 시뮬라 67
-* 스몰토크
-* 오브젝티브-C
-* C++
-* C#
-* 자바
-* 객체지향 파스칼
-* 파이썬
-* 루비
-
-<br>
+- 장점
+    * 변경에 유연하게 대응할 수 있는 구조를 갖게 되어 유지보수하기 쉬워진다
+    * 코드의 재사용성을 높일 수 있다.
+    * 객체 단위로 코드를 작성하기 때문에 디버깅이 쉽다.
+- 단점
+    * 프로그램이 커질 경우 객체간의 관계를 파악하기 어렵다.
+    * 규모가 작은 프로젝트에서 객체지향을 적용한다면 오히려 가독성을 저하시킬 수 있다.
+    * 추상화와 다형성 등의 기능을 제공하기 위해 런타임에서 추가적인 작업을 수행해야 하기에 일부 경우에는 성능 오버헤드가 발생할 수 있다.
 
 <br>
 
@@ -189,4 +171,3 @@ public class Human extends Animal {
 
 * [위키백과 - 객체지향 프로그래밍](https://ko.wikipedia.org/wiki/%EA%B0%9D%EC%B2%B4_%EC%A7%80%ED%96%A5_%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D)
 * [역할, 책임, 협력](https://lazypazy.tistory.com/250)
-* [[오브젝트] 4장 설계 품질과 트레이드오프](https://lazypazy.tistory.com/252)
