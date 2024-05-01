@@ -64,7 +64,7 @@ LOCK TABLES table_name [AS alias] {READ | [READ LOCAL] | WRITE}
 
 **SELECT … FOR UPDATE, INSERT, DELETE, UPDATE 이 실행되면**
 
-1. intention exclusive lock (IX) 이 테이블에 걸림
+1. Intention Exclusive Lock (IX) 이 테이블에 걸림
 2. row-level 에 X-Lock 이 걸림
 
 > IS, IX 락은 여러 트랜잭션에서 동시에 접근 가능하지만, row-level 의 실제 락인 S, X 락에서 접근 제어를 하게 된다.
