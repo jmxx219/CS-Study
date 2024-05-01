@@ -76,8 +76,6 @@ LOCK TABLES table_name [AS alias] {READ | [READ LOCAL] | WRITE}
 
 개별 행에 대한 잠금으로 동시성이 높은 환경에서 유리하다. **행 단위로 잠금을 관리**하므로 여러 트랜잭션이 서로 다른 행을 동시에 처리할 수 있다. 
 
-<br/>
-
 #### Shared Lock (공유 잠금)
 
 - Row Level Lock
@@ -85,8 +83,6 @@ LOCK TABLES table_name [AS alias] {READ | [READ LOCAL] | WRITE}
 - 하나의 트랜잭션이 데이터를 읽고 있는 경우, 다른 트랜잭션들도 해당 데이터를 읽을 수는 있지만, 쓰기 작업은 금지된다. 
 - 데이터의 일관성을 유지할 수 있다. 
 - 트랜잭션 격리수준 중 Repeatable Read 단계와 연관
-
-<br/>
 
 #### Exclusive Lock (배타적 잠금)
 
