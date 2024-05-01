@@ -6,7 +6,13 @@ Lock의 종류는 락 적용 요소에 따라 크게 두 가지로 나뉘어 진
 
 <br/>
 
-## DB Lock의 범위 
+## DB Lock의 Level
+
+1. **행 수준 잠금 (Row-Level Locking):** 데이터를 개별 행 단위로 잠금을 설정하는 것을 말한다. 이 경우에는 특정 행만 잠겨서 다른 트랜잭션은 해당 행에 접근할 수 없게 된다.
+2. **테이블 수준 잠금 (Table-Level Locking):** 테이블과 인덱스에 모두 잠금을 설정. Select table, Alter table, Vacuum, Refresh, Index, Drop, Truncate 등의 작업에서 해당레벨의 락이 설정된다.
+3. **데이터베이스 수준 잠금 (Database-Level Locking)**: 데이터베이스를 복구하거나 스키마를 변경할 때 발생
+
+<br/>
 
 ### Gobal Lock
 
