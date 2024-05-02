@@ -2,31 +2,54 @@
 
 데이터베이스에서 Lock은 여러 트랜잭션(데이터베이스 작업 단위)이 동시에 데이터에 접근하고 수정하는 상황에서 데이터의 일관성과 무결성을 보장하기 위해 사용되는 개념
 
-Lock의 종류는 락 적용 요소에 따라 크게 두 가지로 나뉘어 진다.
+<br/>
+
+## DB Lock의 Level
+
+1. **행 수준 잠금 (Row-Level Locking):** 데이터를 개별 행 단위로 잠금을 설정하는 것을 말한다. 이 경우에는 특정 행만 잠겨서 다른 트랜잭션은 해당 행에 접근할 수 없게 된다.
+2. **테이블 수준 잠금 (Table-Level Locking):** 테이블과 인덱스에 모두 잠금을 설정. Select table, Alter table, Vacuum, Refresh, Index, Drop, Truncate 등의 작업에서 해당레벨의 락이 설정된다.
+3. **데이터베이스 수준 잠금 (Database-Level Locking)**: 데이터베이스를 복구하거나 스키마를 변경할 때 발생
 
 <br/>
 
-### Shared Lock (공유 잠금)
+### Gobal Lock
 
-- Row Level Lock
-- 데이터를 읽을 때 사용하는 Lock (S로 표기)
-
-- 하나의 트랜잭션이 데이터를 읽고 있는 경우, 다른 트랜잭션들도 해당 데이터를 읽을 수는 있지만, 쓰기 작업은 금지된다. 
-- 데이터의 일관성을 유지할 수 있다. 
-- 트랜잭션 격리수준 중 Repeatable Read 단계와 연관
+글로벌 락은 **FLUSH TABLES WITH READ LOCK** 명령으로 획득할 수 있으며, 글로벌 LOCK이 영향을 미치는 대상은 MySQL 서버 전체이며, SELECT 쿼리를 제외한 대부분의 DDL이나 DML 쿼리를 실행할 수 없다. <br/>
+데이터 베이스의 **구조적 변경, 백업 수행, 또는 크리티컬한 데이터 마이그레이션 작업 시에 사용**된다.
 
 <br/>
 
-### Exclusive Lock (배타적 잠금)
+#### Backup Lock 
 
-- Row Level Lock
-- 데이터를 변경하고자 할 때 사용되며, 트랜잭션이 완료될 때 까지 유지된다.  (X로 표기)
-- 특정 트랜잭션이 데이터를 수정하고 있는 경우, 해당 데이터에 대한 다른 모든 트랜잭션의 접근이 금지된다. 
-- 트랜잭션 격리수준 중 Serializable 단계와 연관
+InnoDB는 트랜잭션을 지원하기 때문에 일관된 데이터 상태를 위해 모든 데이터의 변경 작업을 멈출 필요가 없어졌다. 
+MySQL이 8.0부터 InnoDB가 기본 Storage 엔진이 되면서 조금 더 가벼운 글로벌 락의 필요성이 생겼다. 
+이러한 이유로 도입된게 Backup Lock이다.
+
+```sql
+LOCK INSTANCE FOR BACKUP
+-- // 백업 실행
+UNLOCK INSTANCE
+```
+
+백업 락은 일반적인 테이블의 데이터 변경은 허용되고 스키마 변경같은 DDL 명령어가 실행되면 복제를 일시 중지하는 역할을 한다.
+
+<br/>
+<br/>
+
+### Table Lock
+
+전체 테이블에 대한 잠금으로, **특정 테이블의 모든 행에 대한 잠금을 설정**한다. 주로 대량의 데이터를 추가, 업데이트 또는 삭제하는 배치 작업에서 유리하며, 이러한 작업 중에는 다른 작업의 간섭을 최소화할 필요가 있다. 
+
+```sql
+LOCK TABLES table_name [AS alias] {READ | [READ LOCAL] | WRITE}
+```
+
+명령으로 특정 테이블의 락을 획득할 수 있으며 MyISAM 뿐만 아니라 InnoDB에서도 사용이 가능하며 명시적으로 획득한 잠금은 UNLOCK TABLES 명령으로 잠금을 반납할 수 있다.  <br/>
+묵시적인 테이블 락은 스키마를 변경하는 쿼리(DDL)을 사용하는 경우에 발생하며, 이 경우에는 쿼리가 완료된 후 자동으로 락이 해제된다.
 
 <br/>
 
-### Intention Lock
+#### Intention Lock
 
 - MySQL InnoDB 엔진에는 intention lock의 개념도 존재한다. 
 - row에 대해서 나중에 어떤 row-level 락을 걸 것을 알려주기 위해 미리 table-level에 걸어두는 lock
@@ -41,15 +64,34 @@ Lock의 종류는 락 적용 요소에 따라 크게 두 가지로 나뉘어 진
 
 **SELECT … FOR UPDATE, INSERT, DELETE, UPDATE 이 실행되면**
 
-1. intention exclusive lock (IX) 이 테이블에 걸림
+1. Intention Exclusive Lock (IX) 이 테이블에 걸림
 2. row-level 에 X-Lock 이 걸림
 
 > IS, IX 락은 여러 트랜잭션에서 동시에 접근 가능하지만, row-level 의 실제 락인 S, X 락에서 접근 제어를 하게 된다.
 
-
+<br/>
 <br/>
 
-#### Q. row-level 및 table-level 에서 두 번 Lock하는 이유는?
+### Row Level Lock 
+
+개별 행에 대한 잠금으로 동시성이 높은 환경에서 유리하다. **행 단위로 잠금을 관리**하므로 여러 트랜잭션이 서로 다른 행을 동시에 처리할 수 있다. 
+
+#### Shared Lock (공유 잠금)
+
+- Row Level Lock
+- 데이터를 읽을 때 사용하는 Lock (S로 표기)
+- 하나의 트랜잭션이 데이터를 읽고 있는 경우, 다른 트랜잭션들도 해당 데이터를 읽을 수는 있지만, 쓰기 작업은 금지된다. 
+- 데이터의 일관성을 유지할 수 있다. 
+- 트랜잭션 격리수준 중 Repeatable Read 단계와 연관
+
+#### Exclusive Lock (배타적 잠금)
+
+- Row Level Lock
+- 데이터를 변경하고자 할 때 사용되며, 트랜잭션이 완료될 때 까지 유지된다.  (X로 표기)
+- 특정 트랜잭션이 데이터를 수정하고 있는 경우, 해당 데이터에 대한 다른 모든 트랜잭션의 접근이 금지된다. 
+- 트랜잭션 격리수준 중 Serializable 단계와 연관
+
+### Q. row-level 및 table-level 에서 두 번 Lock하는 이유는?
 
 A. 트랜잭션에서 이미 테이블에 대해 락이 걸려있는데, B 트랜잭션에서 해당 테이블의 특정 row에 lock을 거는것을 원천적으로 방지 할 수 있다.
 (반대의 경우도 마찬가지)
@@ -64,6 +106,20 @@ EX) row-level의 write이 일어나고 있을때 테이블 스키마가 변경�
 | S    | Conflict | Conflict   | Compatible | Compatible |
 | IS   | Conflict | Compatible | Compatible | Compatible |
 
+- Conflict : 락을 걸 수 없음(두 락이 중복)
+- Compatible : 락을 걸 수 있음(두 락이 동시에 걸릴 수 있음)
+
+<br/>
+
+### **Escalation**
+
+- 잠금 수준을 최적화하는 과정
+
+Lock Escalation은 데이터베이스 시스템이 특정 Lock Level에서 다른 Lock Level로 전환하는 과정을 의미한다. 일반적으로 특정 트랜잭션에서 많은 수의 잠금을 설정하려는 경우 시스템은 이를 관리하기 위해 Lock Level을 높일 수 있다. 
+
+ Lock 레벨이 낮을 수록 동시성이 좋아지지만, 관리해야할 Lock이 많아지기 때문에 메모리 효율성은 떨어짐. 반대로 Lock레벨이 높을 수록 관리리소스는 낮지만, 동시성은 떨어진다.
+
+<br/>
 
 <br/>
 
@@ -72,6 +128,8 @@ EX) row-level의 write이 일어나고 있을때 테이블 스키마가 변경�
 **Lock간의 경합 (Race Condition)이 발생하여 특정 Transition이 작업을 진행하지 못하고 멈춰선 상태.** 공유 락 끼리는 블로킹이 발생하지 않지만 베타 락은 블로킹을 발생시킨다. 
 
 **블로킹을 해소하기 위해서는 이전 트랜잭션이 완료 (commit / rollback)이 되어야 한다.**
+
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcHthSM%2FbtszWH7nWRq%2FLOFDvWGupgp2DcTffKYRlk%2Fimg.png" width=700 />
 
 <br/>
 
@@ -88,7 +146,7 @@ EX) row-level의 write이 일어나고 있을때 테이블 스키마가 변경�
 
 두개의 트랜젝션간에 각각의 트랜젝션이 가지고 있는 리소스의 Lock을 획득하려고 할 때 발생
 
-![img](https://blog.kakaocdn.net/dn/KsWNc/btrJWMxiQYq/YyHA42p2v0pMXMmkH9DTZk/img.png)
+<img src="https://blog.kakaocdn.net/dn/KsWNc/btrJWMxiQYq/YyHA42p2v0pMXMmkH9DTZk/img.png" width=500 />
 
 위와 같이 각각의 트랜잭션에 Lock을 걸고 상대방 Lock에 접근하여 반환 받지 못하는 상황에서 Dead Lock이 발생하게 된다
 
@@ -106,29 +164,6 @@ EX) row-level의 write이 일어나고 있을때 테이블 스키마가 변경�
 
 2. Dead Lock 방지를 위해 접근 순서를 동일하게 하는 것이 중요 -> 접근 순서 규칙을 정한다. 
 
-
-<br/>
-
-## Lock Level & Escalation
-
-SQL 명령어에 따라서 Lock의 설정대상이 데이터 row일지 database일지 나누어진다. 
-
-### Lock Level
-
-1. **페이지 수준 잠금 (Page-Level Locking)**: 데이터를 페이지 단위로 잠금을 설정하는 것을 의미한다.  즉, 페이지 내에 포함된 여러 레코드가 함께 잠겨서 동시에 접근하지 못하게 된다 .
-2. **행 수준 잠금 (Row-Level Locking):** 데이터를 개별 행 단위로 잠금을 설정하는 것을 말한다. 이 경우에는 특정 행만 잠겨서 다른 트랜잭션은 해당 행에 접근할 수 없게 된다.
-3. **테이블 수준 잠금 (Table-Level Locking):** 테이블과 인덱스에 모두 잠금을 설정. Select table, Alter table, Vacuum, Refresh, Index, Drop, Truncate 등의 작업에서 해당레벨의 락이 설정된다.
-4. **데이터베이스 수준 잠금 (Database-Level Locking)**: 데이터베이스를 복구하거나 스키마를 변경할 때 발생
-
-<br/>
-
-### **Escalation**
-
-- 잠금 수준을 최적화하는 과정
-
-Lock Escalation은 데이터베이스 시스템이 특정 Lock Level에서 다른 Lock Level로 전환하는 과정을 의미한다. 일반적으로 특정 트랜잭션에서 많은 수의 잠금을 설정하려는 경우 시스템은 이를 관리하기 위해 Lock Level을 높일 수 있다. 
-
- Lock 레벨이 낮을 수록 동시성이 좋아지지만, 관리해야할 Lock이 많아지기 때문에 메모리 효율성은 떨어짐. 반대로 Lock레벨이 높을 수록 관리리소스는 낮지만, 동시성은 떨어진다.
 
 <br/>
 
