@@ -1,6 +1,6 @@
 # 3-way handshake
 
-> [TCP](https://github.com/jmxx219/CS-Study/blob/main/Network/TCP%EC%99%80%20UDP.md#tcptransmission-control-protocol)는 애플리케이션 프로세스간의 데이터 전송 전에 논리적인 접속을 성립(establish)하기 위해서 3-way handshake 과정을 거친다.
+> [TCP](https://github.com/jmxx219/CS-Study/blob/main/network/TCP%EC%99%80%20UDP.md#tcptransmission-control-protocol)는 애플리케이션 프로세스간의 데이터 전송 전에 논리적인 접속을 성립(establish)하기 위해서 3-way handshake 과정을 거친다.
 
 - TCP/IP 프로토콜을 이용해서 통신하는 응용 프로그램이 데이터를 전송하기 전에 정확한 전송을 보장하기 위해 상대방 컴퓨터와 사전에 세션을 수립하는 과정
 - 신뢰성을 위해 3번의 핸드쉐이킹을 거쳐 연결을 맺는 것
@@ -13,7 +13,7 @@
 
 ## 3-Way-Handshake에서 사용되는 TCP 헤더 필드
 
-> [TCP의 헤더 참고](https://github.com/jmxx219/CS-Study/blob/main/Network/TCP%EC%99%80%20UDP.md#tcp%EC%9D%98-%ED%97%A4%EB%8D%94)
+> [TCP의 헤더 참고](https://github.com/jmxx219/CS-Study/blob/main/network/TCP%EC%99%80%20UDP.md#tcp%EC%9D%98-%ED%97%A4%EB%8D%94)
 
 
 ### ◽️ Sequence Number

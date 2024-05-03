@@ -52,7 +52,7 @@
 
 ## 카프카란?
 
-> [메시지 브로커 참고](https://github.com/jmxx219/CS-Study/blob/main/Database/Message%20Broker.md#message-broker)
+> [메시지 브로커 참고](https://github.com/jmxx219/CS-Study/blob/main/database/Message%20Broker.md#message-broker)
 
 - 고성능 데이터 파이프라인, 스트리밍 분석, 데이터 통합 등을 위해 설계된 `오픈 소스 분산 이벤트 스트리밍 플랫폼`
   - 데이터를 생성하는 애플리케이션과 데이터를 소비하는 애플리케이션 간의 중재자 역할을 함으로써 데이터의 전송 제어 및 처리와 관리 역할을 함
@@ -63,7 +63,7 @@
 
 <br/>
 
-#### [이벤트 스트리밍 플랫폼](https://github.com/jmxx219/CS-Study/blob/main/Database/Message%20Broker.md#apache-kafka)
+#### [이벤트 스트리밍 플랫폼](https://github.com/jmxx219/CS-Study/blob/main/database/Message%20Broker.md#apache-kafka)
 
 - `이벤트 스트리밍`
   - 데이터베이스, 센서, 모바일 장치, 클라우드 서비스, 소프트웨어 어플리케이션과 같은 이벤트 소스에서 실시간 데이터를 이벤트 스트림의 형태로 처리하거나 분석하는 것
@@ -76,7 +76,7 @@
 <br/>
 
 #### 메시지 큐(Message Queue, MQ)
-- [메시지 지향 미들웨어(MOM)](https://github.com/jmxx219/CS-Study/blob/main/Database/Message%20Broker.md#mom-message-oriented-middleware)는 비동기 메시지를 사용하는 각각의 응용 프로그램 사이의 데이터 송수신을 의미하고, 이를 구현한 시스템을 `메시지 큐`라고 함
+- [메시지 지향 미들웨어(MOM)](https://github.com/jmxx219/CS-Study/blob/main/database/Message%20Broker.md#mom-message-oriented-middleware)는 비동기 메시지를 사용하는 각각의 응용 프로그램 사이의 데이터 송수신을 의미하고, 이를 구현한 시스템을 `메시지 큐`라고 함
 
 
 <br/>

@@ -1,6 +1,6 @@
 # TCP와 UDP
 
-> TCP와 UDP는 [OSI 7계층](https://github.com/jmxx219/CS-Study/blob/main/Network/OSI%207%EA%B3%84%EC%B8%B5.md) 중 `전송 계층`에서 사용되는 프로토콜로, 전송 계층은 송싱자와 수신자를 연결하는 통신 서비스를 제공하는 계층임  
+> TCP와 UDP는 [OSI 7계층](https://github.com/jmxx219/CS-Study/blob/main/network/OSI%207%EA%B3%84%EC%B8%B5.md) 중 `전송 계층`에서 사용되는 프로토콜로, 전송 계층은 송싱자와 수신자를 연결하는 통신 서비스를 제공하는 계층임  
 > 즉, 데이터의 전달을 담당하며 패킷의 오류를 검사하고 재전송 요구 등의 제어를 담당함
 
 <br/>
@@ -26,7 +26,7 @@
   - 미리 고정된 이동 경로를 설정하지 않는 대신 패킷이라는 작은 단위로 나누어 전송하는 방식
   - 데이터는 네트워크를 통해 전송되기 전에 패킷이라는 작은 조각으로 나누고, 각 패킷에는 고유 번호가 있어서 네트워크를 거쳐 최종 수신지에 전송되었을 때 원래의 데이터로 재결함됨
     - 각각의 패킷은 전송 당시 가장 효율적인 경로를 각자 설정하여 최종 수신지까지 이동함
-    - 패킷을 수신한 중간 노드가 패킷의 수신지 호스트를 확인하고 수신지 호스트까지 가는 다양한 경로 중 가장 좋다고 판단되는 경로를 따라 다음 중간 노드로 패킷을 전송하는 기능([라우팅](https://github.com/jmxx219/CS-Study/blob/main/Network/%EB%9D%BC%EC%9A%B0%ED%84%B0.md#%EB%9D%BC%EC%9A%B0%ED%8C%85))을 수행함
+    - 패킷을 수신한 중간 노드가 패킷의 수신지 호스트를 확인하고 수신지 호스트까지 가는 다양한 경로 중 가장 좋다고 판단되는 경로를 따라 다음 중간 노드로 패킷을 전송하는 기능([라우팅](https://github.com/jmxx219/CS-Study/blob/main/network/%EB%9D%BC%EC%9A%B0%ED%84%B0.md#%EB%9D%BC%EC%9A%B0%ED%8C%85))을 수행함
   - 현재는 데이터를 패킷이라는 작은 단위로 분할하여 라우터를 통해 전송하는 것이 기본이 됨
   - 패킷 교환 방식의 유형
     - 가상 회선 패킷 교환(연결 지향 패킷 교환) ➜ `TCP`
@@ -46,7 +46,7 @@
 - 특징
   - 연결형 서비스로 가상 회선 패킷 교환 방식을 제공함
     - 가상 회선 방식: 발신지와 수신지를 연결하여 패킷을 전송하기 위한 논리적 경로를 배정한다는 의미
-    - [3-way handshaking 과정](https://github.com/jmxx219/CS-Study/blob/main/Network/3-way%20handshake.md)을 통해 연결을 설정하고, [4-way handshaking 과정](https://github.com/jmxx219/CS-Study/blob/main/Network/4-way%20handshake.md)을 통해 연결을 해제함
+    - [3-way handshaking 과정](https://github.com/jmxx219/CS-Study/blob/main/network/3-way%20handshake.md)을 통해 연결을 설정하고, [4-way handshaking 과정](https://github.com/jmxx219/CS-Study/blob/main/network/4-way%20handshake.md)을 통해 연결을 해제함
       - 3-way handshaking 과정은 발신지와 수신지 사이에 논리적인 접속(세션)을 성립하는 과정을 의미함
   - 전송 제어
     - `흐름 제어(Flow control)`: 데이터 처리 속도를 조절하여 수신자의 버퍼 오버플로우를 방지

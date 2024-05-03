@@ -10,9 +10,9 @@
     - ex) DB의 학생 정보가 자원일 때 `students`를 자원의 표현으로 정하고, 학생 정보가 요청되는 시점에 자원의 상태(정보)를 전달함
   - 월드 와이드 웹(WWW)과 같은 분산 하이퍼미디어 시스템을 위한 소프트웨어 개발 아키텍처의 한 형식
     - REST는 네트워크 상에서 클라이언트와 서버 사이의 통신 방식 중 하나임
-    - 기본적으로 웹의 기존 기술과 [HTTP 프로토콜](https://github.com/jmxx219/CS-Study/blob/main/Network/HTTP.md)을 그대로 활용하기 때문에 웹의 장점을 최대한 활용할 수 있는 아키텍처 스타일
+    - 기본적으로 웹의 기존 기술과 [HTTP 프로토콜](https://github.com/jmxx219/CS-Study/blob/main/network/HTTP.md)을 그대로 활용하기 때문에 웹의 장점을 최대한 활용할 수 있는 아키텍처 스타일
 - 구체적인 개념
-  - 즉, REST란 HTTP URI를 통해 자원을 명시하고, [HTTP Method](https://github.com/jmxx219/CS-Study/blob/main/Network/HTTP%20Method.md)를 통해 해당 자원(URI)에 대한 CRUD Operation을 적용하는 것을 의미함
+  - 즉, REST란 HTTP URI를 통해 자원을 명시하고, [HTTP Method](https://github.com/jmxx219/CS-Study/blob/main/network/HTTP%20Method.md)를 통해 해당 자원(URI)에 대한 CRUD Operation을 적용하는 것을 의미함
   - CRUD Operation: Create, Read, Update, Delete, Head
 
 
@@ -23,7 +23,7 @@
     - 모든 자원에는 고유한 ID(HTTP URI)가 존재하고, 이 자원은 Server에 존재함
       - 자원을 구별하는 ID는 HTTP URL임
     - Client는 URI를 이용해서 자원을 지정하고, 해당 자원의 상태에 대한 조작을 Server에 요청함
-    - [URI와 URL의 차이점 참고](https://github.com/jmxx219/CS-Study/blob/main/Network/%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%EC%97%90%20URL%EC%9E%85%EB%A0%A5%EC%8B%9C%20%EC%9D%BC%EC%96%B4%EB%82%98%EB%8A%94%EC%9D%BC.md#1-%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%EC%97%90-url-%EC%9E%85%EB%A0%A5)
+    - [URI와 URL의 차이점 참고](https://github.com/jmxx219/CS-Study/blob/main/network/%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%EC%97%90%20URL%EC%9E%85%EB%A0%A5%EC%8B%9C%20%EC%9D%BC%EC%96%B4%EB%82%98%EB%8A%94%EC%9D%BC.md#1-%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%EC%97%90-url-%EC%9E%85%EB%A0%A5)
 - `Verb(행위)` - `HTTP method`
     - HTTP 프로토콜의 Method(POST, GET, DELETE, PUT, PATCH)를 사용함
 - `Representation(표현)` - `HTTP Message Pay Load`
@@ -111,7 +111,7 @@
 6. 파일의 확장자는 URI에 포함하지 않는다.
     - 메시지 바디 내용의 포맷을 나타내기 위한 파일 확장자를 URI 안에 포함시키지 않고, HTTP에서 제공하는 `Accept 헤더`를 사용하는 것이 좋음
     - 잘못된 예) http://csstudy.tistory.com/restapi/220/photo.jpg
-7. [HTTP 상태 코드](https://github.com/jmxx219/CS-Study/blob/jmxx219/Network/HTTP%20%EC%83%81%ED%83%9C%20%EC%BD%94%EB%93%9C.md)를 사용해야 한다.
+7. [HTTP 상태 코드](https://github.com/jmxx219/CS-Study/blob/jmxx219/network/HTTP%20%EC%83%81%ED%83%9C%20%EC%BD%94%EB%93%9C.md)를 사용해야 한다.
 
 <br/>
 <br/>

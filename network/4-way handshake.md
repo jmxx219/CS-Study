@@ -152,7 +152,7 @@ RST 플래그가 사용되는 경우는 아래와 같다.
 
 [[네트워크] TCP/UDP와 3 -Way Handshake & 4 -Way Handshake](https://velog.io/@averycode/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-TCPUDP%EC%99%80-3-Way-Handshake4-Way-Handshake)  
 
-[[Network]OSI-7-Layers](https://github.com/reddevilmidzy/Computer-Science/blob/main/Network/%5BNetwork%5DOSI-7-Layers.md#tcp)  
+[[Network]OSI-7-Layers](https://github.com/reddevilmidzy/Computer-Science/blob/main/network/%5BNetwork%5DOSI-7-Layers.md#tcp)  
 
 [CLOSE_WAIT 문제 해결](https://docs.likejazz.com/close-wait/)  
 
