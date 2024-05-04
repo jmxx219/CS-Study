@@ -43,7 +43,7 @@
 <br>
 <br>
 
-### [소켓](https://github.com/jmxx219/CS-Study/blob/main/Network/웹소켓과%20소켓통신.md#tcpip-소켓-vs-웹소켓)
+### [소켓](https://github.com/jmxx219/CS-Study/blob/main/network/웹소켓과%20소켓통신.md#tcpip-소켓-vs-웹소켓)
 
 하나의 호스트에서 여러개의 네트워크 애플리케이션 프로세스가 실행 중 이다.    
 **전송계층**은 하위의 네트워크 계층으로부터 수신한 데이터를 여러 프로세스들 중 하나에게 전달해야한다.    

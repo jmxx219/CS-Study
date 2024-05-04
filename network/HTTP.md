@@ -39,7 +39,7 @@ HTTP(Hypertext Transfer Protocol)은 텍스트 기반의 통신 규약으로 **�
 ### TCP/IP
 TCP/IP는 OSI 7 Layers에서 Layer3, Layer4를 다루는 프로토콜입니다.
 
-TCP/IP를 사용하겠다는 것은 IP주소 체계를 따르고 TCP의 특성을 이용해 신뢰성을 확보하겠다는것을 의미합니다. ( [OSI Layers 참고](https://github.com/jmxx219/CS-Study/blob/main/Network/OSI%207%EA%B3%84%EC%B8%B5.md), [3-Way Handshake참고](https://github.com/jmxx219/CS-Study/blob/main/Network/3-way%20handshake.md), [4-Way Handshake참고](https://github.com/jmxx219/CS-Study/blob/main/Network/4-way%20handshake.md) )
+TCP/IP를 사용하겠다는 것은 IP주소 체계를 따르고 TCP의 특성을 이용해 신뢰성을 확보하겠다는것을 의미합니다. ( [OSI Layers 참고](https://github.com/jmxx219/CS-Study/blob/main/network/OSI%207%EA%B3%84%EC%B8%B5.md), [3-Way Handshake참고](https://github.com/jmxx219/CS-Study/blob/main/network/3-way%20handshake.md), [4-Way Handshake참고](https://github.com/jmxx219/CS-Study/blob/main/network/4-way%20handshake.md) )
 
 ### **HTTP의 흐름(1.1버전기준)**
 

@@ -2,7 +2,7 @@
 
 <br>
 
-> [HTTP 참고](https://github.com/jmxx219/CS-Study/blob/main/Network/HTTP.md)
+> [HTTP 참고](https://github.com/jmxx219/CS-Study/blob/main/network/HTTP.md)
   
   
 - HTTP 상태 코드는 클라이언트의 요청에 대한 서버에서 반환되는 코드를 말함 

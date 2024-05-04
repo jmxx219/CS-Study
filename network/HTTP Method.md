@@ -243,7 +243,7 @@
 
 - 예비 요청(Preflight)에 사용되는 HTTP메소드
   - `예비 요청(Preflight)` : 본 요청 진행 전 안전한지 미리 검사하는 것
-- [CORS 정책](https://github.com/jmxx219/CS-Study/blob/main/Network/SOP%20정책.md#corscross-origin-resource-sharing)을 검사하기 위한 요청
+- [CORS 정책](https://github.com/jmxx219/CS-Study/blob/main/network/SOP%20정책.md#corscross-origin-resource-sharing)을 검사하기 위한 요청
   - 서버의 지원 가능한 HTTP메서드와 출처를 응답받음
 
 <br>

@@ -14,7 +14,7 @@
         - 데이터베이스 스키마 생성 및 수정, 테이블 관리, 데이터 추가, 수정, 삭제, 조회 등
 - `Schema`
     - 데이터베이스를 구성하는 `개체(Entity)`, `속성(Attribute)`, `관계(Relationship)` 및 `제약조건` 등에 관해 전반적인 명세를 기술한 메타데이터의 집합
-    - [참고](https://github.com/jmxx219/CS-Study/blob/main/Database/Schema.md)
+    - [참고](https://github.com/jmxx219/CS-Study/blob/main/database/Schema.md)
 
 <br/>
 
@@ -28,7 +28,7 @@ CPU가 RAM에 데이터를 요청할 때
 
 <br/>
 
-[**DB 서버의 확장성(Scaling)**](https://github.com/jmxx219/CS-Study/blob/main/Database/%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0%EB%A7%81%EA%B3%BC%20%EB%A6%AC%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98.md)
+[**DB 서버의 확장성(Scaling)**](https://github.com/jmxx219/CS-Study/blob/main/database/%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0%EB%A7%81%EA%B3%BC%20%EB%A6%AC%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98.md)
 
 - 수직적 확장(Scale-up)
     - 컴퓨터의 성능을 업그레이드 하는 방법
@@ -69,7 +69,7 @@ CPU가 RAM에 데이터를 요청할 때
         - 관계형 데이터베이스(RDB) 관리 시스템
         - 데이터베이스를 이루는 객체들의 릴레이션을 통해 데이터를 저장
         - SQL을 이용하여 데이터의 저장, 수정, 삭제, 검색 가능
-    - ACID와 [Transaction](https://github.com/jmxx219/CS-Study/blob/main/Database/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98.md)을 지원하여 데이터의 중복을 제거하고 데이터의 일관성을 보장
+    - ACID와 [Transaction](https://github.com/jmxx219/CS-Study/blob/main/database/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98.md)을 지원하여 데이터의 중복을 제거하고 데이터의 일관성을 보장
 - 장점
     - 정해진 스키마에 따라 저장하기 때문에 명확한 데이터 구조가 보장됨
     - 오래 사용된 만큼 신뢰성이 높고, 어떤 상황에서도 데이터의 무결성을 보장함

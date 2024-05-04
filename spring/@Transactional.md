@@ -4,7 +4,7 @@
 
 ## 트랜잭션(Transacntion)이란?
 
-[트랜잭션 참고](https://github.com/jmxx219/CS-Study/blob/main/Database/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98.md)
+[트랜잭션 참고](https://github.com/jmxx219/CS-Study/blob/main/database/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98.md)
 
 - 개념
     - DBMS(데이터베이스 관리 시스템) 또는 유사한 시스템에서 발생하는 연산들의 상호작용 단위
@@ -197,7 +197,7 @@ public class MemberService {
 
 ### isolation
 
-> [트랜잭션 격리수준 참고](https://github.com/jmxx219/CS-Study/blob/main/Database/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98%EC%9D%98%20%EA%B2%A9%EB%A6%AC%EC%84%B1.md)
+> [트랜잭션 격리수준 참고](https://github.com/jmxx219/CS-Study/blob/main/database/%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98%EC%9D%98%20%EA%B2%A9%EB%A6%AC%EC%84%B1.md)
 
 ```java
 @Trasanctional(isolation = Isolation.READ_UNCOMMITTED)

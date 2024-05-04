@@ -35,9 +35,9 @@
 
 - `Scale Out`
   - 비슷한 사양의 서버 여러 대를 추가하여 시스템을 확장하는 것(데이터베이스 다중화)
-  - 서버가 여러 대로 나뉘기 때문에 각 서버에 부하를 균등하게 해주는 [로드밸런싱](https://github.com/jmxx219/CS-Study/blob/main/Network/%EB%A1%9C%EB%93%9C%EB%B0%B8%EB%9F%B0%EC%84%9C.md) 기술이 필수적으로 동반되어야 함
+  - 서버가 여러 대로 나뉘기 때문에 각 서버에 부하를 균등하게 해주는 [로드밸런싱](https://github.com/jmxx219/CS-Study/blob/main/network/%EB%A1%9C%EB%93%9C%EB%B0%B8%EB%9F%B0%EC%84%9C.md) 기술이 필수적으로 동반되어야 함
   - 수평 스케일링
-  - 데이터베이스 다중화 방법으로는 [Clustering](https://github.com/jmxx219/CS-Study/blob/main/Database/%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0%EB%A7%81%EA%B3%BC%20%EB%A6%AC%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98.md#clustering%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0%EB%A7%81)과 [Replication](https://github.com/jmxx219/CS-Study/blob/main/Database/%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0%EB%A7%81%EA%B3%BC%20%EB%A6%AC%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98.md#replication%EB%A6%AC%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98) 방법이 존재함
+  - 데이터베이스 다중화 방법으로는 [Clustering](https://github.com/jmxx219/CS-Study/blob/main/database/%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0%EB%A7%81%EA%B3%BC%20%EB%A6%AC%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98.md#clustering%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0%EB%A7%81)과 [Replication](https://github.com/jmxx219/CS-Study/blob/main/database/%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0%EB%A7%81%EA%B3%BC%20%EB%A6%AC%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98.md#replication%EB%A6%AC%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98) 방법이 존재함
 - `Scale Up`
   - 물리적인 성능을 향상하는 방법으로, 한 대의 서버를 유지하며 기존 서버의 사양(하드웨어 성능)을 업그레이드하는 것
     - 서버에 CPU나 RAM 등을 추가하거나 고성능의 부품, 서버로 교환함
@@ -48,7 +48,7 @@
 
 ### 2. DB 분할(DB 샤딩, 파티셔닝)
 
-> 데이터베이스를 분할하는 방법으로는 크게 [샤딩](https://github.com/jmxx219/CS-Study/blob/main/Database/%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0%EB%A7%81%EA%B3%BC%20%EB%A6%AC%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98.md#sharding%EC%83%A4%EB%94%A9)과 [파티셔닝](https://github.com/jmxx219/CS-Study/blob/main/Database/%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0%EB%A7%81%EA%B3%BC%20%EB%A6%AC%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98.md#partitioning%ED%8C%8C%ED%8B%B0%EC%85%94%EB%8B%9D)이 있음
+> 데이터베이스를 분할하는 방법으로는 크게 [샤딩](https://github.com/jmxx219/CS-Study/blob/main/database/%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0%EB%A7%81%EA%B3%BC%20%EB%A6%AC%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98.md#sharding%EC%83%A4%EB%94%A9)과 [파티셔닝](https://github.com/jmxx219/CS-Study/blob/main/database/%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0%EB%A7%81%EA%B3%BC%20%EB%A6%AC%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98.md#partitioning%ED%8C%8C%ED%8B%B0%EC%85%94%EB%8B%9D)이 있음
 
 - 트래픽이 특정 DB로 몰리는 경우는 대비하여 DB 서버의 부하를 분산하는 방법
 - `샤딩`
@@ -97,7 +97,7 @@
 > 시스템을 더 큰 큐모로 확장하기 위해서는 시스템의 컴포넌트를 분리하여 독립적으로 확장할 수 있도록 해야하는데, 메시지 큐는 분산 시스템에서 이러한 문제를 해결하기 위해 사용하고 있는 기술
 
 - 개념
-  - 프로세스, 프로그램 간 데이터를 교환할 때 사용하는 통신 방법 중 하나로, [메시지 지향 미들웨어(MOM)](https://github.com/jmxx219/CS-Study/blob/main/Database/Message%20Broker.md#mom-message-oriented-middleware)을 구현한 시스템을 의미함
+  - 프로세스, 프로그램 간 데이터를 교환할 때 사용하는 통신 방법 중 하나로, [메시지 지향 미들웨어(MOM)](https://github.com/jmxx219/CS-Study/blob/main/database/Message%20Broker.md#mom-message-oriented-middleware)을 구현한 시스템을 의미함
   - 메시지 기반의 중재자 소프트웨어나 서비스로 시스템 간의 또는 애플리케이션 간의 통신을 비동기적으로 처리하는데 사용됨
   - `Message Queueing`
     - 대용량 데이터를 처리하기 위한 배치 작업이나, 채팅 서비스, 비동기 데이터를 처리할 때 사용함

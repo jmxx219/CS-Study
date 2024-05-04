@@ -110,7 +110,7 @@
 
 **한계 극복**
 - Persistent Connections (HTTP 지속 연결) 이용
-- [HTTP/2, HTTP/3](https://github.com/jmxx219/CS-Study/blob/main/Network/HTTP%20버전%20비교.md)에서 더욱 최적화
+- [HTTP/2, HTTP/3](https://github.com/jmxx219/CS-Study/blob/main/network/HTTP%20버전%20비교.md)에서 더욱 최적화
 
 <br>
 

@@ -179,7 +179,7 @@ OS캐시는 모든 DNS조회에 대한 공통 캐시이며, 호스트 파일 캐
 ### 3. 브라우저와 서버의 연결 (TCP connection)
 - 인터넷 프로토콜을 이용해 브라우저와 서버 연결
 - 웹 사이트의 경우 HTTP요청에 일반적으로 **TCP연결 진행**
-    - [3-way handshake](https://github.com/jmxx219/CS-Study/blob/main/Network/3-way%20handshake.md)을 통한 TCP connection 완성
+    - [3-way handshake](https://github.com/jmxx219/CS-Study/blob/main/network/3-way%20handshake.md)을 통한 TCP connection 완성
 
 <br>
 <br>
@@ -194,7 +194,7 @@ OS캐시는 모든 DNS조회에 대한 공통 캐시이며, 호스트 파일 캐
 
 ### 5. 요청에 대한 서버의 응답
 - 서버는 요청을 처리하고 response 생성
-- 서버가 [HTTP response](https://github.com/jmxx219/CS-Study/blob/main/Network/HTTP%20응답코드.md)를 보냄
+- 서버가 [HTTP response](https://github.com/jmxx219/CS-Study/blob/main/network/HTTP%20응답코드.md)를 보냄
 
 <br>
 <br>
