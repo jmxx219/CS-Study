@@ -1,106 +1,91 @@
-# 스트림과 람다
+# 스트림(Stream)과 람다(Lambda)
 
 <br>
 
-## 람다
-람다식은 메서드를 하나의 식으로 표현한 것이다.
-람다식을 적용하면 메서드의 이름과 반환값이 없어지기 때문에 **익명 함수**라고도 부른다.
+## 람다(Lambda)
 
-```java
-// 람다 구조
-(인자)->{로직}
-```
-
-사용 예시
-```java
-// 기존 메서드 구조
-void action(){
-    System.out.println("we are running");
-}
-
-// 람다 구조
-()->{System.out.println("we are running");}
-```
-
-자바8 이전의 메서드는 클래스에 포함되어 있어야 하기때문에, 정의를 위한 클래스를 만들어야했고, 호출을 위해 불필요한 객체생성을 해야했다.
-
-<br>
-
-## 람다의 내부 구조
-람다식의 실체는 메서드가 아닌, 익명클래스의 객체이다.
-
-다름 람다식은
-```java
-(int a,int b) -> a > b ? a : b;
-```
-실제로는 아래와 같이 생겼다.
-```java
-new Object(){
-    int max(int a,int b){
-        return a>b ? a: b;
+- 람다식은 메서드를 하나의 식으로 표현한 것
+- 람다식을 적용하면 메서드의 이름과 반환값이 없어지기 때문에 **익명 함수**라고도 부름
+- 사용 예시
+    ```java
+    // 람다 구조
+    (인자)->{로직}
+    ```
+    ```java
+    // 기존 메서드 구조
+    void action(){
+        System.out.println("we are running");
     }
-}
-```
+    
+    // 람다 구조
+    ()->{System.out.println("we are running");}
+    ```
+
+> 자바8 이전의 메서드는 클래스에 포함되어 있어야 하기때문에, 정의를 위한 클래스를 만들어야했고, 호출을 위해 불필요한 객체생성을 해야했다.
 
 <br>
 
-### 스트림
-스트림은 연속적인 데이터의 흐름을 의미한다. 자바 스트림 API또한 원하는 작업들을 연속적으로 처리해준다.
+### 람다의 내부 구조
 
-- 선언형 : 더 간결하고 가독성이 좋아진다.
+> 람다식의 실체는 메서드가 아닌, 익명클래스의 객체이다.
 
-- 조립할 수 있음 : 유연성이 좋아진다.
-
-- 병렬화 : 성능이 좋아진다.
+- 다음 람다식은
+    ```java
+    (int a,int b) -> a > b ? a : b;
+    ```
+- 실제로는 아래와 같이 생겼다.
+    ```java
+    new Object(){
+        int max(int a,int b){
+            return a>b ? a: b;
+        }
+    }
+    ```
 
 <br>
+<br>
 
-### 스트림의 특징들
+## 스트림(Stream)
 
-
-- 스트림은 데이터소스를 읽기만 할뿐 변경하지 않는다.
-
-- 스트림은 일회용이다. 스트림을 한번 사용하면 닫혀서 다시 사용할 수 없다. 필요하다면 다시 스트림을 생성해야 한다.
-
-- 스트림은 작업을 내부 반복으로 처리한다.
+- 스트림은 연속적인 데이터의 흐름을 의미하며, 자바 스트림 API또한 원하는 작업들을 연속적으로 처리해줌
+    - 선언형 : 더 간결하고 가독성이 좋아진다.
+    - 조립할 수 있음 : 유연성이 좋아진다.
+    - 병렬화 : 성능이 좋아진다.
+- 스트림의 특징
+    - 스트림은 데이터소스를 읽기만 할뿐 변경하지 않는다.
+    - 스트림은 일회용이다. 스트림을 한번 사용하면 닫혀서 다시 사용할 수 없다. 필요하다면 다시 스트림을 생성해야 한다.
+    - 스트림은 작업을 내부 반복으로 처리한다.
 
 <br>
 
 ### 스트림과 컬렉션
 
-컬렉션은 반복자(for, while)를 이용해서 사용자가 직접 요소를 반복해야 한다. 이 반복을 외부 반복이라고 부른다. 
-
-스트림은 반복을 알아서 처리해주고 결과 스트림 값을 어딘가에 저장해주는 방식을 사용한다. 이를 내부 반복이라고 한다. 
-
-<br>
-
-<외부반복 - 반복자 있음>
-
-```java
-List<String> names = new ArrayList<>();
-for(Dish dish: menu) {
-    names.add(dish.getName());
-}
-```
-
-<br>
-
-<내부반복 - 반복자 없음>
-
-```java
-List<String> names = menu.stream().map(Dish::getName).collect(toList());
-```
-
-내부 반복의 장점
-
-1. 반복자 없음 : 개발자가 직접 반복문을 처리해주지 않아도 됨.
-2. 병렬 처리 : 외부 반복을 사용하면서 병렬처리를 위해서는 스레드간의 공유자원에 대한 동기화 처리를 따로 해줘야 한다. 하지만 내부 반복은 이를 관리할 필요가 없음
+- 컬렉션은 `반복자(for, while)`를 이용해서 사용자가 직접 요소를 반복해야 한다. 이 반복을 `외부 반복`이라고 부른다.
+  
+    - 외부반복의 경우, 반복자가 존재함
+      
+        ```java
+        List<String> names = new ArrayList<>();
+        for(Dish dish: menu) {
+            names.add(dish.getName());
+        }
+        ```
+- 스트림은 반복을 알아서 처리해주고 결과 스트림 값을 어딘가에 저장해주는 방식을 사용한다. 이를 `내부 반복`이라고 한다.
+  
+    - 내부반복의 경우, 반복자 없음
+      
+        ```java
+        List<String> names = menu.stream().map(Dish::getName).collect(toList());
+        ```
+    - 내부 반복의 장점
+        1. 반복자 없음 : 개발자가 직접 반복문을 처리해주지 않아도 됨.
+        2. 병렬 처리 : 외부 반복을 사용하면서 병렬처리를 위해서는 스레드간의 공유자원에 대한 동기화 처리를 따로 해줘야 한다. 하지만 내부 반복은 이를 관리할 필요가 없음
 
 <br/>
 
 ### 스트림에서 사용하는 함수형 인터페이스
 
-1. Predicate<T>
+1. `Predicate<T>`
     
     참 거짓을 판단하는 인터페이스. 매개 변수를 받아서 결과값을 반환
     
@@ -113,7 +98,7 @@ List<String> names = menu.stream().map(Dish::getName).collect(toList());
     ```
     
 
-2. Function<T,R> 
+2. `Function<T,R>`
     
     일반적인 함수. 매개변수를 받아서 결과를 반환
     
@@ -126,7 +111,7 @@ List<String> names = menu.stream().map(Dish::getName).collect(toList());
     ```
     
 
-3. Cunsumer<T> 
+3. `Cunsumer<T>` 
     
     매개변수만 있고 반환값은 없는 상태
     
@@ -137,7 +122,7 @@ List<String> names = menu.stream().map(Dish::getName).collect(toList());
     ```
     
 
-4. Supplier<T>
+4. `Supplier<T>`
     
     매개변수는 없고 반환값만 있는 상태
     
@@ -151,19 +136,30 @@ List<String> names = menu.stream().map(Dish::getName).collect(toList());
 
 <br>
 
-반환값의 유뮤에 따라 분류할 수 있는 4개의 함수형 인터페이스 모두 다양한 형태로 스트림에서 활용되고 있다.
+> 반환값의 유뮤에 따라 분류할 수 있는 4개의 함수형 인터페이스 모두 다양한 형태로 스트림에서 활용되고 있다.
 
 <br>
 
 ### 스트림 연산
 
-스트림의 연산은 다음 두가지로 나뉘게 된다.
+> 스트림의 연산은 다음 두가지로 나뉘게 된다.
 
-- 중간 연산 : 연산 결과가 스트림으로 반환. 스트림에 연속해서 중간 연산을 할 수 있음
-
-- 최종 연산 : 스트림의 요소를 소모하는 연산으로, 마지막 한 번만 가능
-
-이렇게 연산을 계속하는 것을 **체이닝**이라 하고 해당 코드가 **무엇**을 할지가 보다 명확해진다.
+- `중간 연산` : 연산 결과가 스트림으로 반환. 스트림에 연속해서 중간 연산을 할 수 있음
+    - distinct() : 중복 제거
+    - filter() : 조건에 안 맞는 요소 제거
+    - limit() : 스트림 일부만 가져옴
+    - sorted() : 스트림 요소를 정렬
+    - map() : 스트림 요소를 변환
+- `최종 연산` : 스트림의 요소를 소모하는 연산으로, 마지막 한 번만 가능
+    - forEach() : 각 요소에 지정된 작업 수행
+    - count() : 스트림의 요소 개수 반환
+    - max(), min() : 최대, 최소값 반환
+    - findAny(), findFirst() : 스트림 요소 중 하나 반환
+    - toArray() : 스트림의 모든 요소를 배열로 반환
+    - collect() : 스트림의 요소를 수집한다. 주로 요소들을 그룹화하거나 컬렉션에 담아 반환
+  
+  
+이렇게 연산을 계속하는 것을 `체이닝`이라 하고 해당 코드가 **무엇**을 할지가 보다 명확해진다.
 ```java
 stream.distinct()
 .limit(5)
@@ -171,109 +167,78 @@ stream.distinct()
 .forEach(System.out::println)
 ```
 
-- 중간 연산
-    - distinct()
-    - limit(5)
-    - sorted()
-
-- 최종 연산 : forEach(System.out::println)
-
-<br/>
-
-### 중간 연산과 최종 연산들
-
-중간 연산
-
-- distinct() : 중복 제거
-- filter() : 조건에 안 맞는 요소 제거
-- limit() : 스트림 일부만 가져옴
-- sorted() : 스트림 요소를 정렬
-- map() : 스트림 요소를 변환
-
-최종 연산
-
-- forEach() : 각 요소에 지정된 작업 수행
-- count() : 스트림의 요소 개수 반환
-- max(), min() : 최대, 최소값 반환
-- findAny(), findFirst() : 스트림 요소 중 하나 반환
-- toArray() : 스트림의 모든 요소를 배열로 반환
-- collect() : 스트림의 요소를 수집한다. 주로 요소들을 그룹화하거나 컬렉션에 담아 반환
-
 <br/>
 
 ### 스트림의 지연연산
-스트림은 **게으르다.** 스트림은 스트림 문장 전체를 인식한 이후에 시작하기 때문에  최종연산이 수행되기 전에는 중간연산이 수행되지 않는다.
+스트림은 **게으르다.** 스트림은 스트림 문장 전체를 인식한 이후에 시작하기 때문에 최종연산이 수행되기 전에는 중간연산이 수행되지 않는다.
 
 <br>
 
 ### 스트림 루프 퓨전
 
-아래와 같은 클래스가 존재한다.
+- 아래와 같은 클래스가 존재한다.
 
-```java
-static class Data {
-  private final int value;
-  public Data(int value) { 
-  	this.value = value; 
-  }
+    ```java
+    static class Data {
+      private final int value;
+      public Data(int value) { 
+      	this.value = value; 
+      }
+        
+      @Override public String toString() { 
+      	return " -> " + value; 
+      }
+    }
+    ```
+  
+   
+- 다음과 같은 스트림 연산을 하는 경우를 생각해보자
+  
+    ```java
+    Stream.of(new Data(1), new Data(20), new Data(300))
+        .peek(System.out::println) //forEach와 유사한 중간연산
+        .peek(System.out::println)
+        .forEach(System.out::println);
+    ```
+
     
-  @Override public String toString() { 
-  	return " -> " + value; 
-  }
-}
-```
-<br>
+- 대부분 다음과 같은 결과를 예상할 것이다.
+  
+    ```text
+    -> 1
+    -> 20
+    -> 300
+    -> 1
+    -> 20
+    -> 300
+    -> 1
+    -> 20
+    -> 300
+    ```
+ 
+- 하지만 실제로는 다음과 같은 결과가 나온다.
+  
+    ```text
+    -> 1
+    -> 1
+    -> 1
+    -> 20
+    -> 20
+    -> 20
+    -> 300
+    -> 300
+    -> 300
+    ```
 
-다음과 같은 스트림 연산을 하는 경우를 생각해보자
+- 예시로 보인 스트림을 for문으로 바꿔보면 다음과 같이 동작한다.
 
-```java
-Stream.of(new Data(1), new Data(20), new Data(300))
-    .peek(System.out::println) //forEach와 유사한 중간연산
-    .peek(System.out::println)
-    .forEach(System.out::println);
-```
-
-<br>
-
-대부분 다음과 같은 결과를 예상할 것이다.
-```text
--> 1
--> 20
--> 300
--> 1
--> 20
--> 300
--> 1
--> 20
--> 300
-```
-
-<br>
-
-하지만 실제로는 다음과 같은 결과가 나온다.
-```text
--> 1
--> 1
--> 1
--> 20
--> 20
--> 20
--> 300
--> 300
--> 300
-```
-
-예시로 보인 스트림을 for문으로 바꿔보면 다음과 같이 동작한다.
-
-<br>
-
-```java
-for (Data data : datas) { 
-  System.out.println(data); // 첫 번째 peek
-  System.out.println(data); // 두 번째 peek
-  System.out.println(data); // forEach
-}
-```
+    ```java
+    for (Data data : datas) { 
+      System.out.println(data); // 첫 번째 peek
+      System.out.println(data); // 두 번째 peek
+      System.out.println(data); // forEach
+    }
+    ```
 
 <br>
 
@@ -297,35 +262,35 @@ Stream.of(new Data(1), new Data(20), new Data(300))
 <br>
 
 ### 스트림 쇼트 서킷
-스트림의 연산을 중간에 끊어주는 행위를 말한다.
 
-다음 스트림 연산에서 무한한 원소를 갖는 무한 스트림을 이용하는데, 랜덤한 값중 100개만 뽑아서 정렬하는것을 볼수 있다.
+- 스트림의 연산을 중간에 끊어주는 행위를 말한다.
 
+- 다음 스트림 연산에서 무한한 원소를 갖는 무한 스트림을 이용하는데, 랜덤한 값중 100개만 뽑아서 정렬하는 것을 볼수 있다.
 
-```java
-Stream.generate(() -> new RandomInt())
-    .limit(100) 
-    .sorted(Comparator.comparingInt(Data::getValue)) 
-    .collect(Collectors.toList());
-```
+    ```java
+    Stream.generate(() -> new RandomInt())
+        .limit(100) 
+        .sorted(Comparator.comparingInt(Data::getValue)) 
+        .collect(Collectors.toList());
+    ```
+
+- 하지만 만약 limit의 위치가 sorted뒤로 가게 되면 무한한 원소를 sorted 연산하게 되어 연산이 끝나지 않게 된다.
+  
+    ```java
+    Stream.generate(() -> new RandomInt())
+        .sorted(Comparator.comparingInt(Data::getValue)) 
+        .limit(100) 
+        .collect(Collectors.toList());
+    ```
 
 <br>
+<br/>
 
-하지만 만약 limit의 위치가 sorted뒤로 가게되면 무한한 원소를 sorted연산하게 되어 연산이 끝나지 않게 된다.
-```java
-Stream.generate(() -> new RandomInt())
-    .sorted(Comparator.comparingInt(Data::getValue)) 
-    .limit(100) 
-    .collect(Collectors.toList());
-```
-
-<br>
-
-### 스트림의 병렬 처리
+## 스트림의 병렬 처리
 
 - 한 가지 작업을 여러 서브 작업으로 나누고, 서브 작업들을 분리된 스레드에서 병렬적으로 처리하고, 결과들을 최종 결합하는 방법이다.
   
-- 자바는 ForkJoinPool 프레임워크를 이용해서 병렬 처리를 한다.
+- 자바는 [ForkJoinPool 프레임워크](https://github.com/jmxx219/CS-Study/blob/main/operating-system/Thread%20Pool%2C%20Fork-Join.md#fork-join-poolfork-join-framework)를 이용해서 병렬 처리를 한다.
     - main 스레드는 스트림을 처리하기 위한 기본 스레드이고 나머지 스레드는 ForkJoinPool 프레임워크를 통해서 생성된다.
     - 해당 프레임워크의 설정해줘서 생성할 스레드 개수를 제어할 수 있다.
     
@@ -347,11 +312,14 @@ Stream.generate(() -> new RandomInt())
 즉, 병렬화를 잘못 사용하면 성능이 나빠지거나, 예상치 못한 동작이 발생할 수 있다.
 
 <br/>
+<br/>
+
+## 스트림의 사용
 
 ### 아래와 같은 상황에선 스트림을 지양하자.
 
 1. 범위 안의 지역변수를 읽고 수정해야 하는 경우. 
--> 람다에서는 변화하지 않는 상태를 다루는 것이 일반적이므로 부적절
+    - 람다에서는 변화하지 않는 상태를 다루는 것이 일반적이므로 부적절
 
 2. return, break, continue등의 세밀한 반복 제어가 필요할 때
 
@@ -359,6 +327,7 @@ Stream.generate(() -> new RandomInt())
 
 4. 다음 단계에서 이전 단계의 상태 정보가 필요할 떄 (스트림은 데이터를 버린다)
 
+<br/>
  
 ### 아래와 같은 상황에선 스트림이 적절하다.
 
