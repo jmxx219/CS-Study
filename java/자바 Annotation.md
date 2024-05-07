@@ -142,6 +142,10 @@ public @interface Target {
 | `@Builder` | 빌더 패턴을 구현하는 코드를 자동으로 생성하여, 객체의 점진적인 생성과정을 단순화시킵니다. |
 | `@Data`  | `@Getter`, `@Setter`, `@ToString`, `@EqualsAndHashCode`와 필요에 따라 `@RequiredArgsConstructor`를 포함하여 적용합니다. |
 
+- `@Getter`, `@Setter`, `@ToString`, `@EqualsAndHashCode`는 필드별로 적용할 수 있다.
+- `@Getter`, `@Setter`, `@ToString`, `@EqualsAndHashCode`등의 Annotation은 클래스 파일을 디컴파일 해보면 실제로 구현된 메서드를 볼 수 있다.
+    - User.java 파일에 실제로 구현된 @Getter 클래스의 메서드를 보고 싶으면 User.class 파일을 디컴파일 해보면 된다.
+
 ### 주의점
 
 `@AllArgsConstructor`와 `@RequiredArgsConstructor`를 사용할 경우, 같은 타입의 필드의 순서가 바뀌어도 알아차기 어렵다.
@@ -175,6 +179,6 @@ public class Product {
 }
 ```
 
-이렇게 변경되었을 때, 해당 클래스를 생성하는 다른 클래스는 변경을 알아차리기 어렵다. 동일한 문제가 `@RequiredArgsConstructor`에서도 발생한다
+이렇게 변경되었을 때, 해당 클래스를 생성하는 다른 클래스는 변경을 알아차리기 어렵다. 동일한 문제가 `@RequiredArgsConstructor`에서도 발생한다.
 
 `@Data`, `@Value`, `@Builder` 어노테이션은 모두 내부적으로 `@AllArgsConstructor`, `@RequiredArgsConstructor` 어노테이션을 사용한다.
