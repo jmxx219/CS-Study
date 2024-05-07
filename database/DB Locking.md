@@ -12,7 +12,7 @@
 
 <br/>
 
-### Gobal Lock
+### Global Lock
 
 글로벌 락은 **FLUSH TABLES WITH READ LOCK** 명령으로 획득할 수 있으며, 글로벌 LOCK이 영향을 미치는 대상은 MySQL 서버 전체이며, SELECT 쿼리를 제외한 대부분의 DDL이나 DML 쿼리를 실행할 수 없다. <br/>
 데이터 베이스의 **구조적 변경, 백업 수행, 또는 크리티컬한 데이터 마이그레이션 작업 시에 사용**된다.
