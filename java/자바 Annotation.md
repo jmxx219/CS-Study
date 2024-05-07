@@ -128,24 +128,25 @@ public @interface Target {
 
 ## Lombok
 
-| Annotation                 |
-|----------------------------|
-| `@NoArgsConstructor`       |
-| `@AllArgsConstructor`      |
-| `@RequiredArgsConstructor` |
-| `@Getter`                  |
-| `@Setter`                  |
-| `@ToString`                |
-| `@EqualsAndHashCode`       |
-| `@Builder`                 |
-| `@Data`                    |
+반복적인 코드 작성을 줄이기 위해서 사용하는 라이브러리이다.
+
+| Annotation | 설명 |
+|---|---|
+| `@NoArgsConstructor` | 파라미터 없는 기본 생성자를 자동으로 생성합니다. |
+| `@AllArgsConstructor` | 모든 필드를 파라미터로 받는 생성자를 자동으로 생성합니다. |
+| `@RequiredArgsConstructor` | `final` 또는 `@NonNull`로 선언된 필드만을 파라미터로 받는 생성자를 자동으로 생성합니다. |
+| `@Getter` | 클래스의 모든 필드에 대한 getter 메서드를 자동으로 생성합니다. 필드별로 어노테이션을 적용할 수도 있습니다. |
+| `@Setter` | 클래스의 모든 필드에 대한 setter 메서드를 자동으로 생성합니다. 필드별로 어노테이션을 적용할 수도 있습니다. |
+| `@ToString` | 클래스의 `toString()` 메서드를 오버라이드하여 필드 정보를 문자열로 반환하는 메서드를 자동으로 생성합니다. |
+| `@EqualsAndHashCode` | `equals()`와 `hashCode()` 메서드를 자동으로 생성하여, 객체의 동등성 비교와 해시 코드 생성 로직을 제공합니다. |
+| `@Builder` | 빌더 패턴을 구현하는 코드를 자동으로 생성하여, 객체의 점진적인 생성과정을 단순화시킵니다. |
+| `@Data`  | `@Getter`, `@Setter`, `@ToString`, `@EqualsAndHashCode`와 필요에 따라 `@RequiredArgsConstructor`를 포함하여 적용합니다. |
 
 ### 주의점
 
 `@AllArgsConstructor`와 `@RequiredArgsConstructor`를 사용할 경우, 같은 타입의 필드의 순서가 바뀌어도 알아차기 어렵다.
 
 ```java
-
 @AllArgsConstructor
 public class Product {
     private int discountPrice; // 할인 가
@@ -156,7 +157,6 @@ public class Product {
 서비스 레이어에서 이렇게 사용하고 있다고 가정해보자
 
 ```java
-
 @Service
 public class ProductService {
     public void test() {
@@ -168,7 +168,6 @@ public class ProductService {
 어떠한 이유로 `Product` 필드 순서를 바꾼다고 가정해보자
 
 ```java
-
 @AllArgsConstructor
 public class Product {
     private int price;
