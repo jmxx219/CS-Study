@@ -169,12 +169,21 @@ stream.distinct()
 
 <br/>
 
-### 스트림의 지연연산
-스트림은 **게으르다.** 스트림은 스트림 문장 전체를 인식한 이후에 시작하기 때문에 최종연산이 수행되기 전에는 중간연산이 수행되지 않는다.
+### 스트림의 중간 연산 특징
+
+> 스트림의 중간 연산은 `layziess(게으름)` 이라는 중요한 특징을 가지고, 이 특성으로 얻을 수 있는 최적화 효과(`루프 퓨전(loop fusion)`, `쇼트 서킷`)가 존재함
+
+<br/>
+
+#### 지연연산, layziess(게으름)
+
+- 스트림은 **게으르다.** 스트림은 스트림 문장 전체를 인식한 이후에 시작하기 때문에 최종연산이 수행되기 전에는 중간연산이 수행되지 않는다.
 
 <br>
 
-### 스트림 루프 퓨전
+#### 루프 퓨전(loop fusion)
+
+- 중간연산이 서로 다른 연산이지만 한 과정으로 병합되어 수행된다.
 
 - 아래와 같은 클래스가 존재한다.
 
@@ -182,11 +191,11 @@ stream.distinct()
     static class Data {
       private final int value;
       public Data(int value) { 
-      	this.value = value; 
+        this.value = value; 
       }
         
       @Override public String toString() { 
-      	return " -> " + value; 
+        return " -> " + value; 
       }
     }
     ```
@@ -239,29 +248,25 @@ stream.distinct()
       System.out.println(data); // forEach
     }
     ```
+<br>
+
+- 루프를 엮는 루프 퓨전은 원소에 접근하는 횟수를 줄여주는데, 이는 eager한 연산을 사용하여 9번의 원소 접근이 필요한 작업을 3번만에 처리할 수 있게 한다. 
+- 하지만, 항상 루프 퓨전이 발생하는 것은 아니다. 중간 연산 중 한정되지 않은 상태를 사용하는 경우에는 루프 퓨전이 발생하지 않을 수도 있다. 
+- 예를 들어, sorted 연산은 이전 단계의 결과가 필요하기 때문에 이전 단계의 2개의 peek에서 루프 퓨전을 수행한 후에 sorted 연산을 하고, 나머지 peek 연산을 퓨전한다.
+  
+    ```java
+    Stream.of(new Data(1), new Data(20), new Data(300))
+        .peek(System.out::println)
+        .peek(System.out::println)
+        .sorted(Comparator.comparing(Data::getValue))
+        .peek(System.out::println)
+        .peek(System.out::println)
+        .forEach(System.out::println);
+    ```
 
 <br>
 
-
-루프를 엮는 루프 퓨전은 원소에 접근하는 횟수를 줄여주는데, 이는 eager한 연산을 사용하여 9번의 원소 접근이 필요한 작업을 3번만에 처리할 수 있게 한다. 
-
-하지만, 항상 루프 퓨전이 발생하는 것은 아니다. 중간 연산 중 한정되지 않은 상태를 사용하는 경우에는 루프 퓨전이 발생하지 않을 수도 있다. 
-
-예를 들어, sorted 연산은 이전 단계의 결과가 필요하기 때문에 이전 단계의 2개의 peek에서 루프 퓨전을 수행한 후에 sorted 연산을 하고, 나머지 peek 연산을 퓨전한다.
-
-```java
-Stream.of(new Data(1), new Data(20), new Data(300))
-    .peek(System.out::println)
-    .peek(System.out::println)
-    .sorted(Comparator.comparing(Data::getValue))
-    .peek(System.out::println)
-    .peek(System.out::println)
-    .forEach(System.out::println);
-```
-
-<br>
-
-### 스트림 쇼트 서킷
+#### 스트림 쇼트 서킷
 
 - 스트림의 연산을 중간에 끊어주는 행위를 말한다.
 
@@ -305,11 +310,11 @@ Stream.of(new Data(1), new Data(20), new Data(300))
 
 ### 하지만 병렬 처리는 되도록 쓰지말자
 
-참조들이 가리키는 실제 객체가 메모리에서 서로 떨어져 있을 수 있는데, 이런 경우엔 주 메모리에서 캐시 메모리로 전송되어 오기를 기다리는 시간이 늘어난다. 따라서 참조 지역성은 다량의 데이터를 처리하는 벌크 연산을 병렬화할 때 중요한 요소로 작용한다. 
-
-또한 최종 연산의 동작 방식에 따라서도 병렬처리는 효과가 달라진다. anyMatch(), allMatch() 처럼 조건에 맞으면 바로 반환되는 연산은 병렬화에 적합하지만 collect() 메서드와 같이 합치는 작업은 부담이 크다. 
-
-즉, 병렬화를 잘못 사용하면 성능이 나빠지거나, 예상치 못한 동작이 발생할 수 있다.
+- 참조들이 가리키는 실제 객체가 메모리에서 서로 떨어져 있을 수 있는데, 이런 경우엔 주 메모리에서 캐시 메모리로 전송되어 오기를 기다리는 시간이 늘어난다.
+    - 따라서 참조 지역성은 다량의 데이터를 처리하는 벌크 연산을 병렬화할 때 중요한 요소로 작용한다. 
+- 또한 최종 연산의 동작 방식에 따라서도 병렬처리는 효과가 달라진다.
+    - anyMatch(), allMatch() 처럼 조건에 맞으면 바로 반환되는 연산은 병렬화에 적합하지만 collect() 메서드와 같이 합치는 작업은 부담이 크다. 
+- 즉, 병렬화를 잘못 사용하면 성능이 나빠지거나, 예상치 못한 동작이 발생할 수 있다.
 
 <br/>
 <br/>
