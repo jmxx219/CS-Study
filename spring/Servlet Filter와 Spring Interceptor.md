@@ -20,7 +20,9 @@
 
 ## 서블릿 필터(Servlet Filter)
 
-<img src="https://miro.medium.com/v2/resize:fit:1200/1*Cyyy59ISyWUq5jkt9GvZrA.png" width="700"/>
+<img src="https://miro.medium.com/v2/resize:fit:1200/1*Cyyy59ISyWUq5jkt9GvZrA.png" width="650"/>
+
+<br>
 
 - `Filter`는 J2EE 표준 스펙 기능으로, 요청과 응답을 거른 뒤 정제하는 역할을 함
 - [디스패처 서블릿](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/DispatcherServlet.md)에 요청이 전달되기 전/후에 URL 패턴에 맞는 모든 요청에 대해서 부가 작업을 처리할 수 있는 기능을 제공함
@@ -57,17 +59,34 @@ public interface Filter {
 }
 ```
 ```java
-public class LoginCheckFilter implements Filter {
+public class RequestLoggingFilter implements Filter {
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
+        
+        // 로그 정보 수집
         String requestURI = httpRequest.getRequestURI();
-        ...
+        String method = httpRequest.getMethod();
+        String clientIP = request.getRemoteAddr();
+
+        // 요청 로그 출력
+        context.log("Received Request: " + method + " " + requestURI + " from " + clientIP);
+        
+        // HTTP 헤더 로그
+        Enumeration<String> headers = httpRequest.getHeaderNames();
+        while (headers.hasMoreElements()) {
+            String headerName = headers.nextElement();
+            String headerValue = httpRequest.getHeader(headerName);
+            context.log("Header: " + headerName + " - " + headerValue);
+        }
+
+        // 다음 필터 또는 대상 서블릿으로 요청 전달
         chain.doFilter(request, response);
     }
-
 }
 ```
+
 - 필터 인터페이스를 구현하고 등록하면, 서블릿 컨테이너가 필터를 싱글톤 객체로 생성하고 관리함
     - `init()`: 필터 초기화 메소드로, 서블릿 컨테이너가 생성될 때 호출
     - `doFilter()`: 고객의 요청이 올 때 마다 해당 메서드가 호출됨
@@ -274,7 +293,7 @@ public class WebConfig implements WebMvcConfigurer {
 <br/>
 <br/>
 
-### ➕ Spring MVC 처리 흐름 참고
+## ➕ Spring MVC 처리 흐름 참고
 
 <img width="600" src="https://aaronryu.github.io/2021/02/14/a-tutorial-for-spring-mvc-and-security/order-of-filters-and-interceptors.png">
 <br/>
