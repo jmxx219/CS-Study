@@ -101,8 +101,6 @@ public class RequestLoggingFilter implements Filter {
 
 #### 필터 등록
 
-<br>
-
 ```java
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -116,6 +114,9 @@ public class WebConfig implements WebMvcConfigurer {
     }
 }
 ```
+
+<br> 
+
 - `FilterRegistrationBean`
     - 필터를 등록하는 방법은 여러가지가 존재하는데 스프링 부트를 사용한다면 `FilterRegistrationBean` 사용함
         - `setFilter(new LoginCheckFilter())`: 등록할 필터를 지정
@@ -129,8 +130,6 @@ public class WebConfig implements WebMvcConfigurer {
 <br/>
 
 ## 스프링 인터셉터(Spring Interceptor)
-
-<br/>
 
 > 서블릿 필터는 서블릿이 제공, 스프링 인터셉터는 스프링 MVC가 제공  
 > 서블릿 필터와 같이 둘 다 웹과 관련된 공통 관심 사항을 효과적으로 처리
@@ -164,8 +163,6 @@ public class WebConfig implements WebMvcConfigurer {
 <br/>
 
 ### 인터셉터 인터페이스
-
-<br> 
 
 ```java
 public interface HandlerInterceptor {
@@ -245,6 +242,8 @@ public class WebConfig implements WebMvcConfigurer {
 }
 ```
 
+<br>
+
 - `WebMvcConfigurer`가 제공하는 `addInterceptors()`를 사용해서 인터셉터를 등록함
   - `registry.addInterceptor(new LoginCheckInterceptor())`: 인터셉터를 등록
   - `order(1)`: 인터셉터의 호출 순서를 지정(낮을 수록 먼저 호출)
@@ -259,8 +258,6 @@ public class WebConfig implements WebMvcConfigurer {
 <br/>
 
 ### 스프링 인터셉터 호출 흐름
-
-<br>
 
 > [디스패처 서블릿의 동작 과정 참고](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/DispatcherServlet.md#%EB%94%94%EC%8A%A4%ED%8C%A8%EC%B2%98-%EC%84%9C%EB%B8%94%EB%A6%BF%EC%9D%98-%EB%8F%99%EC%9E%91-%EA%B3%BC%EC%A0%95)
 
