@@ -58,6 +58,9 @@ public interface Filter {
     public default void destroy() {}
 }
 ```
+
+<br> 
+
 ```java
 public class RequestLoggingFilter implements Filter {
     @Override
@@ -98,6 +101,8 @@ public class RequestLoggingFilter implements Filter {
 
 #### 필터 등록
 
+<br>
+
 ```java
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -124,6 +129,8 @@ public class WebConfig implements WebMvcConfigurer {
 <br/>
 
 ## 스프링 인터셉터(Spring Interceptor)
+
+<br/>
 
 > 서블릿 필터는 서블릿이 제공, 스프링 인터셉터는 스프링 MVC가 제공  
 > 서블릿 필터와 같이 둘 다 웹과 관련된 공통 관심 사항을 효과적으로 처리
@@ -157,13 +164,19 @@ public class WebConfig implements WebMvcConfigurer {
 <br/>
 
 ### 인터셉터 인터페이스
+
+<br> 
+
 ```java
 public interface HandlerInterceptor {
     default boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {}
     default void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView) throws Exception {}
     default void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex) throws Exception {}
 }
-```
+``` 
+
+<br> 
+
 ```java
 @Slf4j
 public class LoginCheckInterceptor implements HandlerInterceptor {
@@ -192,6 +205,9 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
     }
 }
 ```
+
+<br> 
+
 - `HandlerInterceptor` 인터페이스를 구현함
     - 컨트롤러 호출 전(`preHandle()`), 컨트롤러 호출 후(`postHandle()`), 요청 완료 이후(`afterCompletion()`)와 같이 단계적으로 세분화되어 있음
         - 서블릿 필터의 경우 단순하게 `doFilter()` 하나만 제공됨
@@ -241,15 +257,15 @@ public class WebConfig implements WebMvcConfigurer {
 
 
 <br/>
-<br/>
 
 ### 스프링 인터셉터 호출 흐름
+
+<br>
 
 > [디스패처 서블릿의 동작 과정 참고](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/DispatcherServlet.md#%EB%94%94%EC%8A%A4%ED%8C%A8%EC%B2%98-%EC%84%9C%EB%B8%94%EB%A6%BF%EC%9D%98-%EB%8F%99%EC%9E%91-%EA%B3%BC%EC%A0%95)
 
 <br/>
 <img width="600" src="https://github.com/jmxx219/CS-Study/assets/52346113/4304949f-d623-4f72-ba98-3563714abab5">
-<br/>
 <br/>
 
 1. 클라이언트 - HTTP 요청
@@ -299,7 +315,7 @@ public class WebConfig implements WebMvcConfigurer {
 <br/>
 <br/>
 
-### Ref
+## Ref
 
 - [필터(Filter)와 인터셉터(Interceptor)의 개념 및 차이](https://dev-coco.tistory.com/173)
 - [인프런 spring mvc2 강의](https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-mvc-2)
