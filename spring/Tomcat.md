@@ -107,7 +107,7 @@
 
 **예시**
 
-- Tomcat, ,Jetty, Undertow, Boss, Jeus, Web Sphere
+- Tomcat, Jetty, Undertow, Boss, Jeus, Web Sphere
 
 > 위의 예시들은 자바진영에서 사용하는 것을 WAS로, 자바이외의 다른 진영에서는 WAS역할을 명확히 구분해놓지 않고있다.
 
@@ -163,7 +163,7 @@
 
     - 아파치 웹서버와 함께 정적파일 서비스
 
-    > 클라인트와 통신을 담당
+    > 클라이언트와 통신을 담당
 
 <br>
 
