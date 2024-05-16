@@ -20,8 +20,7 @@
 
 ## 서블릿 필터(Servlet Filter)
 
-<img src="https://miro.medium.com/v2/resize:fit:1200/1*Cyyy59ISyWUq5jkt9GvZrA.png" width="500"/>
-
+<img src="https://miro.medium.com/v2/resize:fit:1200/1*Cyyy59ISyWUq5jkt9GvZrA.png" width="700"/>
 
 - `Filter`는 J2EE 표준 스펙 기능으로, 요청과 응답을 거른 뒤 정제하는 역할을 함
 - [디스패처 서블릿](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/DispatcherServlet.md)에 요청이 전달되기 전/후에 URL 패턴에 맞는 모든 요청에 대해서 부가 작업을 처리할 수 있는 기능을 제공함
