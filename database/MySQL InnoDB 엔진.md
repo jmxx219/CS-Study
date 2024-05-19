@@ -1,3 +1,4 @@
+
 # MySQL InnoDB 스토리지 엔진
 
 ## InnoDB 스토리지 엔진
@@ -22,7 +23,7 @@
 
 <br>
 
-### MVCC
+### MVCC(Multi Version Concurrency Control)
 
 - `InnoDB` 스토리지 엔진은 트랜잭션의 격리 수준을 위해 잠금을 사용하지 않고 읽기 작업을 수행한다.
     - 즉, 잠금을 사용하지 않고 하나의 레코드에 대해 여러 개의 버전이 동시에 관리될 수 있다는 것을 의미한다.
@@ -40,6 +41,14 @@
 
 - `READ_UNCOMMITTED`: InnoDB 버퍼 풀이 현재 가지고 있는 변경된 데이터를 읽어서 반환. 즉, 커밋됐든 아니든 변경된 상태의 데이터를 반환한다
 - `READ_COMMITTED`나 그 이상의 격리 수준인 경우 : 아직 커밋되지 않았기 때문에 InnoDB 버퍼 풀이나 데이터 파일에 있는 내용 대신 변경되기 이전의 내용을 보관하고 있는 언두 영역의 데이터를 반환
+
+<br>
+
+### 잠금 없는 일관된 읽기(Non-Locking Consistent Read)
+
+- InnoDB엔진에서는 MVCC 기술을 통해 다른 트랜잭션이 가지고 있는 잠금을 기다리지 않고, 일기 작업이 가능.
+- 격리 수준이 `SERIALIZABLE`이 아닌 `READ_UNCOMMITTED`나 `READ_COMMITTED`, `REPEATABLE_READ` 수준인 경우 순수한 Read 작업은 잠금을 대기하지 않고 바로 실행한다.
+- 변경되지 전의 데이터를 읽기 위해 언두 로그를 사용한다.
 
 <br>
 
