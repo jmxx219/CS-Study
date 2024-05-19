@@ -20,6 +20,10 @@
 
 ## 서블릿 필터(Servlet Filter)
 
+<img src="https://miro.medium.com/v2/resize:fit:1200/1*Cyyy59ISyWUq5jkt9GvZrA.png" width="650"/>
+
+<br>
+
 - `Filter`는 J2EE 표준 스펙 기능으로, 요청과 응답을 거른 뒤 정제하는 역할을 함
 - [디스패처 서블릿](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/DispatcherServlet.md)에 요청이 전달되기 전/후에 URL 패턴에 맞는 모든 요청에 대해서 부가 작업을 처리할 수 있는 기능을 제공함
     - 디스패처 서블릿은 스프링의 앞단에 존재하는 프론트 컨트롤러로이기 때문에 필터는 스프링 범위 밖에서 처리가 됨
@@ -54,18 +58,38 @@ public interface Filter {
     public default void destroy() {}
 }
 ```
+
+<br> 
+
 ```java
-public class LoginCheckFilter implements Filter {
+public class RequestLoggingFilter implements Filter {
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
+        
+        // 로그 정보 수집
         String requestURI = httpRequest.getRequestURI();
-        ...
+        String method = httpRequest.getMethod();
+        String clientIP = request.getRemoteAddr();
+
+        // 요청 로그 출력
+        context.log("Received Request: " + method + " " + requestURI + " from " + clientIP);
+        
+        // HTTP 헤더 로그
+        Enumeration<String> headers = httpRequest.getHeaderNames();
+        while (headers.hasMoreElements()) {
+            String headerName = headers.nextElement();
+            String headerValue = httpRequest.getHeader(headerName);
+            context.log("Header: " + headerName + " - " + headerValue);
+        }
+
+        // 다음 필터 또는 대상 서블릿으로 요청 전달
         chain.doFilter(request, response);
     }
-
 }
 ```
+
 - 필터 인터페이스를 구현하고 등록하면, 서블릿 컨테이너가 필터를 싱글톤 객체로 생성하고 관리함
     - `init()`: 필터 초기화 메소드로, 서블릿 컨테이너가 생성될 때 호출
     - `doFilter()`: 고객의 요청이 올 때 마다 해당 메서드가 호출됨
@@ -90,6 +114,9 @@ public class WebConfig implements WebMvcConfigurer {
     }
 }
 ```
+
+<br> 
+
 - `FilterRegistrationBean`
     - 필터를 등록하는 방법은 여러가지가 존재하는데 스프링 부트를 사용한다면 `FilterRegistrationBean` 사용함
         - `setFilter(new LoginCheckFilter())`: 등록할 필터를 지정
@@ -136,13 +163,17 @@ public class WebConfig implements WebMvcConfigurer {
 <br/>
 
 ### 인터셉터 인터페이스
+
 ```java
 public interface HandlerInterceptor {
     default boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {}
     default void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView) throws Exception {}
     default void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex) throws Exception {}
 }
-```
+``` 
+
+<br> 
+
 ```java
 @Slf4j
 public class LoginCheckInterceptor implements HandlerInterceptor {
@@ -171,6 +202,9 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
     }
 }
 ```
+
+<br> 
+
 - `HandlerInterceptor` 인터페이스를 구현함
     - 컨트롤러 호출 전(`preHandle()`), 컨트롤러 호출 후(`postHandle()`), 요청 완료 이후(`afterCompletion()`)와 같이 단계적으로 세분화되어 있음
         - 서블릿 필터의 경우 단순하게 `doFilter()` 하나만 제공됨
@@ -208,6 +242,8 @@ public class WebConfig implements WebMvcConfigurer {
 }
 ```
 
+<br>
+
 - `WebMvcConfigurer`가 제공하는 `addInterceptors()`를 사용해서 인터셉터를 등록함
   - `registry.addInterceptor(new LoginCheckInterceptor())`: 인터셉터를 등록
   - `order(1)`: 인터셉터의 호출 순서를 지정(낮을 수록 먼저 호출)
@@ -220,7 +256,6 @@ public class WebConfig implements WebMvcConfigurer {
 
 
 <br/>
-<br/>
 
 ### 스프링 인터셉터 호출 흐름
 
@@ -228,7 +263,6 @@ public class WebConfig implements WebMvcConfigurer {
 
 <br/>
 <img width="600" src="https://github.com/jmxx219/CS-Study/assets/52346113/4304949f-d623-4f72-ba98-3563714abab5">
-<br/>
 <br/>
 
 1. 클라이언트 - HTTP 요청
@@ -272,13 +306,13 @@ public class WebConfig implements WebMvcConfigurer {
 <br/>
 <br/>
 
-### ➕ Spring MVC 처리 흐름 참고
+## ➕ Spring MVC 처리 흐름 참고
 
 <img width="600" src="https://aaronryu.github.io/2021/02/14/a-tutorial-for-spring-mvc-and-security/order-of-filters-and-interceptors.png">
 <br/>
 <br/>
 
-### Ref
+## Ref
 
 - [필터(Filter)와 인터셉터(Interceptor)의 개념 및 차이](https://dev-coco.tistory.com/173)
 - [인프런 spring mvc2 강의](https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-mvc-2)
