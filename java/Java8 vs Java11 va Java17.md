@@ -77,8 +77,6 @@
 
 # Java 11
 
----
-
 ### HttpClient 표준화
 
 - Java 9에서 소개되었던 `HttpClient` API가 Java 11에서 표준으로 채택 (기존에는 `RestTemplate`)
@@ -138,8 +136,6 @@
     - 실험적으로 등장
 
 # Java 17
-
----
 
 ### Record Class
 
