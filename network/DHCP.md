@@ -98,25 +98,57 @@
 ![스크린샷 2023-07-03 오후 3 54 51](https://github.com/jmxx219/CS-Study/assets/50795805/aac447b9-d89d-4d00-9893-7856927632fe)
 
 1. DHCP 서버 발견 (DHCP Server Discovery)
-   -  DHCP서버를 찾기 위한 DHCP Discover 메시지 브로드캐스트
-   - 동일 서브넷 안의 모든 단말들은 해당 메시지 수신
+   - DHCP서버를 찾기 위해 단말이 `DHCP Discover 메시지`를 브로드캐스트함
+    - 동일 서브넷 안의 모든 단말들은 해당 메시지 수신할 수 있음
 
 2. DHCP 서버 제안 (DHCP Server Offer)
-   - Discover메시지를 수신한 DHCP서버는 자신을 알리기 위해 Offer메시지 브로드캐스팅(Broadcasting)
+   - Discover 메시지를 수신한 DHCP 서버는 자신을 알리기 위해 `DHCP Offer 메시지`를 브로드캐스팅(Broadcasting)함
      - DHCP Offer 메시지: 제안하는 IP주소, DHCP서버 ID, 임대기간 등 포함
    - Offer 메시지 또한 동일 서브넷 안의 모든 단말들이 수신
 
 3. DHCP 요청 (DHCP Request)
-   - DHCP서버 존재를 확인한 호스트는 Request메시지를 브로드캐스팅
-     - DHCP Request 메시지: 자신에게 IP주소를 제안한 DHCP서버 ID포함
+   - DHCP서버 존재를 확인한 호스트는 `DHCP Request 메시지`를 브로드캐스팅함
+     - DHCP Request 메시지: 자신에게 IP주소를 제안한 DHCP 서버의 ID 포함
    - 특정 DHCP 서버에 요청하며 나머지 DHCP서버도 요청 메시지를 인지
 
 4. DHCP 확인 (DHCP Ack)
-   - 서버는 DHCP Request 메시지의 DHCP서버 ID확인
+   - 서버는 DHCP Request 메시지의` DHCP 서버 ID` 확인
    - 자신의 IP 주소와 동일한 경우
-     - DHCP Ack메시지를 보로트캐스트 방식으로 전송하고 IP주소 할당
+     - `DHCP Ack메시지`를 보로트캐스트 방식으로 전송하고 IP주소를 할당함
    - 자신의 IP 주소와 동일하지 않은 경우
      - 제안한 IP주소를 IP주소 풀에 그대로 유지
+
+<br>
+<br>
+
+## DHCP Relay Agent
+
+- 필요성
+  - 일반적으로 DHCP 메시지는 브로드캐스팅되기 때문에 단말과 DHCP 서버는 반드시 동일 서브넷 상에 위치해야함
+    - 그 이유는 라우터가 브로드캐스트 패킷을 다른 인터페이스로 전달하지 않기 때문에 단말이 송신한 DHCP 메세지가 라우터를 통해 DHCP 서버로 전달될 수 없기 때문
+  - 하지만 이러한 제약 사항으로 DHCP 서버가 각 서브넷(랜)마다 위치해야만 하는데 실제 통신 사업자 망 혹은 기업망 환경에서 이와 같은 구성은 실용적이지 못함
+  - 이와 같은 문제를 해결하기 위해 DHCP Relay Agent 개념이 생겨남
+    - 라우터에 DHCP Relay Agent 기능을 설정하면, 서로 다른 서브넷에 위치하는 단말과 DHCP 서버간에도 DHCP 메시지 통신이 가능하게 됨
+- 개념
+  - 서로 다른 서브넷에 위치한 클라이언트가 DHCP 서버와 통신할 수 있도록 중계하는 역할
+    - 단말이 송신하는 DHCP 브로드캐스트 패킷을 유니캐스트로 변환하여 DHCP 서버에 전달하는 것
+  -  DHCP 서버가 없는 서브넷으로부터 다른 서브넷에 존재하는 1개 이상의 DHCP서버에게 DHCP또는 ```BOOTP``` 요청을 중계(Relay)
+- DHCP Relay Agent가 있는 환경에서 DHCP의 동작 원리
+  1. [단말 -> DHCP 서버] DHCP Discover Message
+    - 단말이 브로드캐스트 메시지를 보내면 이를 DHCP Relay Agent가 수신하여 유니캐스트로 변환하여 DHCP 서버로 전달
+  2. [단말 <- DHCP 서버] DHCP Offer Message
+    - DHCP 서버가 DHCP Relay Agent에게 유니캐스트로 보내면 이를 수신한 DHCP Relay Agent는 단말로 브로드캐스트로 변환하여 전송
+  3. [단말 -> DHCP 서버] DHCP Request Message
+    - 단말이 브로드캐스트 메시지를 보내면 이를 DHCP Relay Agent가 수신하여 유니캐스트로 변환하여 DHCP 서버로 전달
+  4. [단말 <- DHCP 서버] DHCP Ack Message
+    - DHCP 서버가 DHCP Relay Agent로 유니캐스트로 보내면 이를 수신한 DHCP Relay Agent는 단말로 브로드캐스트로 변환하여 전송
+
+<br>
+
+> **BOOTP**
+> - 정적으로 클라이언트/서버 형태의 구성정보를 제공하는 프로토콜
+> - 처음으로 부팅된 컴퓨터, 디스크를 갖지 않은 컴퓨터에게 IP주소등 구성정보 제공
+> - 지금은 거의 사용되지 않은 구형 프로토콜, 상위버전읜 동적 DHCP와는 완벽 호환
 
 <br>
 <br>
@@ -137,20 +169,3 @@
 
 <br>
 <br>
-
-## DHCP Relay Agent
-
-- 개념
-  -  DHCP 서버가 없는 서브넷으로부터 다른 서브넷에 존재하는 1개 이상의 DHCP서버에게 DHCP또는 ```BOOTP``` 요청을 중계(Relay)
-
-- 동작
-  - DHCP서버가 동일 서브네 밖에 있을 경우 동일 서브넷 내부에는 반드시 DHCP Relay Agent 존재해야함
-  - DHCP 클라이언트가 정보 요청시 DHCP Relay Agent는 해당 요청을 지정된 DHCP 서버 목록으로 전송
-  - DHCP 서버가 응답시 원래 요청을 보낸 네트워크 상으로 DHCP 서버 응답을 브로드캐스트 혹은 유니캐스트(1:1 캐스트)
-
-<br>
-
-> **BOOTP**
-> - 정적으로 클라이언트/서버 형태의 구성정보를 제공하는 프로토콜
-> - 처음으로 부팅된 컴퓨터, 디스크를 갖지 않은 컴퓨터에게 IP주소등 구성정보 제공
-> - 지금은 거의 사용되지 않은 구형 프로토콜, 상위버전읜 동적 DHCP와는 완벽 호환
