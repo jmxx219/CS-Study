@@ -10,7 +10,7 @@
         - 이때, 향후 로그인과 관련된 로직이 수정되면 작성한 모든 로직을 수정해야하는 큰 문제점이 발생함
     - 이처럼 공통 업무에 관련된 코드를 로직마다 작성하면 중복 코드도 많아지게 되고, 프로젝트 단위가 커질수록 서버에 부하를 줄 수 있음
 - 스프링은 공통적으로 여러 작업을 처리함으로써 중복된 코드를 제거할 수 있는 기능들을 지원함
-    - 스프링의 [AOP](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/AOP.md)로도 해결 가능
+    - 스프링의 [AOP](https://github.com/jmxx219/CS-Study/blob/main/spring/AOP.md)로도 해결 가능
     - 웹과 관련된 공통 관심사는 `서블릿 필터` 또는 `스프링 인터셉터`를 사용하는 것이 좋음
         - 웹과 관련된 공통 관심사를 처리할 때는 HTTP의 헤더나 URL 정보들이 필요함
         - 서블릿 필터나 스프링 인터셉터는 HttpServletRequest를 제공함
@@ -25,9 +25,9 @@
 <br>
 
 - `Filter`는 J2EE 표준 스펙 기능으로, 요청과 응답을 거른 뒤 정제하는 역할을 함
-- [디스패처 서블릿](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/DispatcherServlet.md)에 요청이 전달되기 전/후에 URL 패턴에 맞는 모든 요청에 대해서 부가 작업을 처리할 수 있는 기능을 제공함
+- [디스패처 서블릿](https://github.com/jmxx219/CS-Study/blob/main/spring/DispatcherServlet.md)에 요청이 전달되기 전/후에 URL 패턴에 맞는 모든 요청에 대해서 부가 작업을 처리할 수 있는 기능을 제공함
     - 디스패처 서블릿은 스프링의 앞단에 존재하는 프론트 컨트롤러로이기 때문에 필터는 스프링 범위 밖에서 처리가 됨
-    - 따라서 필터는 스프링 컨테이너가 아닌 [톰캣](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/Tomcat.md#tomcat-1)과 같은 웹 컨테이너([서블릿 컨테이너](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/Servlet.md#%EC%84%9C%EB%B8%94%EB%A6%BF-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88))에 의해 관리됨
+    - 따라서 필터는 스프링 컨테이너가 아닌 [톰캣](https://github.com/jmxx219/CS-Study/blob/main/spring/Tomcat.md#tomcat-1)과 같은 웹 컨테이너([서블릿 컨테이너](https://github.com/jmxx219/CS-Study/blob/main/spring/Servlet.md#%EC%84%9C%EB%B8%94%EB%A6%BF-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88))에 의해 관리됨
 
 <br/>
 
@@ -259,7 +259,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 ### 스프링 인터셉터 호출 흐름
 
-> [디스패처 서블릿의 동작 과정 참고](https://github.com/jmxx219/CS-Study/blob/main/Java-Spring/DispatcherServlet.md#%EB%94%94%EC%8A%A4%ED%8C%A8%EC%B2%98-%EC%84%9C%EB%B8%94%EB%A6%BF%EC%9D%98-%EB%8F%99%EC%9E%91-%EA%B3%BC%EC%A0%95)
+> [디스패처 서블릿의 동작 과정 참고](https://github.com/jmxx219/CS-Study/blob/main/spring/DispatcherServlet.md#%EB%94%94%EC%8A%A4%ED%8C%A8%EC%B2%98-%EC%84%9C%EB%B8%94%EB%A6%BF%EC%9D%98-%EB%8F%99%EC%9E%91-%EA%B3%BC%EC%A0%95)
 
 <br/>
 <img width="600" src="https://github.com/jmxx219/CS-Study/assets/52346113/4304949f-d623-4f72-ba98-3563714abab5">
