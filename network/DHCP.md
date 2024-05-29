@@ -131,17 +131,17 @@
     - 라우터에 DHCP Relay Agent 기능을 설정하면, 서로 다른 서브넷에 위치하는 단말과 DHCP 서버간에도 DHCP 메시지 통신이 가능하게 됨
 - 개념
   - 서로 다른 서브넷에 위치한 클라이언트가 DHCP 서버와 통신할 수 있도록 중계하는 역할
-    - 단말이 송신하는 DHCP 브로드캐스트 패킷을 유니캐스트로 변환하여 DHCP 서버에 전달하는 것
-  -  DHCP 서버가 없는 서브넷으로부터 다른 서브넷에 존재하는 1개 이상의 DHCP서버에게 DHCP또는 ```BOOTP``` 요청을 중계(Relay)
+    - 가장 핵심적인 기능은 단말이 송신하는 DHCP 브로드캐스트 패킷을 유니캐스트로 변환하여 DHCP 서버에 전달하는 것
+  - DHCP 서버가 없는 서브넷으로부터 다른 서브넷에 존재하는 1개 이상의 DHCP서버에게 DHCP 또는 ```BOOTP``` 요청을 중계(Relay)
 - DHCP Relay Agent가 있는 환경에서 DHCP의 동작 원리
   1. [단말 -> DHCP 서버] DHCP Discover Message
-    - 단말이 브로드캐스트 메시지를 보내면 이를 DHCP Relay Agent가 수신하여 유니캐스트로 변환하여 DHCP 서버로 전달
+      - 단말이 Discover 패킷을 브로드캐스트하면 이를 DHCP Relay Agent가 수신하여 유니캐스트로 변환하여 DHCP 서버로 전달
   2. [단말 <- DHCP 서버] DHCP Offer Message
-    - DHCP 서버가 DHCP Relay Agent에게 유니캐스트로 보내면 이를 수신한 DHCP Relay Agent는 단말로 브로드캐스트로 변환하여 전송
+      - DHCP 서버가 DHCP Relay Agent에게 유니캐스트로 보내면 이를 수신한 DHCP Relay Agent는 단말로 브로드캐스트로 변환하여 전송
   3. [단말 -> DHCP 서버] DHCP Request Message
-    - 단말이 브로드캐스트 메시지를 보내면 이를 DHCP Relay Agent가 수신하여 유니캐스트로 변환하여 DHCP 서버로 전달
+      - 단말이 Request 패킷을 브로드캐스트하면 이를 DHCP Relay Agent가 수신하여 유니캐스트로 변환하여 DHCP 서버로 전달
   4. [단말 <- DHCP 서버] DHCP Ack Message
-    - DHCP 서버가 DHCP Relay Agent로 유니캐스트로 보내면 이를 수신한 DHCP Relay Agent는 단말로 브로드캐스트로 변환하여 전송
+      - DHCP 서버가 DHCP Relay Agent로 유니캐스트로 보내면 이를 수신한 DHCP Relay Agent는 단말로 브로드캐스트로 변환하여 전송
 
 <br>
 
