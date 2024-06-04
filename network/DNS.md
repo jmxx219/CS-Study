@@ -30,6 +30,7 @@
 <br/>
 
 #### DNS의 전송 프로토콜
+
 - UDP port 53
     - 일반 DNS 질의/응답에 사용
 - TCP port 53
@@ -56,11 +57,16 @@
 
 ## DNS의 구성요소
 
-- 도메인 네임 스페이스(Domain Name Space): DNS가 저장 관리하는 계층적 구조
-    - DNS는 분산시스템으로 도메인 이름을 분산하여 저장하는데 계층적 구조로 저장하고 관리함
-- 네임 서버(Name Server): 권한 있는 DNS 서버
+DNS는 분산시스템으로 도메인 이름을 분산하여 저장하는데 계층적 구조로 저장하고 관리함
+- 루트 네임 서버(Root Name Server) 
+    - IP 주소로 변환하기 위한 첫 번째 단계
+    - 책장에서 색인에 해당하는 부분으로 설명할 수 있으며 일반적으로 다른 더 특정한 위치에 대한 참조로 사용
+- TLD 네임 서버(Top Level Domain Name Server)
+    - 루트 네임 서버에서 받은 요청을 처리하는 서버
+    - `.com`, `.net`, `.org` 등의 최상위 도메인을 관리하는 서버
+- 네임 서버(Name Server, 권한 있는 네임 서버)    
     - 해당 도메인의 IP 주소를 찾는 역할을 담당
-- 리졸버(Resolver): 권한 없는 DNS 서버
+- 리졸버(DNS Recursive Resolver): 권한 없는 DNS 서버
     - 클라이언트의 요청을 네임 서버로 전달하고, 찾은 정보를 클라이언트에게 제공하는 기능을 담당
 
 <br/>
@@ -100,24 +106,6 @@
 
 <br/>
 
-**네임 서버 종류**(DNS 계층은 크게 3가지로 나눌 수 있음)
-- `Root DNS 서버`
-    - 최상위 네임 서버로, ICANN(DNS 총괄 기구)에서 관리함
-    - 리졸버부터 발생한 DNS 요청에 대하여 적절한 TLD DNS 서버의 IP 주소를 제공하는 역할
-- `TLD DNS 서버`
-    - `.com`, `.net`, `.kr`과 같은 top-level domain 별로 존재하는 DNS 서버로
-    - 도메인 등록 기관에서 관리함
-    - Authoritative DNS 서버의 IP 주소를 제공하는 역할
-- `Authoritative DNS 서버`
-    - 실제로 우리가 원하는 도메인에 대한 IP 주소를 매핑하는 서버로, 개인 도메인과 IP 주소의 관계가 저장됨
-    - 일반적으로 도메인/호스팅 업체의 네임 서버를 말함
-- `권한 없는 DNS 서버`(Local DNS 서버, ISP DNS 서버, Resolver 서버)
-    - 일반적으로 DNS 계층에는 포함되지 않지만, DNS가 동작하는데 중요한 역할을 함
-    - 클라이언트가 도메인 이름에 대한 IP 주소를 찾고자할 때 가장 먼저 찾아가는 DNS 서버
-
-
-<br/>
-
 ### 리졸버(Resolver)
 
 - Resolver = Recursive DNS 서버 = Local DNS Server(ISP)
@@ -134,9 +122,13 @@
         - 네트워크를 타기 전에 운영체제는 로컬(hosts 파일)에서 먼저 찾는다.
             - 이 파일은 해당 경로(`C:\Windows\System32\drivers\etc\hosts`)로 직접 열어볼 수 있음
         - DNS 검색 시, hosts 파일을 우선적으로 검색한다.
-    3. `DNS cache table`
-        - hosts 파일에 정보가 없다면, 운영체제는 DNS 캐시 테이블에서 찾는다.
-            - 명령 프롬프트 창에서 `ipconfig/displaydns`를 입력해서 볼 수 있음
+    2. `DNS cache table`
+        - hosts 파일에 정보가 없다면, 운영체제는 DNS 캐시 테이블에서 찾는다.
+        - 명령 프롬프트 창에서 `ipconfig/displaydns`를 입력해서 볼 수 있음
+    3. `Browser`
+        - 최신 웹 브라우저는 기본적으로 정해진 시간 동안 DNS 레코드를 캐시하도록 설계되었음
+        - DNS 레코드를 요청할 때 브라우저 캐시에서 처음으로 요청한 레코드를 확인하는 것을 말함
+        - Chome에서는 chrome://net-internals/#dns를 입력하면 DNS 캐시를 확인할 수 있음
     4. `DNS server`
         - 이후에도 IP 정보를 못찾았다면, 운영체제는 로컬 DNS 서버로 질의를 요청한다.
 
@@ -176,8 +168,6 @@
     - Recursive 서버가 권한 있는 네임 서버들에게 반복적으로 쿼리를 보내서 IP 주소를 찾음
     - 만약 Recursive 서버에 이미 IP 주소가 캐시 되어있다면 해당 과정은 건너뜀
 
-
-
 <br/>
 
 
@@ -216,7 +206,11 @@
 
 ---
 
+<br/>
+<br/>
+
 ### 참고
 
 - [한국인터넷진흥원 - 인터넷 주소 관리](https://www.kisa.or.kr/1041103)
 - [DNS란? (도메인 네임 시스템 개념부터 작동 방식까지)](https://hanamon.kr/dns%EB%9E%80-%EB%8F%84%EB%A9%94%EC%9D%B8-%EB%84%A4%EC%9E%84-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EA%B0%9C%EB%85%90%EB%B6%80%ED%84%B0-%EC%9E%91%EB%8F%99-%EB%B0%A9%EC%8B%9D%EA%B9%8C%EC%A7%80/)
+- [클라우드 플레어 DNS 작동 원리](https://www.cloudflare.com/ko-kr/learning/dns/what-is-dns/)
