@@ -107,9 +107,10 @@
 - `Root DNS 서버`
     - 최상위 네임 서버로, ICANN(DNS 총괄 기구)에서 관리함
     - 리졸버부터 발생한 DNS 요청에 대하여 적절한 TLD DNS 서버의 IP 주소를 제공하는 역할
+    - IP 주소로 변환하기 위한 첫 번째 단계로, 책장에서 색인에 해당하는 부분으로 설명할 수 있으며 일반적으로 다른 더 특정한 위치에 대한 참조로 사용
 - `TLD DNS 서버`
-    - `.com`, `.net`, `.kr`과 같은 top-level domain 별로 존재하는 DNS 서버로
-    - 도메인 등록 기관에서 관리함
+    - `.com`, `.net`, `.kr`과 같은 top-level domain 별로 존재하는 DNS 서버로, 도메인 등록 기관에서 관리함
+    - Root DNS 서버에서 받은 요청을 처리하는 서버
     - Authoritative DNS 서버의 IP 주소를 제공하는 역할
 - `Authoritative DNS 서버`
     - 실제로 우리가 원하는 도메인에 대한 IP 주소를 매핑하는 서버로, 개인 도메인과 IP 주소의 관계가 저장됨
