@@ -6,7 +6,7 @@
         
 ### **1. 브라우저에 URL 입력**
 
-- 핸들링 인풋 진행            
+- 핸들링 인풋 진행
     - 브라우저 프로세스 안의 ui스레드가 입력된 텍스트 값 판단
     - `Search Query` 일 경우, 검색이 되도록 함(크롬 브라우저 → 구글 검색 엔진)
     - `URL` 일 경우, URL값을 네트워크 스레드에게 전달할 준비를 함
@@ -18,7 +18,7 @@
 
 #### URI(Uniform Resource Identifier, 통합 자원 식별자)
 - 인터넷 자원을 식별할 수 있는, 하나의 `리소스`를 가르키는 문자열
-        - 이때 리소스는 HTTP와 같은 프로토콜에서 요청한 대상
+    - 이때 리소스는 HTTP와 같은 프로토콜에서 요청한 대상
 - URI의 하위개념으로 `URL`, `URN` 존재
 
 <br>
@@ -49,7 +49,7 @@
 <br>
 
 
-### 2. 입력한 URL의 IP 주소를 찾기 위해 DNS 
+### 2. 입력한 URL의 IP 주소를 찾기 위해 DNS 이용
 
 - 인터넷의 모든 URL에는 고유한 [IP 주소](https://github.com/jmxx219/CS-Study/blob/main/network/IP%20%EC%A3%BC%EC%86%8C.md)가 할당 됨
 - [DNS](https://github.com/jmxx219/CS-Study/blob/main/network/DNS.md#dns%EB%9E%80)를 통해 변환된 도메인 이름의 IP 주소를 찾음
@@ -58,7 +58,7 @@
 
 #### [DNS 작동 방식 참고](https://github.com/jmxx219/CS-Study/blob/main/network/DNS.md#dns-%EC%9E%91%EB%8F%99-%EB%B0%A9%EC%8B%9D)
 
-1. 캐시의 DNS기록 확인
+1. 캐시의 DNS 기록 확인
 2. 캐시에 없을 경우 DNS 쿼리 진행
 
 <br>
