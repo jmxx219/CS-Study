@@ -1,4 +1,8 @@
-# Java 8
+# Java8 vs Java11 vs Java17
+
+<br>
+
+## [Java 8]()
 
 ### 람다 표현식
 
@@ -17,7 +21,8 @@
     // 람다 표현식 방식
     new Thread(() -> System.out.println("Hello, world!")).start();
     ```
-    
+
+<br>
 
 ### 스트림 API
 
@@ -33,6 +38,7 @@
     System.out.println(filteredNames); // [Alice]
     ```
     
+<br>
 
 ### 신규 날짜와 시간 API
 
@@ -47,6 +53,7 @@
     System.out.println("Age: " + age.getYears());
     ```
     
+<br>
 
 ### 디폴트 메서드
 
@@ -74,17 +81,23 @@
     myClass.newMethod();
     ```
     
+<br>
+<br>
 
-# Java 11
+## [Java 11]()
 
 ### HttpClient 표준화
 
 - Java 9에서 소개되었던 `HttpClient` API가 Java 11에서 표준으로 채택 (기존에는 `RestTemplate`)
 - HTTP/1.1, HTTP/2, WebSocket 지원
 
+<br>
+
 ### `var` 키워드 사용 확장
 
 - 자바 10에서 소개되었던 `var` 키워드를 사용하여 지연 변수 타입을 추론할 수 있음.
+
+<br>
 
 ### 여러 메서드 추가
 
@@ -111,6 +124,7 @@
         System.out.println(optional.isEmpty()); // true
         ```
         
+<br>
 
 ### 단일 파일 소스 코드 프로그램 실행
 
@@ -120,6 +134,7 @@
     $ java HelloWorld.java
     ```
     
+<br>
 
 ### 가비지 컬렉터 개선
 
@@ -135,7 +150,10 @@
 - Epsilon GC
     - 실험적으로 등장
 
-# Java 17
+<br>
+<br>
+
+## [Java 17]()
 
 ### Record Class
 
@@ -184,6 +202,7 @@
     
     ```
     
+<br>
 
 ### Sealed Class
 
@@ -198,6 +217,7 @@
     public final class Square extends Shape { }
     ```
     
+<br>
 
 ### Pattern Matching 스위치문
 
@@ -216,6 +236,7 @@
     }
     ```
     
+<br>
 
 ### Switch Expression
 
@@ -247,3 +268,6 @@ public static void printDayOfWeek(String dayOfWeek) {
             -> System.out.println("주말입니다.");
     }
 ```
+
+<br>
+<br>
