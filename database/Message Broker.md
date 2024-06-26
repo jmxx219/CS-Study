@@ -142,7 +142,7 @@
 
 <br>
 
-### Apache Kafka
+### [Apache Kafka](https://github.com/jmxx219/CS-Study/blob/main/database/kafka.md)
 `이벤트 스트리밍 플랫폼`
 
 <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcT3ZHK%2FbtsjKS2wNFK%2F1fvU75fL6z9MNsjRhwrcRK%2Fimg.png" width="300" height="200"/>
