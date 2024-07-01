@@ -1,10 +1,28 @@
 # Optional
 
-- Java 8에서 소개 
-- Null을 처리하기 위해서 새로운 방법을 제공하는 클래스 
-- Reference type은 모두 Null을 가질 수 있지만 이를 좀 더 명시적으로 다루기 위해 Optional을 사용
+Java 8에서 소개된 Optional 클래스는 NullPointerException 문제를 해결하고, null을 명시적으로 처리할 수 있는 새로운 방법을 제공
+
+<br>
+
+## Optional 도입 배경
+
+- Java 개발자들이 자주 겪는 문제 중 하나는 NullPointerException
+  - 이는 참조 변수가 null인 상태에서 메서드나 필드에 접근하려고 할 때 발생하는 예외
+- Null 값을 다루는 기존 방식은 코드가 복잡하고 가독성이 떨어질 수 있음
+  - Optional을 도입함으로써, 메서드의 반환값이 null일 수 있음을 명시적으로 표현
+  - 이를 통해 null 처리에 대한 책임을 호출자에게 명확히 전달
 
 <br> 
+
+## Optional의 의미 
+
+- Optional을 사용하면 메서드의 반환값이 항상 값을 가질 것으로 가정하는 대신, 값이 없을 가능성도 고려하게 됨
+- Optional의 메서드를 사용하면 null 값을 직접 다루지 않고도 안전하게 작업을 수행할 수 있음 
+  - 값에 대해서 접근할 때는 get() 메서드를 사용해야 하므로 get()을 사용하기 전 Idea에서 경고를 표시해줌
+  -  orElse, orElseGet, orElseThrow 등의 메서드를 통해 null일 경우의 대체 동작을 명시적으로 정의할 수 있음
+- Optional은 map, flatMap, filter와 같은 **함수형 메서드를 제공**
+
+<br>
 
 ## Optional 내부 구조 
 
@@ -36,7 +54,7 @@ public T get() {
 <br>
 <br>
 
-## Optional 메서드의 사용 방법
+## Optional 객체 생성
 
 - Optional.empty() : 빈 Optional 객체 생성
 
@@ -204,8 +222,30 @@ User user = userRepository.findById(1L)
 
 <br>
 
+### filter(Predicate<? super T> predicate)
 
+```java
+String name = null;
+name.startWith("abc");
+```
 
+위 코드는 NullPointException이 발생할 수 있는 코드이지만 filter 함수를 사용하면 NullPointException을 방지할 수 있음
 
+```java
+Optional<String> name = Optional.ofNullable(null);
+name.filter(n -> n.startWith("abc"));
+```
 
+<br>
 
+### map(Function<? super T, ? extends U> mapper)
+
+- map 메소드는 Optional 객체가 비어있지 않다면 해당 객체의 값을 주어진 함수에 적용한 결과를 새로운 Optional 객체로 반환
+- 이 메소드는 Optional의 값을 다른 Optional 타입으로 변환할 때 유용
+
+```java
+Optional<String> name = Optional.of("John");
+Optional<Integer> nameLength = name.map(String::length);
+```
+
+<br>
