@@ -87,10 +87,44 @@ service SearchService {
 
 ### Protobuf(Protocol Buffer)
 
-- 프로토콜 버퍼는 Google에서 개발한 언어 중립적이고 플랫폼 중립적인 직렬화 데이터 구조
+구조화된 데이터를 직렬화하는 방식
+- 직렬화(Serialization)는 데이터를 파일로 저장하거나 네트워크 통신에 사용하기 위한 형식
 - gRPC에서 메시지 포맷으로 사용되며, 클라이언트와 서버 간에 주고받는 데이터의 구조를 정의
 - 정적 타이핑을 지원하여, 컴파일 시점에 데이터 타입의 오류를 감지할 수 있음
-- 클라이언트와 서버 사이에서 데이터를 전송하기 전에 데이터를 직렬화하고, 수신 측에서는 이를 다시 역직렬화한다.
+
+Json대신 프로토콜 버퍼를 사용하는 이유
+- 직렬화, 역질렬화 속도가 빠르고 직렬화된 파일의 크기를 줄일수 있어, **대용량 데이터 처리시** 성능이 좋기때문이다!
+
+Json
+```java
+{
+    "userName": "Martin",
+    "favouriteNumber": 1337,
+    "interests": ["daydreaming", "hacking"]
+}
+
+-> 88바이트
+```
+
+
+프로토버퍼 사용시
+```java
+message Person {
+    required string user_name        = 1;
+    optional int64  favourite_number = 2;
+    repeated string interests        = 3;
+}
+
+-> 33바이트
+```
+<img src="https://github.com/makevook/vook-server/assets/74135929/07293f68-58e3-4249-8615-4dfa3425b89a" width="400">
+
+- 최초 1바이트 중 5bit는 필드 넘버를, 3bit는 필드 타입을 나타낸다.
+- 두번째 바이트에 데이터의 길이를 표현
+- 나머지에는 데이터의 크기만큼 바이트 할당해 데이터를 할당
+
+단점
+- Json과 달리 사람이 읽기 어려우며, proto파일이 없다면 데이터 해석이 불가하다.
 
 <br><br><br>
 
