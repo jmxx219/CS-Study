@@ -3,11 +3,15 @@
 - 자바 애플리케이션에서 EntityManager를 통해 엔티티의 생명 주기 및 범위를 관리하는 환경
 - @PersistenceContext - JPA에서 EntityManager를 주입하기 위해 사용되는 어노테이션
 
+<br>
+
 ## EntityManager
 
 - JPA에서 가장 중요한 인터페이스 중 하나
 - 엔티티를 관리하고 DB 연산(CRUD)을 수행
 - 엔티티 인스턴스의 생명 주기 관리
+
+<br>
 
 ## 사용 예시
 
@@ -30,6 +34,9 @@ public class MyRepository {
 // 실제로 이런식으로 활용하진 않는다.
 ```
 
+<br>
+
+
 ## 엔티티의 생명주기
 
 - 비영속(new/transient): 영속성 컨텍스트와 전혀 관계가 없는 상태
@@ -39,6 +46,9 @@ public class MyRepository {
 
 ![https://velog.velcdn.com/images/neptunes032/post/ecd3b113-862f-4158-a208-e1eeec92d61d/image.png](https://velog.velcdn.com/images/neptunes032/post/ecd3b113-862f-4158-a208-e1eeec92d61d/image.png)
 
+<br>
+
+
 ## 주요 메소드
 
 1. **`persist(Object entity)`**: 새로운 엔티티를 영속성 컨텍스트에 추가합니다.
@@ -46,6 +56,8 @@ public class MyRepository {
 3. **`merge(Object entity)`**: 분리된 엔티티의 변경 사항을 영속성 컨텍스트에 병합합니다.
 4. **`remove(Object entity)`**: 엔티티를 삭제합니다.
 5. **`flush()`**: 영속성 컨텍스트의 변경 사항을 데이터베이스에 반영합니다.
+
+<br>
 
 ## 주요 특징
 
