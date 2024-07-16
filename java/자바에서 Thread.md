@@ -261,7 +261,7 @@ public ThreadPoolExecutor(int corePoolSize,
 ### 스레드 풀 예시
 
 ```Java
-// ExecutorService 인터페이스 구현객체 Executors 정적메서드를 통해 최대 스레드 개수가 2인 스레드 풀 생성 
+// Executors 정적메서드를 통해 최대 스레드 개수가 2인 스레드 풀 생성 
 ExecutorService executorService = Executors.newFixedThreadPool(2);
 
 for(int i = 0; i < 10; i++){
@@ -275,10 +275,7 @@ for(int i = 0; i < 10; i++){
             int poolSize = threadPoolExecutor.getPoolSize(); //스레드 풀 사이즈 얻기
             String threadName = Thread.currentThread().getName(); //스레드 풀에 있는 해당 스레드 이름 얻기
             
-            System.out.println("[총 스레드 개수:" + poolSize + "] 작업 스레드 이름: "+threadName);
-            
-            //일부로 예외 발생 시킴
-            int value = Integer.parseInt("예외");
+            System.out.println("[총 스레드 개수:" + poolSize + "] 작업 스레드 이름: " + threadName);
         }
     };
 
@@ -286,7 +283,7 @@ for(int i = 0; i < 10; i++){
     executorService.execute(runnable);
     //executorService.submit(runnable);
     
-    //콘솔 출력 시간을 주기 위해 메인스레드 0.01초 sleep을 걸어둠.
+    //콘솔 출력 시간 텀을 위해 sleep() 사용
     try {
         Thread.sleep(10);
     } catch (InterruptedException e) {
