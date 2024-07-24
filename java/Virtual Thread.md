@@ -115,6 +115,7 @@
 ### Virtual Thread의 동작 원리
 
 <img width="450" src="https://github.com/user-attachments/assets/1f01ee73-741c-45fd-ac01-7c74748b6b49">
+<br><br>
 
 1. `carrierThread`는 [ForkJoinPool](https://github.com/jmxx219/CS-Study/blob/main/operating-system/Thread%20Pool%2C%20Fork-Join.md#fork-join-poolfork-join-framework) 안에 `Worker Thread`로 생성이 되어 스케쥴링이 됨
 2. 각 `Worker Thread`들은 `workQueue`를 가지고 있어서 Task를 스케쥴링하는데, `runContinuationrk`가 Task가 되어서 `workQueue`에 들어가게 됨
