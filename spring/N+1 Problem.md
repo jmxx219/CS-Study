@@ -1,19 +1,19 @@
 ## N+1 Problem
 
-N + 1 문제란 연관관계가 설정된 엔티티를 조회할 때 연관된 엔티티를 조회하는 쿼리가 N + 1번 발생하는 문제임
+N + 1 문제란 연관관계가 설정된 엔티티를 조회할 때 연관된 엔티티를 조회하는 쿼리가 N + 1번 발생하는 문제임.
 
 ## 왜 발생할까? 
 
-- JPA와 같은 ORM에서는 연관된 엔티티를 Proxy 객체로 Lazy Loading을 함
-  - Proxy 객체 : 실제 객체를 대신하여 사용자의 요청이 있을 때 실제 객체를 생성하여 반환하는 객체
-  - Lazy Loading : 연관된 엔티티를 조회하는 시점에 쿼리를 실행하여 조회하는 방식
-- 지연로딩을 사용하는 이유
-  - 불필요한 데이터를 조회하지 않기 위함
-  - 일대다의 연관관계의 경우 많은 데이터를 한 번에 조회하게 되면 DB 성능에 문제가 발생 할 수 있음
+- JPA와 같은 ORM에서는 연관된 엔티티를 Proxy 객체로 Lazy Loading을 함.
+  - Proxy 객체 : 실제 객체를 대신하여 사용자의 요청이 있을 때 실제 객체를 생성하여 반환하는 객체.
+  - Lazy Loading : 연관된 엔티티를 조회하는 시점에 쿼리를 실행하여 조회하는 방식.
+- 지연로딩을 사용하는 이유?
+  - 불필요한 데이터를 조회하지 않기 위함.
+  - 일대다의 연관관계의 경우 많은 데이터를 한 번에 조회하게 되면 DB 성능에 문제가 발생 할 수 있음.
 
 ### N + 1 예시 코드 
 
-아래와 같은 Entity가 다고 가정할 때, 
+아래와 같은 Entity가 있다고 가정할 때, 
 
 ```kotlin filename="" copy showLineNumbers
 @Entity(name = "post")
@@ -31,7 +31,7 @@ data class Post (
 
 **/api/posts/\{id\}** API를 호출하면 PostResponse를 1개 반환하고 이 API를 사용할 때 발생한 쿼리는 아래와 같음.
 
-<img src="https://rookedsysc.vercel.app/paste-image/n-plus-one-problem/2024-08-04-14-40-59.png" width="75%" />
+<img src="/paste-image/n-plus-one-problem/2024-08-04-14-40-59.png" width="75%" />
 
 위 쿼리를 보면 Post를 조회하기 위한 쿼리가 1번 Comment를 조회하기 위한 쿼리가 1번 발생할 수 있음. 이를 N + 1 문제라고 함.
 
@@ -40,7 +40,7 @@ data class Post (
 예를 들어서 Post가 20개 정도있고 Comment가 2000개 정도 있다고 가정할 때, Post를 조회하는 API를 호출하면 20개의 Post를 조회하는 쿼리가 발생하고, 각 Post마다 Comment를 조회하는 쿼리가 20번 발생하게 됨. 이렇게 되면 총 40번의 쿼리가 발생하게 되어 DB에 부하가 걸리게 됨. <br></br>
 이러한 경우, DB의 성능이 충분하다면 단 한 번의 조인으로 모든 데이터를 조회하는 것이 효율적임.
 
-<img src="https://rookedsysc.vercel.app/paste-image/n-plus-one-problem/2024-08-04-14-53-52.png" width="100%" />
+<img src="/paste-image/n-plus-one-problem/2024-08-04-14-53-52.png" width="100%" />
 
 ## 해결 방법
 
@@ -60,13 +60,13 @@ data class Post (
 
 현재 Comment가 객체탐색되는 코드는 위 코드에서 **toResponseUseRepository 부분**임. 그래서 해당 라인 앞 뒤로 log를 찍어보면 Lazy Loading에서는 아래와 같은 결과가 나옴.
 
-<img src="https://rookedsysc.vercel.app/paste-image/n-plus-one-problem/2024-08-04-15-23-41.png" width="100%" />
+<img src="/paste-image/n-plus-one-problem/2024-08-04-15-23-41.png" width="100%" />
 
 하지만 EAGER로 설정하면 아래와 같은 결과가 나옴.
 
-<img src="https://rookedsysc.vercel.app/paste-image/n-plus-one-problem/2024-08-04-15-24-54.png" width="100%" />
+<img src="/paste-image/n-plus-one-problem/2024-08-04-15-24-54.png" width="100%" />
 
-위와 같은 결과가 나오는 이유는 Post N개를 조회하는 상황에서는 Lazy와 Eager의 차이는 **Comment가 조회되는 시점에 Comment를 조회하는지(Lazy), Post를 조회하는 시점에 Comment를 조회하는지(Eager)의 차이**이기 때문임. <br></br>
+위와 같은 결과가 나오는 이유는 Post N개를 조회하는 상황에서는 Lazy와 Eager의 차이는 **Comment가 조회되는 시점에 Comment를 조회하는지(Lazy), Post를 조회하는 시점에 Comment를 조회하는지(Eager)의 차이**이기 때문임. 
 
 > Post 1개를 조회하는 상황에선 FetchType.EAGER을 사용하면 N + 1문제가 발생하지 않고 Left Join이 걸림.
 
@@ -94,7 +94,7 @@ Hibernate: select p1_0.id,p1_0.author,c1_0.post_id,c1_0.id,c1_0.author,c1_0.cont
 - yml에 전역 옵션으로 적용할 수 있고 @BatchSize를 통해 연관관계 BatchSize를 다르게 적용가능.
 - Batch Size 100~1000정도로 적용하고 DBMS에 따라서 where in 절은 1000까지 제한하는 경우가 있으므로 1000이상은 설정을 잘 하지않음.
 
-<img src="https://rookedsysc.vercel.app/paste-image/n-plus-one-problem/2024-08-04-16-46-26.png" width="100%" />
+<img src="/paste-image/n-plus-one-problem/2024-08-04-16-46-26.png" width="100%" />
 
 > [참조 PR](https://github.com/rookedsysc/n-plus-one-example/pull/14)
 
