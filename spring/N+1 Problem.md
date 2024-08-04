@@ -124,4 +124,4 @@ MyBatis나 QueryDSL 같은 QueryBuilder를 사용해서도 N + 1 문제를 해�
 
 - [N + 1 Problem, Incheol's Tech Blog](https://incheol-jung.gitbook.io/docs/q-and-a/spring/n+1#n1-1)
 - [JPA N+1 문제와 해결법 총정리, teahee kim's velog](https://velog.io/@xogml951/JPA-N1-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0-%EC%B4%9D%EC%A0%95%EB%A6%AC)
-- [SpringBoot / JPA] JPA Batch Size에 대한 고찰](https://velog.io/@joonghyun/SpringBoot-JPA-JPA-Batch-Size%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B3%A0%EC%B0%B0)
+- [JPA Batch Size에 대한 고찰](https://velog.io/@joonghyun/SpringBoot-JPA-JPA-Batch-Size%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B3%A0%EC%B0%B0)
