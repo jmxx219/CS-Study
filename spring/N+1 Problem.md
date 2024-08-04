@@ -31,7 +31,7 @@ data class Post (
 
 **/api/posts/\{id\}** API를 호출하면 PostResponse를 1개 반환하고 이 API를 사용할 때 발생한 쿼리는 아래와 같음.
 
-<img src="/paste-image/n-plus-one-problem/2024-08-04-14-40-59.png" width="75%" />
+<img src="https://rookedsysc.vercel.app/paste-image/n-plus-one-problem/2024-08-04-14-40-59.png" width="75%" />
 
 위 쿼리를 보면 Post를 조회하기 위한 쿼리가 1번 Comment를 조회하기 위한 쿼리가 1번 발생할 수 있음. 이를 N + 1 문제라고 함.
 
@@ -40,7 +40,7 @@ data class Post (
 예를 들어서 Post가 20개 정도있고 Comment가 2000개 정도 있다고 가정할 때, Post를 조회하는 API를 호출하면 20개의 Post를 조회하는 쿼리가 발생하고, 각 Post마다 Comment를 조회하는 쿼리가 20번 발생하게 됨. 이렇게 되면 총 40번의 쿼리가 발생하게 되어 DB에 부하가 걸리게 됨. <br></br>
 이러한 경우, DB의 성능이 충분하다면 단 한 번의 조인으로 모든 데이터를 조회하는 것이 효율적임.
 
-<img src="/paste-image/n-plus-one-problem/2024-08-04-14-53-52.png" width="100%" />
+<img src="https://rookedsysc.vercel.app/paste-image/n-plus-one-problem/2024-08-04-14-53-52.png" width="100%" />
 
 ## 해결 방법
 
@@ -60,11 +60,11 @@ data class Post (
 
 현재 Comment가 객체탐색되는 코드는 위 코드에서 **toResponseUseRepository 부분**임. 그래서 해당 라인 앞 뒤로 log를 찍어보면 Lazy Loading에서는 아래와 같은 결과가 나옴.
 
-<img src="/paste-image/n-plus-one-problem/2024-08-04-15-23-41.png" width="100%" />
+<img src="https://rookedsysc.vercel.app/paste-image/n-plus-one-problem/2024-08-04-15-23-41.png" width="100%" />
 
 하지만 EAGER로 설정하면 아래와 같은 결과가 나옴.
 
-<img src="/paste-image/n-plus-one-problem/2024-08-04-15-24-54.png" width="100%" />
+<img src="https://rookedsysc.vercel.app/paste-image/n-plus-one-problem/2024-08-04-15-24-54.png" width="100%" />
 
 위와 같은 결과가 나오는 이유는 Post N개를 조회하는 상황에서는 Lazy와 Eager의 차이는 **Comment가 조회되는 시점에 Comment를 조회하는지(Lazy), Post를 조회하는 시점에 Comment를 조회하는지(Eager)의 차이**이기 때문임. 
 
@@ -94,7 +94,7 @@ Hibernate: select p1_0.id,p1_0.author,c1_0.post_id,c1_0.id,c1_0.author,c1_0.cont
 - yml에 전역 옵션으로 적용할 수 있고 @BatchSize를 통해 연관관계 BatchSize를 다르게 적용가능.
 - Batch Size 100~1000정도로 적용하고 DBMS에 따라서 where in 절은 1000까지 제한하는 경우가 있으므로 1000이상은 설정을 잘 하지않음.
 
-<img src="/paste-image/n-plus-one-problem/2024-08-04-16-46-26.png" width="100%" />
+<img src="https://rookedsysc.vercel.app/paste-image/n-plus-one-problem/2024-08-04-16-46-26.png" width="100%" />
 
 > [참조 PR](https://github.com/rookedsysc/n-plus-one-example/pull/14)
 
