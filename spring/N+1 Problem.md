@@ -1,19 +1,19 @@
 ## N+1 Problem
 
-N + 1 문제란 연관관계가 설정된 엔티티를 조회할 때 연관된 엔티티를 조회하는 쿼리가 N + 1번 발생하는 문제임
+N + 1 문제란 연관관계가 설정된 엔티티를 조회할 때 연관된 엔티티를 조회하는 쿼리가 N + 1번 발생하는 문제임.
 
 ## 왜 발생할까? 
 
-- JPA와 같은 ORM에서는 연관된 엔티티를 Proxy 객체로 Lazy Loading을 함
-  - Proxy 객체 : 실제 객체를 대신하여 사용자의 요청이 있을 때 실제 객체를 생성하여 반환하는 객체
-  - Lazy Loading : 연관된 엔티티를 조회하는 시점에 쿼리를 실행하여 조회하는 방식
-- 지연로딩을 사용하는 이유
-  - 불필요한 데이터를 조회하지 않기 위함
-  - 일대다의 연관관계의 경우 많은 데이터를 한 번에 조회하게 되면 DB 성능에 문제가 발생 할 수 있음
+- JPA와 같은 ORM에서는 연관된 엔티티를 Proxy 객체로 Lazy Loading을 함.
+  - Proxy 객체 : 실제 객체를 대신하여 사용자의 요청이 있을 때 실제 객체를 생성하여 반환하는 객체.
+  - Lazy Loading : 연관된 엔티티를 조회하는 시점에 쿼리를 실행하여 조회하는 방식.
+- 지연로딩을 사용하는 이유?
+  - 불필요한 데이터를 조회하지 않기 위함.
+  - 일대다의 연관관계의 경우 많은 데이터를 한 번에 조회하게 되면 DB 성능에 문제가 발생 할 수 있음.
 
 ### N + 1 예시 코드 
 
-아래와 같은 Entity가 다고 가정할 때, 
+아래와 같은 Entity가 있다고 가정할 때, 
 
 ```kotlin filename="" copy showLineNumbers
 @Entity(name = "post")
@@ -66,7 +66,7 @@ data class Post (
 
 <img src="https://rookedsysc.vercel.app/paste-image/n-plus-one-problem/2024-08-04-15-24-54.png" width="100%" />
 
-위와 같은 결과가 나오는 이유는 Post N개를 조회하는 상황에서는 Lazy와 Eager의 차이는 **Comment가 조회되는 시점에 Comment를 조회하는지(Lazy), Post를 조회하는 시점에 Comment를 조회하는지(Eager)의 차이**이기 때문임. <br></br>
+위와 같은 결과가 나오는 이유는 Post N개를 조회하는 상황에서는 Lazy와 Eager의 차이는 **Comment가 조회되는 시점에 Comment를 조회하는지(Lazy), Post를 조회하는 시점에 Comment를 조회하는지(Eager)의 차이**이기 때문임. 
 
 > Post 1개를 조회하는 상황에선 FetchType.EAGER을 사용하면 N + 1문제가 발생하지 않고 Left Join이 걸림.
 
@@ -124,4 +124,4 @@ MyBatis나 QueryDSL 같은 QueryBuilder를 사용해서도 N + 1 문제를 해�
 
 - [N + 1 Problem, Incheol's Tech Blog](https://incheol-jung.gitbook.io/docs/q-and-a/spring/n+1#n1-1)
 - [JPA N+1 문제와 해결법 총정리, teahee kim's velog](https://velog.io/@xogml951/JPA-N1-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0-%EC%B4%9D%EC%A0%95%EB%A6%AC)
-- [SpringBoot / JPA] JPA Batch Size에 대한 고찰](https://velog.io/@joonghyun/SpringBoot-JPA-JPA-Batch-Size%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B3%A0%EC%B0%B0)
+- [JPA Batch Size에 대한 고찰](https://velog.io/@joonghyun/SpringBoot-JPA-JPA-Batch-Size%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B3%A0%EC%B0%B0)
