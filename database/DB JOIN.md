@@ -178,7 +178,7 @@ SELECT 필드이름 from 테이블B
 
 <br>
 
-### FMI - [JOIN의 내부적 구현 방식에 대한 세부내용](https://velog.io/@impala/DB-Join-Operation)
+### TMI - [JOIN의 내부적 구현 방식에 대한 세부내용](https://velog.io/@impala/DB-Join-Operation)
 
 ---
 ### 참고
